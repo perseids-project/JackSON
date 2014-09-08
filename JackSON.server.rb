@@ -43,7 +43,9 @@ before do
 end
 
 get '/' do
-  GitHub::Markup.render( 'README.md' )
+  content_type :html
+  md = GitHub::Markup.render( 'README.md' )
+  erb :home, :locals => { :md => md }
 end
 
 get '/dev' do

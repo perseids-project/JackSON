@@ -1,4 +1,4 @@
-# JackSON.client.js
+# How to JackSON.js
 
 ## Get a a JackSON api object
 	var jack = new JackSON();
