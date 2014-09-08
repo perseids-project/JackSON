@@ -65,7 +65,6 @@ JackSON = function( url ) {
 			type: "GET",
 			url: self.url+path,
 			dataType: 'json',
-			async: false,
 			success: function( data ) {
 				self.result = data;
 				$( document ).trigger( self.events.success );
