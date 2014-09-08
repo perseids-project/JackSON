@@ -1,6 +1,6 @@
 # JackSON
-JackSON is a lightweight API that will create, update, and retrieve JSON files RESTfully.
-It's especially useful for prototyping Javascript web-applications, because it frees you from having to think about back-end storage and format-conversion for a while.
+JackSON is a lightweight API that will create, update, and retrieve json files RESTfully.
+It is especially useful for prototyping Javascript web-applications.
 When used responsibly, client application data structures can be implemented, tested, and revised rapidly.
 
 # Install
@@ -15,6 +15,10 @@ When used responsibly, client application data structures can be implemented, te
 
 		./start.sh
 
-* Include JackSON.client.js into your prototype application
-	
-	
+* Include JQuery and JackSON.js into your prototype application
+
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+		<script src="//your.jackson-server.com/JackSON.js"></script>
+
+
+# Using the JackSON api

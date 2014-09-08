@@ -30,13 +30,26 @@ end
 
 # Retrieve JSON from HTTP request body
 before do
+  # CORS http://thibaultdenizet.com/tutorial/cors-with-angular-js-and-sinatra/
+  headers 'Access-Control-Allow-Origin' => '*', 
+          'Access-Control-Allow-Methods' => [ 'GET', 'POST', 'PUT' ]
+          
+  # We're usually just sending json
   content_type :json
+  
+  # Retrieve json body
   request.body.rewind
   @json = request.body.read
 end
 
 get '/' do
   GitHub::Markup.render( 'README.md' )
+end
+
+get '/dev' do
+  content_type :html
+  md = GitHub::Markup.render( 'CLIENT.md' )
+  erb :dev, :locals => { :md => md }
 end
 
 # Return JSON file

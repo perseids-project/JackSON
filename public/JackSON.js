@@ -4,7 +4,7 @@ JackSON = function( url ) {
 		return JackSON.prototype.me;
 	}
 	JackSON.prototype.me = this;
-	this.url = ( url == undefined ) ? 'http://localhost:4567/' : url;
+	this.url = ( url == undefined ) ? 'http://localhost:4567/data/' : url;
 	this.json = null;
 	this.result = null;
 	
@@ -65,6 +65,7 @@ JackSON = function( url ) {
 			type: "GET",
 			url: self.url+path,
 			dataType: 'json',
+			async: false,
 			success: function( data ) {
 				self.result = data;
 				$( document ).trigger( self.events.success );
