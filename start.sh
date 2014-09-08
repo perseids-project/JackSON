@@ -1,2 +1,2 @@
 #!/bin/bash
-ruby PipeSON.server.rb
+ruby JackSON.server.rb

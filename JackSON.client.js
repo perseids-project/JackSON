@@ -1,9 +1,9 @@
 ( function( global ) {
-PipeSON = function( url ) {
-	if ( PipeSON.prototype.me ) {
-		return PipeSON.prototype.me;
+JackSON = function( url ) {
+	if ( JackSON.prototype.me ) {
+		return JackSON.prototype.me;
 	}
-	PipeSON.prototype.me = this;
+	JackSON.prototype.me = this;
 	this.url = ( url == undefined ) ? 'http://localhost:4567/' : url;
 	this.json = null;
 	this.result = null;
@@ -12,8 +12,8 @@ PipeSON = function( url ) {
 	 * Events
 	 */
 	this.events = {
-		success: 'PipeSON-SUCCESS',
-		error: 'PipeSON-ERROR'
+		success: 'JackSON-SUCCESS',
+		error: 'JackSON-ERROR'
 	};
 	
 	/**
