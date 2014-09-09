@@ -1,6 +1,8 @@
 # JackSON
-JackSON is a lightweight server and Javascript api that will create, update, and retrieve json files RESTfully.
+JackSON is a lightweight server and Javascript API that will create, update, and retrieve JSON files RESTfully.
+
 It is especially useful for prototyping Javascript web-applications.
+
 When used responsibly, client application data structures can be implemented, tested, and revised rapidly.
 
 ### Warning
@@ -28,6 +30,6 @@ Include JQuery and JackSON.js into your application's HTML.
 	<script src="//your.jackson-server.com/JackSON.js"></script>
 
 ### Use
-If you're reading this on GitHub see CLIENT.md.
+If you're reading this on GitHub see [CLIENT.md](CLIENT.md)
 
-If you're reading this on your JackSON instance [click here](/dev).
+If you're reading this on your JackSON instance [click here](/dev)

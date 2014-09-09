@@ -4,7 +4,7 @@ JackSON = function( url ) {
 		return JackSON.prototype.me;
 	}
 	JackSON.prototype.me = this;
-	this.url = ( url == undefined ) ? 'http://localhost:4567/data/' : url;
+	this.url = ( url == undefined ) ? 'http://localhost:4567/data/' : url+'/data/';
 	this.json = null;
 	this.result = null;
 	
@@ -15,6 +15,14 @@ JackSON = function( url ) {
 		success: 'JackSON-SUCCESS',
 		error: 'JackSON-ERROR'
 	};
+	
+	/**
+	 * Build the message_box
+	 */
+	this.message_box = function() {
+		var self = this;
+		console.log( 'message_box' );
+	}
 	
 	/**
 	 * HTTP PUT
@@ -95,5 +103,8 @@ JackSON = function( url ) {
 			}
 		});
 	}
+	
+	// Build the message box
+	this.message_box();
 };
 } ( window ) );
