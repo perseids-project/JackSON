@@ -7,9 +7,9 @@ Open your Javascript console and play along!
 
 By default the JackSON.js will communicate with the JackSON server accessible at [http://localhost:4567](http://localhost:4567)
 
-If your JackSON server is elsewhere remember to pass its address when creating the API object.
+If your JackSON server is elsewhere remember to pass its address in a config object when creating the API object.
 
-	var jack = new JackSON( "http://my.doma.in/jackson" )
+	var jack = new JackSON({ url: "http://my.doma.in/jackson" })
 
 ## Methods
 JackSON API method calls are asynchronous, so you have to listen for success and error events.
@@ -30,17 +30,18 @@ You can always add .json to the url of any JackSON method.
 
 This maps to the same JSON file as the line above.
 
-Only use post() when creating a new JSON file.
+You can only use .post() to create a new JSON file.
+Passing a preexisting JSON file to .post() will throw an error.
 
 ### .put( url, json ): Update a JSON file
 	jack.put( 'path/to/json/file', { "foo": "buzz" } );
 
-Only use put() to update an existing JSON file.
+.put() will only update exisitng JSON files.
 
 ### .get( url ): Retrieve a JSON file
 	jack.get( 'path/to/json/file' );
 
-The last JSON file successfully retrieved by get() is stored like so...
+The last JSON file successfully retrieved by .get() is stored like so...
 
 	var json = jack.json;
 
@@ -53,3 +54,10 @@ Remember the API calls are asynchronous, so all together you'd need.
 
 ### .delete( url ): Delete a JSON file
 	jack.delete( 'path/to/json/file' );
+
+
+### Status messages
+You may have noticed that JackSON.js will display status messages at the top of the browser window.
+To turn off status messages.
+
+	var jack = new JackSON({ msg: false })

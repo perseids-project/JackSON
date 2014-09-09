@@ -1,12 +1,22 @@
 ( function( global ) {
-JackSON = function( url ) {
+JackSON = function( config ) {
+	
+	/* Singleton */
 	if ( JackSON.prototype.me ) {
+		JackSON.prototype.me.setup( config );
 		return JackSON.prototype.me;
 	}
 	JackSON.prototype.me = this;
-	this.url = ( url == undefined ) ? 'http://localhost:4567' : url;
-	this.json = null;
-	this.result = null;
+	
+	/* Config */
+	this.setup = function( config ) {
+		this.config = ( config == undefined ) ? {} : config;
+		this.url = ( 'url' in this.config ) ? this.config.url : 'http://localhost:4567';
+		this.show_msg = ( 'msg' in this.config ) ? this.config.msg : true;
+		this.json = null;
+		this.result = null;
+	}
+	this.setup( config );
 	
 	/**
 	 * Events
@@ -53,6 +63,9 @@ JackSON = function( url ) {
 	 * Flash a message
 	 */
 	this.msg = function( state, msg ) {
+		if ( this.show_msg == false ) {
+			return;
+		}
 		$( '#jackson_flash .msg' ).text( msg );
 		$( '#jackson_flash img' ).hide();
 		switch( state ) {
@@ -190,7 +203,9 @@ JackSON = function( url ) {
 		var msg = '';
 		err = err.toUpperCase();
 		try {
+			console.log( req );
 			msg = JSON.parse( req.responseText );
+			console.log( msg );
 			err += ': ' + msg.error;
 			this.msg( 'ERROR', err );
 		}
@@ -202,6 +217,8 @@ JackSON = function( url ) {
 	}
 	
 	// Build the message box
-	this.flash();
+	if ( this.show_msg == true ) {
+		this.flash();
+	}
 };
 } ( window ) );

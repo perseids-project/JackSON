@@ -53,7 +53,7 @@ helpers do
   def _delete( pth, file )
     if File.file?( file ) == false || File.directory?( file ) == true
       status 404
-      return { :error => "#{pth} not found."}
+      return { :error => "#{pth} not found."}.to_json
     end
     File.delete( file )
     rm_empty_dirs( File.dirname( file ) )

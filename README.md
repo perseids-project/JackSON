@@ -3,10 +3,6 @@ JackSON is a lightweight server and Javascript API that will create, update, and
 
 It was designed for rapidly prototyping Javascript web-applications.
 
-### Warning
-This is a very new project.  
-I cannot guarantee security.
-
 ### Install
 Install ruby and gem.
 
