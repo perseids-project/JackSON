@@ -56,7 +56,7 @@ Remember the API calls are asynchronous, so all together you'd need...
 	jack.delete( 'path/to/json/file' );
 
 
-### Status messages
+## Status messages
 You may have noticed that JackSON.js will display status messages at the top of the browser window.
 
 To turn off status messages...
