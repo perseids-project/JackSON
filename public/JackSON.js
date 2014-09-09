@@ -57,6 +57,25 @@ JackSON = function( url ) {
 	}
 	
 	/**
+	 * HTTP DELETE
+	 */
+	this.delete = function( ) {
+		var self = this;
+		$.ajax({
+			type: "DELETE",
+			url: self.url+path,
+			dataType: 'json',
+			success: function( data ) {
+				self.result = data;
+				$( document ).trigger( self.events.success );
+			},
+			error: function() {
+				$( document ).trigger( self.events.error );				
+			}
+		});
+	}
+	
+	/**
 	 * HTTP GET
 	 */
 	this.get = function( path, json ) {
@@ -67,6 +86,7 @@ JackSON = function( url ) {
 			dataType: 'json',
 			success: function( data ) {
 				self.result = data;
+				self.json = data;
 				$( document ).trigger( self.events.success );
 			},
 			error: function() {
