@@ -173,7 +173,7 @@ JackSON = function( url ) {
 			success: function( data ) {
 				self.result = data;
 				self.json = data;
-				self.msg( 'SUCCESS', path+' retrieved!' );
+				self.msg( 'SUCCESS', path+' retrieved' );
 				$( document ).trigger( self.events.success );
 			},
 			error: function( req, stat, err ) {
@@ -186,6 +186,7 @@ JackSON = function( url ) {
 	 * Display an error message
 	 */
 	this.error = function( req, stat, err ) {
+		var self = this;
 		var msg = '';
 		err = err.toUpperCase();
 		try {

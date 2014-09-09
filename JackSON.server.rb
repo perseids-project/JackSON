@@ -101,7 +101,13 @@ end
 
 # Return json file
 get '/data/*' do
-  File.read( json_file( path(params) ) )
+  pth = path(params)
+  file = json_file( pth )
+  if File.exist?( file ) == false
+    status 404
+    return { :error => "#{pth} does not exist.  Use .post() to create file" }.to_json
+  end
+  File.read( file )
 end
 
 # Create directory and json file
