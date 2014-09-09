@@ -52,10 +52,11 @@ helpers do
   end
   
   def _delete( pth, file )
-    if File.exist?( file )
-      File.delete( file )
-      rm_empty_dirs( File.dirname( file ) )
+    if File.file?( file ) == false || File.directory?( file ) == true
+      return { :error => "No JSON file at #{pth} found."}
     end
+    File.delete( file )
+    rm_empty_dirs( File.dirname( file ) )
     { :success => "JSON at #{pth} has been successfully deleted" }.to_json
   end
   
