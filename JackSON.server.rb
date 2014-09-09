@@ -36,20 +36,53 @@ helpers do
       rm_empty_dirs( File.dirname( dir ) )
     end
   end
+  
+  
+  # Not all browsers suppor PUT & DELETE
+  def _post( pth, file )
+    if File.exist?( file )
+      # Maybe I should just run PUT method.
+      return { :error => "JSON file at #{pth} exists.  Use PUT to change file contents" }.to_json
+    end
+    FileUtils.mkdir_p( File.dirname( file ) )
+    write_json( @json, file )
+  
+    # TODO Add new file to GIT
+    { :success => "JSON file successfully POSTed to #{pth}" }.to_json
+  end
+  
+  def _delete( pth, file )
+    if File.exist?( file )
+      File.delete( file )
+      rm_empty_dirs( File.dirname( file ) )
+    end
+    { :success => "JSON at #{pth} has been successfully deleted" }.to_json
+  end
+  
+  def _put( pth, file )
+    if File.exist?( file ) == false
+      return { :error => "JSON file at #{pth} does not exist.  Use POST to create file" }.to_json
+    end
+    write_json( @json, file )
+  
+    # TODO Commit changes to GIT
+    { :success => "JSON at #{pth} has been successfully updated" }.to_json
+  end
+  
 end
 
 # Retrieve JSON from HTTP request body
 before do
   # CORS http://thibaultdenizet.com/tutorial/cors-with-angular-js-and-sinatra/
   headers 'Access-Control-Allow-Origin' => '*', 
-          'Access-Control-Allow-Methods' => [ 'GET', 'POST', 'PUT', 'DELETE' ]
+          'Access-Control-Allow-Methods' => [ 'GET', 'POST', 'PUT', 'DELETE', 'OPTIONS' ]
           
   # We're usually just sending json
   content_type :json
   
   # Retrieve json body
-  request.body.rewind
-  @json = request.body.read
+  data = params[:data]
+  @json = data.to_json
 end
 
 get '/' do
@@ -73,37 +106,26 @@ end
 post '/data/*' do
   pth = path(params)
   file = json_file( pth )
-  if File.exist?( file )
-    # Maybe I should just run PUT method.
-    return { :error => "JSON file at #{pth} exists.  Use PUT to change file contents" }.to_json
+  case params[:_method]
+  when 'PUT'
+    _put( pth, file )
+  when 'DELETE'
+    _delete( pth, file )
+  else
+    _post( pth, file )
   end
-  FileUtils.mkdir_p( File.dirname( file ) )
-  write_json( @json, file )
-  
-  # TODO Add new file to GIT
-  { :success => "JSON file successfully POSTed to #{pth}" }.to_json
 end
 
 # Change json file
 put '/data/*' do
   pth = path(params)
   file = json_file( pth )
-  if File.exist?( file ) == false
-    return { :error => "JSON file at #{pth} does not exist.  Use POST to create file" }.to_json
-  end
-  write_json( @json, file )
-  
-  # TODO Commit changes to GIT
-  { :success => "JSON at #{pth} has been successfully updated" }.to_json
+  _put( pth, file )
 end
 
 # Delete a json file
 delete '/data/*' do
   pth = path(params)
   file = json_file( pth )
-  if File.exist?( file )
-    File.delete( file )
-    rm_empty_dirs( File.dirname( file ) )
-  end
-  { :success => "JSON at #{pth} has been successfully deleted" }.to_json
+  _delete( pth, file )
 end

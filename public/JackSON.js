@@ -22,10 +22,10 @@ JackSON = function( url ) {
 	this.put = function( path, json ) {
 		var self = this;
 		$.ajax({
-			type: "PUT",
+			type: "POST",
 			url: self.url+path,
 			dataType: 'json',
-			data: json,
+			data: {"data": json, "_method": 'PUT' },
 			success: function( data ) {
 				self.result = data;
 				$( document ).trigger( self.events.success );
@@ -45,7 +45,7 @@ JackSON = function( url ) {
 			type: "POST",
 			url: self.url+path,
 			dataType: 'json',
-			data: json,
+			data: {"data": json },
 			success: function( data ) {
 				self.result = data;
 				$( document ).trigger( self.events.success );
@@ -59,12 +59,13 @@ JackSON = function( url ) {
 	/**
 	 * HTTP DELETE
 	 */
-	this.delete = function( ) {
+	this.delete = function( path ) {
 		var self = this;
 		$.ajax({
-			type: "DELETE",
+			type: "POST",
 			url: self.url+path,
 			dataType: 'json',
+			data: {"_method": "DELETE" },
 			success: function( data ) {
 				self.result = data;
 				$( document ).trigger( self.events.success );
@@ -78,7 +79,7 @@ JackSON = function( url ) {
 	/**
 	 * HTTP GET
 	 */
-	this.get = function( path, json ) {
+	this.get = function( path ) {
 		var self = this;
 		$.ajax({
 			type: "GET",
