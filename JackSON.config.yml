@@ -1,1 +1,2 @@
 path: '/usr/local/JackSON'
+cors: [ 'http://localhost:4567', 'http://localhost:3000' ]

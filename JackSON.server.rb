@@ -37,44 +37,45 @@ helpers do
     end
   end
   
-  
   # Not all browsers suppor PUT & DELETE
   def _post( pth, file )
     if File.exist?( file )
-      # Maybe I should just run PUT method.
-      return { :error => "JSON file at #{pth} exists.  Use PUT to change file contents" }.to_json
+      status 403
+      return { :error => "#{pth} already exists.  Use .put() to change file" }.to_json
     end
     FileUtils.mkdir_p( File.dirname( file ) )
     write_json( @json, file )
   
     # TODO Add new file to GIT
-    { :success => "JSON file successfully POSTed to #{pth}" }.to_json
+    { :success => " #{pth} created." }.to_json
   end
   
   def _delete( pth, file )
     if File.file?( file ) == false || File.directory?( file ) == true
-      return { :error => "No JSON file at #{pth} found."}
+      status 404
+      return { :error => "#{pth} not found."}
     end
     File.delete( file )
     rm_empty_dirs( File.dirname( file ) )
-    { :success => "JSON at #{pth} has been successfully deleted" }.to_json
+    { :success => "#{pth} deleted." }.to_json
   end
   
   def _put( pth, file )
     if File.exist?( file ) == false
-      return { :error => "JSON file at #{pth} does not exist.  Use POST to create file" }.to_json
+      status 404
+      return { :error => "#{pth} does not exist.  Use .post() to create file" }.to_json
     end
     write_json( @json, file )
   
     # TODO Commit changes to GIT
-    { :success => "JSON at #{pth} has been successfully updated" }.to_json
+    { :success => "#{pth} updated" }.to_json
   end
   
 end
 
 # Retrieve JSON from HTTP request body
 before do
-  # CORS http://thibaultdenizet.com/tutorial/cors-with-angular-js-and-sinatra/
+  # CORS
   headers 'Access-Control-Allow-Origin' => '*', 
           'Access-Control-Allow-Methods' => [ 'GET', 'POST', 'PUT', 'DELETE', 'OPTIONS' ]
           
@@ -92,10 +93,10 @@ get '/' do
   erb :home, :locals => { :md => md }
 end
 
-get '/dev' do
+get '/api' do
   content_type :html
-  md = GitHub::Markup.render( 'CLIENT.md' )
-  erb :dev, :locals => { :md => md }
+  md = GitHub::Markup.render( 'API.md' )
+  erb :api, :locals => { :md => md }
 end
 
 # Return json file
