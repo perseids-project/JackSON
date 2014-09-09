@@ -6,7 +6,7 @@ It was designed for rapidly prototyping Javascript web-applications.
 ### Install
 Install ruby and gem.
 
-Run the install script to install the necessary gems.
+Run the install script to install all required gems.
 
 	./install.sh
 
