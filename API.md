@@ -41,14 +41,14 @@ Passing an existing JSON file url to .post() will throw an error.
 ### .get( url ): Retrieve a JSON file
 	jack.get( 'path/to/json/file' );
 
-The last JSON file successfully retrieved by .get() is stored like so...
+JSON files retrieved by .get() can all be accessed like so...
 
-	var json = jack.json;
+	var json = jack.json['path/to/json/file'];
 
 Remember the API calls are asynchronous, so all together you'd need...
 
 	$( document ).on( jack.events.success, function( e ) {
-		var json = jack.json;
+		var json = jack.json['path/to/json/file'];
 	});
 	jack.get( 'path/to/json/file' );
 

@@ -13,7 +13,7 @@ JackSON = function( config ) {
 		this.config = ( config == undefined ) ? {} : config;
 		this.url = ( 'url' in this.config ) ? this.config.url : 'http://localhost:4567';
 		this.show_msg = ( 'msg' in this.config ) ? this.config.msg : true;
-		this.json = null;
+		this.json = {};
 		this.result = null;
 	}
 	this.setup( config );
@@ -185,7 +185,7 @@ JackSON = function( config ) {
 			dataType: 'json',
 			success: function( data ) {
 				self.result = data;
-				self.json = data;
+				self.json[ path ] = data;
 				self.msg( 'SUCCESS', path+' retrieved' );
 				$( document ).trigger( self.events.success );
 			},
