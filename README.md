@@ -8,7 +8,7 @@ Install ruby and gem.
 
 Run the installer.
 
-	./install.sh
+	rake server:install
 
 Update the JackSON.config.yml file.
 
@@ -16,7 +16,7 @@ Update the JackSON.config.yml file.
 
 Start the server.
 
-	./start.sh
+	rake server:start
 
 Include JQuery and JackSON.js in your application's HTML.
 
