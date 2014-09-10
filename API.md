@@ -31,7 +31,7 @@ You can always add .json to the url of any JackSON method...
 This maps to the same JSON file as the line above.
 
 You can only use .post() to create a new JSON file.
-Passing a preexisting JSON file to .post() will throw an error.
+Passing an existing JSON file url to .post() will throw an error.
 
 ### .put( url, json ): Update a JSON file
 	jack.put( 'path/to/json/file', { "foo": "buzz" } );

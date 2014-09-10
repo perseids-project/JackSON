@@ -1,12 +1,12 @@
 # JackSON
-JackSON is a lightweight server and Javascript API that will create, update, and retrieve JSON files RESTfully.
+JackSON is a lightweight server and Javascript API that will create, retrieve, update, and delete JSON files RESTfully.
 
-It was designed for rapidly prototyping Javascript web-applications.
+It was designed for rapidly prototyping Javascript applications.
 
 ### Install
 Install ruby and gem.
 
-Run the install script to install all required gems.
+Run the installer.
 
 	./install.sh
 
@@ -20,8 +20,8 @@ Start the server.
 
 Include JQuery and JackSON.js in your application's HTML.
 
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-	<script src="//your.jackson-server.com/JackSON.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+	<script src="http://your.jackson-server.com/JackSON.js"></script>
 
 ### Using the API
 If you're reading this on GitHub see [API.md](API.md)
