@@ -62,3 +62,24 @@ You may have noticed that JackSON.js will display status messages at the top of 
 To turn off status messages...
 
 	var jack = new JackSON({ msg: false })
+
+## JSON-LD
+JSON-LD is 'linked-data' JSON.
+Essentially it is RDF written with JSON.
+It looks like this.
+
+	{
+	  "@context": {
+	    "name": "http://xmlns.com/foaf/0.1/name",
+	    "homepage": "http://xmlns.com/foaf/0.1/homepage",
+	    "avatar": "http://xmlns.com/foaf/0.1/avatar"
+	  },
+	  "name": "Manuel Surly",
+	  "homepage": "http://manuel.surly.org/",
+	  "avatar": "http://twitter.com/account/profile_image/manuelsurly"
+	}
+
+JSON uploaded to a JackSON server will be checked for a @context key.
+If @context exists it will be converted to RDF.
+The JackSON server will update a SPARQL endpoint with the newly created RDF.  
+The location of the SPARQL endpoint is set with **sparql** in **JackSON.config.yml**.

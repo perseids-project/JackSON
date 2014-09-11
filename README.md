@@ -1,6 +1,9 @@
 # JackSON
 JackSON is a lightweight server and Javascript API that will create, retrieve, update, and delete JSON files RESTfully.
 
+JackSON will also convert JSON-LD files to Fuseki served RDF automatically.
+See [JackRDF](http://github.com/caesarfeta/jackrdf).
+
 It was designed for rapidly prototyping Javascript applications.
 
 ### Install
