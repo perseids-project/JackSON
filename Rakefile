@@ -15,6 +15,7 @@ namespace :server do
     `gem install sinatra-reloader`
     `gem install markup`
     `gem install github-markup`
+    `gem install JackRDF`
   end
   
   desc "Start the sinatra server at port 4567"

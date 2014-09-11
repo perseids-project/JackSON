@@ -5,10 +5,11 @@ require 'json'
 require 'github/markup'
 require 'fileutils'
 require 'pathname'
+require 'JackRDF'
 config_file 'JackSON.config.yml'
 
-# Take a url and build the path to a JSON file
 helpers do
+  
   # Build the local path to a JSON file from a url
   def json_file( url )
     if url[-5..-1] != '.json'
@@ -30,6 +31,12 @@ helpers do
     end
   end
   
+  # Return JackRDF object
+  def jack()
+    JackRDF.new( settings.sparql )
+  end
+  
+  # Remove empty parent directories recursively.
   def rm_empty_dirs( dir )
     if ( Dir.entries( dir ) - %w{ . .. .DS_Store } ).empty?
       FileUtils.rm_rf( dir )
@@ -37,16 +44,26 @@ helpers do
     end
   end
   
-  # Not all browsers suppor PUT & DELETE
+  # Not all browsers support PUT & DELETE
+  # This allows for pseudo HTTP methods over POST
   def _post( pth, file )
     if File.exist?( file )
       status 403
       return { :error => "#{pth} already exists.  Use .put() to change file" }.to_json
     end
+    
+    # Create on filesytem
     FileUtils.mkdir_p( File.dirname( file ) )
     write_json( @json, file )
-  
-    # TODO Add new file to GIT
+
+    # Insert into Fuseki
+    begin
+      rdf = jack()
+      rdf.post( request.url, file )
+    rescue
+    end
+    
+    # TODO GIT?
     { :success => " #{pth} created." }.to_json
   end
   
@@ -55,8 +72,19 @@ helpers do
       status 404
       return { :error => "#{pth} not found."}.to_json
     end
+    
+    # Delete from filesystem
     File.delete( file )
     rm_empty_dirs( File.dirname( file ) )
+    
+    # Delete from Fuseki
+    begin
+      rdf = jack()
+      rdf.put( request.url, file )
+    rescue
+    end
+    
+    # TODO GIT?
     { :success => "#{pth} deleted." }.to_json
   end
   
@@ -65,9 +93,18 @@ helpers do
       status 404
       return { :error => "#{pth} does not exist.  Use .post() to create file" }.to_json
     end
+    
+    # Update filesystem
     write_json( @json, file )
-  
-    # TODO Commit changes to GIT
+    
+    # Update Fuseki
+    begin
+      rdf = jack()
+      rdf.put( request.url, file )
+    rescue
+    end
+    
+    # TODO GIT?
     { :success => "#{pth} updated" }.to_json
   end
   
@@ -75,7 +112,8 @@ end
 
 # Retrieve JSON from HTTP request body
 before do
-  # CORS
+  
+  # TODO CORS
   headers 'Access-Control-Allow-Origin' => '*', 
           'Access-Control-Allow-Methods' => [ 'GET', 'POST', 'PUT', 'DELETE', 'OPTIONS' ]
           
