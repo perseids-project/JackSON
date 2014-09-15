@@ -26,7 +26,14 @@ Include JQuery and JackSON.js in your application's HTML.
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 	<script src="http://your.jackson-server.com/JackSON.js"></script>
 
-### Using the API
+### Using the JackSON.js API
 If you're reading this on GitHub see [API.md](API.md)
 
 If you're reading this on your JackSON instance [click here](/api)
+
+### JackSON and AngularJS
+JackSON uses 4 different HTTP methods GET, POST, PUT, DELETE to interact with a JSON file at a URL like this one http://127.0.0.1:4567/data/folder/json.
+
+Armed with this knowledge you should be able to to use AngularJS's $http service to interact with JackSON.
+
+See [examples/angular/index.html](public/examples/angular/index.html)

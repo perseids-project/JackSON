@@ -6,6 +6,8 @@ require 'github/markup'
 require 'fileutils'
 require 'pathname'
 require 'JackRDF'
+require 'logger'
+enable :logging
 config_file 'JackSON.config.yml'
 
 helpers do
@@ -108,10 +110,16 @@ helpers do
     { :success => "#{pth} updated" }.to_json
   end
   
+  def logdump( obj )
+    logger.debug obj.inspect
+  end
+  
 end
 
 # Retrieve JSON from HTTP request body
 before do
+  
+  logger.level = Logger::DEBUG
   
   # TODO CORS
   headers 'Access-Control-Allow-Origin' => '*', 
@@ -120,9 +128,27 @@ before do
   # We're usually just sending json
   content_type :json
   
+  # If we're dealing with a GET or DELETE request we can stop here.
+  if ["GET","DELETE"].include? request.request_method
+    return
+  end
+  
   # Retrieve json body
   data = params[:data]
+  
+  # Different clients may use different Content-Type headers
+  # Try to accomodate them.
+  if data == nil
+    data = JSON.parse( request.body.read )["data"]
+  end
   @json = data.to_json
+  
+  # Debug logging
+  if settings.debug == true
+    logdump request
+    logdump params
+    logdump @json
+  end
 end
 
 get '/' do

@@ -57,7 +57,7 @@ Remember the API calls are asynchronous, so all together you'd need...
 
 
 ## Status messages
-You may have noticed that JackSON.js will display status messages at the top of the browser window.
+By default JackSON.js will display status messages at the top of the browser window.
 
 To turn off status messages...
 
@@ -81,5 +81,5 @@ It looks like this.
 
 JSON uploaded to a JackSON server will be checked for a @context key.
 If @context exists it will be converted to RDF.
-The JackSON server will update a SPARQL endpoint with the newly created RDF.  
-The location of the SPARQL endpoint is set with **sparql** in **JackSON.config.yml**.
+The JackSON server will then update a SPARQL endpoint with the newly created RDF.  
+The location of the SPARQL endpoint is set with **sparql** in **JackSON.config.yml**.  See [JackRDF](http://github.com/caesarfeta/jackrdf).
