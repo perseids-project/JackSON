@@ -31,12 +31,13 @@ class TestJackSON < Minitest::Test
   
   # Can't POST if JSON file exists at url
   def test_AAB_post_dupe
+    check = false
     begin
       api( POST, 'test/data', 'json/foo_blank' )
     rescue
-      assert( 1, 1 )
+      check = true
     end
-    assert( 1, 0 )
+    assert( check, true )
   end
   
   # PUT will change an existing JSON file
@@ -57,8 +58,8 @@ class TestJackSON < Minitest::Test
   end
   
   def test_AAE_delete
-    api( DELETE, url('test/data') )
-    assert( 1, 1 )
+    r = api( DELETE, 'test/data' )
+    assert( success?(r), true )
   end
   
   # Helper methods.
