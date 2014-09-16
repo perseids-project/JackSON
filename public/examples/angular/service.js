@@ -4,26 +4,39 @@ app.service( 'service', function( $http, $q ) {
 		start: start,
 		upd: upd,
 		data: data,
-		del: del
+		restart: restart
 	});
 	
-	function start( json ) {
+	function start( scope ) {
+		return post( scope.friends );
+	}
+	
+	function post( json ) {
 		var request = jackson( 'POST', json );
 		return( request.then(
 			function( r ) { return json }, 
 			function( r ){ return data() } 
-		));
+		));		
 	}
 	
 	function data() {
 		var request = jackson( 'GET' );
-		return( request.then( handSuc, handErr ) );
+		return( request.then( 
+			handSuc, 
+			handErr 
+		));
 	}
 	
-	function del() {}
+	function restart( scope ) {
+		var request = jackson( 'DELETE' );
+		return( request.then(
+			function( r ) { return post( scope.default ) },
+			handErr
+		));
+	}
 
-	function upd( json ) {
-		var request = jackson( 'PUT', json );
+	function upd( scope ) {
+		var request = jackson( 'PUT', scope.friends );
 		return( request.then( handSuc, handErr ) );
 	}
 	

@@ -1,7 +1,10 @@
 app.controller("controller", function( $scope, service ){
+	
+	// Default
+	$scope.default = [ "Me, Myself, and I" ];
 
 	// Model
-    $scope.friends = [ "Me, Myself, and I" ];
+    $scope.friends = $scope.default;
 	
 	// UI input
     $scope.form = {
@@ -14,7 +17,7 @@ app.controller("controller", function( $scope, service ){
 	// Add a new friend
 	$scope.addFriend = function() {
 		$scope.friends.push( $scope.form.name );
-		service.upd( $scope.friends ).then(
+		service.upd( $scope ).then(
 			function( data ) { $scope.msg = "Saved Changes!"},
 			function( data ) { $scope.msg = "Error Saving Changes!"}
 		);
@@ -24,16 +27,26 @@ app.controller("controller", function( $scope, service ){
 	// Remove a friend
 	$scope.removeFriend = function( friend ) {
 		rm_in_array( $scope.friends, friend )
-		service.upd( $scope.friends ).then(
+		service.upd( $scope ).then(
 			function( data ) { $scope.msg = "Saved Changes!"},
 			function( data ) { $scope.msg = "Error Saving Changes!"}
 		);
 	}
 	
+	$scope.restart = function() {
+		service.restart( $scope ).then(
+			function( data ) { 
+				$scope.friends = $scope.default;
+				$scope.msg = "Restarted!"
+			},
+			function( data ) { $scope.msg = "Error Restarting!"}
+		)
+	}
+	
 	// Start it up
-	start( $scope.friends );
-	function start( json ) {
-		service.start( json ).then(
+	start();
+	function start() {
+		service.start( $scope ).then(
 			function( data ) { 
 				$scope.friends = data.friends;
 				$scope.msg = "Ready!"
