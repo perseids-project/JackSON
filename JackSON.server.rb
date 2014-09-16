@@ -147,9 +147,9 @@ before do
   
   # Debug logging
   if settings.debug == true
-    # logdump request
-    # logdump params
-    # logdump @json
+    logdump request
+    logdump params
+    logdump @json
   end
 end
 
