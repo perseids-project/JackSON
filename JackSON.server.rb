@@ -104,6 +104,7 @@ helpers do
     { :success => "#{pth} updated" }.to_json
   end
   
+  # Dump an object to the log files
   def logdump( obj )
     logger.debug obj.inspect
   end
@@ -135,7 +136,12 @@ before do
   # Sinatra doesn't build params object for all Content-Type headers.
   # Accomodate them.
   if data == nil
-    data = JSON.parse( request.body.read )["data"]
+    begin
+      data = JSON.parse( request.body.read )["data"]
+    rescue
+      status 404
+      return { :error => "There was an error parsing your JSON" }.to_json
+    end
   end
   @json = data.to_json
   
