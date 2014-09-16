@@ -1,16 +1,16 @@
 app.controller("controller", function( $scope, $http ){
 	
+	$scope.json = function() {
+		return { 
+			data: {
+				angular: $scope.word
+			}
+		}
+	}
+	
 	$scope.get = function() {}
 	
 	$scope.update = function() {
-		
-		// JackSON requires 'data' key.
-		var json = {
-			data: {
-				angular: $scope.word
-			},
-			_method: "put"
-		};
 
 		var request = $http({
 			method:'PUT',
@@ -18,7 +18,7 @@ app.controller("controller", function( $scope, $http ){
 		    headers: {
 		        'Content-Type': 'application/json'
 		    },
-			data: json
+			data: $scope.json()
 		});
 		
 		request.success(
@@ -27,4 +27,6 @@ app.controller("controller", function( $scope, $http ){
 			}
 		);
 	}
+	
+	
 });

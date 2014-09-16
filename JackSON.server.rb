@@ -4,21 +4,30 @@ require 'sinatra/config_file'
 require 'json'
 require 'github/markup'
 require 'fileutils'
-require 'pathname'
+
 require 'JackRDF'
+require_relative 'JackHELP'
+
 require 'logger'
 enable :logging
+
 config_file 'JackSON.config.yml'
 
 helpers do
-  
+    
   # Build the local path to a JSON file from a url
   def json_file( url )
-    if url[-5..-1] != '.json'
-      url = "#{url}.json"
-    end
-    url = Pathname.new( url ).cleanpath.to_s
-    File.join( settings.path, url )
+    JackHELP.run.json_file( settings.path, url )
+  end
+  
+  # Write the JSON file
+  def write_json( data, file )
+    JackHELP.run.write_json( data, file )
+  end
+  
+  # Remove empty parent directories recursively.
+  def rm_empty_dirs( dir )
+    JackHELP.run.rm_empty_dirs( dir )
   end
   
   # Shorter...
@@ -26,24 +35,9 @@ helpers do
     params[:splat][0]
   end
   
-  # Write the JSON file
-  def write_json( data, file )
-    File.open( file, "w+" ) do |f|
-      f.write( data )
-    end
-  end
-  
   # Return JackRDF object
   def jack()
     JackRDF.new( settings.sparql )
-  end
-  
-  # Remove empty parent directories recursively.
-  def rm_empty_dirs( dir )
-    if ( Dir.entries( dir ) - %w{ . .. .DS_Store } ).empty?
-      FileUtils.rm_rf( dir )
-      rm_empty_dirs( File.dirname( dir ) )
-    end
   end
   
   # Not all browsers support PUT & DELETE
@@ -128,16 +122,18 @@ before do
   # We're usually just sending json
   content_type :json
   
-  # If we're dealing with a GET or DELETE request we can stop here.
-  if ["GET","DELETE"].include? request.request_method
+  # If we're dealing with a GET request we can stop here.
+  # No data gets passed along.
+  if ["GET"].include? request.request_method
     return
   end
   
   # Retrieve json body
   data = params[:data]
   
-  # Different clients may use different Content-Type headers
-  # Try to accomodate them.
+  # Different clients may use different Content-Type headers.
+  # Sinatra doesn't build params object for all Content-Type headers.
+  # Accomodate them.
   if data == nil
     data = JSON.parse( request.body.read )["data"]
   end
@@ -145,9 +141,9 @@ before do
   
   # Debug logging
   if settings.debug == true
-    logdump request
-    logdump params
-    logdump @json
+    # logdump request
+    # logdump params
+    # logdump @json
   end
 end
 

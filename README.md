@@ -36,4 +36,4 @@ JackSON uses 4 different HTTP methods GET, POST, PUT, DELETE to interact with a 
 
 Armed with this knowledge you should be able to to use AngularJS's $http service to interact with JackSON.
 
-See [examples/angular/index.html](public/examples/angular/index.html)
+See [examples/angular/index.html](examples/angular/index.html)
