@@ -6,7 +6,7 @@ require_relative '../JackHELP.rb'
 
 # Want to run a single test?
 # You probably do when developing.
-# ruby test_JackSON.rb --name test_check
+# ruby test_JackSON.rb --name test_AAA_post
 
 class TestJackSON < Minitest::Test
   
@@ -22,24 +22,38 @@ class TestJackSON < Minitest::Test
   end
   
   # The actual tests!
+  
+  # Create a brand new JSON file
   def test_AAA_post
-    api( POST, url('test/data'), hashit('json/foo_bar') )
-    assert( 1, 1 )
+    r = api( POST, 'test/data', 'json/foo_bar' )
+    assert( success?(r), true )
   end
   
+  # Can't POST if JSON file exists at url
   def test_AAB_post_dupe
-    api( POST, url('test/data'), hashit('json/foo_blank') )
-    assert( 1, 1 )
+    begin
+      api( POST, 'test/data', 'json/foo_blank' )
+    rescue
+      assert( 1, 1 )
+    end
+    assert( 1, 0 )
   end
   
+  # PUT will change an existing JSON file
   def test_AAC_put
-    api( PUT, url('test/data'), hashit('json/foo_blank') )
-    assert( 1, 1 )
+    r = api( PUT, 'test/data', 'json/foo_blank' )
+    assert( success?(r), true )
   end
   
+  # What you retrieve and what you start with should be the same
   def test_AAD_get
-    response = api( GET, url('test/data') )
-    assert( 1, 1 )
+    check = false;
+    r = api( GET, 'test/data' )
+    j = hashit('json/foo_blank')
+    if j == r
+      check = true;
+    end
+    assert( check, true )
   end
   
   def test_AAE_delete
@@ -54,22 +68,35 @@ class TestJackSON < Minitest::Test
     "http://localhost:4567/data/#{rel}"
   end
   
-  def hashit( path )
-    file = JackHELP.run.json_file( File.dirname(__FILE__), path )
-    return { :data => JSON.parse( File.read( file ) ) }
+  def hashit( file )
+    return {} if file ==nil
+    file = JackHELP.run.json_file( File.dirname(__FILE__), file )
+    JSON.parse( File.read( file ) )
   end
   
-  def api( method, path, hash=nil )
+  def hashttp( file )
+    { :data => hashit( file ) }
+  end
+  
+  def api( method, path, file=nil )
+    r = nil
+    path = url( path )
+    file = hashttp( file )
     case method.upcase
     when POST
-      RestClient.post url(path), hash
+      r = RestClient.post path, file
     when PUT
-      RestClient.put url(path), hash
+      r = RestClient.put path, file
     when GET
-      RestClient.get url(path)
+      r = RestClient.get path
     when DELETE
-      RestClient.delete url(path), hash
+      r = RestClient.delete path, file
     end
+    JSON.parse( r )
+  end
+  
+  def success?( hash )
+    hash.include?("success")
   end
   
 end

@@ -76,7 +76,7 @@ helpers do
     # Delete from Fuseki
     begin
       rdf = jack()
-      rdf.put( request.url, file )
+      rdf.delete( request.url )
     rescue
     end
     
@@ -139,8 +139,6 @@ before do
     begin
       data = JSON.parse( request.body.read )["data"]
     rescue
-      status 404
-      return { :error => "There was an error parsing your JSON" }.to_json
     end
   end
   @json = data.to_json
