@@ -7,7 +7,7 @@ See [JackRDF](http://github.com/caesarfeta/jackrdf).
 It was designed for rapidly prototyping Javascript applications.
 For those times when MongoDB is overkill.
 
-### Install
+## Install
 Install ruby and gem.
 
 Run the installer.
@@ -27,13 +27,26 @@ Include JQuery and JackSON.js in your application's HTML.
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 	<script src="http://your.jackson-server.com/JackSON.js"></script>
 
-### Using the JackSON.js API
+## Development
+The quickest way to begin development is to create a folder for your application like this...
+
+	mkdir public/apps/fungus-db
+
+Create the HTML, CSS, and Javascript files you need in that folder and then go to...
+
+	http://localhost:4567/apps/fungs-db
+
+To communicate with the JackSON server from an application on another host you will need to update **JackSON.config.yml**
+
+	cors: [ 'http://localhost:4567', 'http://localhost:3000' ]
+
+## Using the JackSON.js API
 If you're reading this on GitHub see [API.md](API.md)
 
 If you're reading this on your JackSON instance [click here](/api)
 
 ## JackSON and AngularJS
-JackSON uses 4 different HTTP methods GET, POST, PUT, DELETE to interact with a JSON file at a URL like this one http://127.0.0.1:4567/data/folder/json.
+JackSON uses 4 different HTTP methods GET, POST, PUT, DELETE to interact with a JSON file at a URL like this one http://localhost:4567/data/folder/json.
 
 This means you don't have to use the JackSON.js API. AngularJS's $http service works with JackSON as well.
 
