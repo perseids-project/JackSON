@@ -3,11 +3,22 @@
 </head>
 <body>
 	<div id='content' ng-app='app' ng-controller='controller'>
-		<input type="text" ng-model="word" />
-		<button ng-click="update()">Update</button>
+		<h1>JackSON and AngularJS</h1>
+		<p>{{ msg }}</p>
+		<ul>
+			<li ng-repeat="friend in friends">
+				{{ friend }}
+				( <a href="" ng-click="removeFriend( friend )">delete</a> )
+			</li>
+		</ul>
+		<form ng-submit="addFriend()">
+			<input type="text" ng-model="form.name" size="20" />
+			<input type="submit" value="Add Friend" />
+		</form>
 	</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js" type="text/javascript"></script>
 	<script src="app.js" type="text/javascript"></script>
 	<script src="controller.js" type="text/javascript"></script>
+	<script src="service.js" type="text/javascript"></script>
 </body>
 </html>

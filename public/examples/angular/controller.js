@@ -1,32 +1,52 @@
-app.controller("controller", function( $scope, $http ){
+app.controller("controller", function( $scope, service ){
+
+	// Model
+    $scope.friends = [ "Me, Myself, and I" ];
 	
-	$scope.json = function() {
-		return { 
-			data: {
-				angular: $scope.word
-			}
-		}
+	// UI input
+    $scope.form = {
+        name: ""
+    };
+	
+	// UI only
+	$scope.msg = "";
+	
+	// Add a new friend
+	$scope.addFriend = function() {
+		$scope.friends.push( $scope.form.name );
+		service.upd( $scope.friends ).then(
+			function( data ) { $scope.msg = "Saved Changes!"},
+			function( data ) { $scope.msg = "Error Saving Changes!"}
+		);
+		$scope.form.name = "";
 	}
 	
-	$scope.get = function() {}
+	// Remove a friend
+	$scope.removeFriend = function( friend ) {
+		rm_in_array( $scope.friends, friend )
+		service.upd( $scope.friends ).then(
+			function( data ) { $scope.msg = "Saved Changes!"},
+			function( data ) { $scope.msg = "Error Saving Changes!"}
+		);
+	}
 	
-	$scope.update = function() {
-
-		var request = $http({
-			method:'PUT',
-			url:'/data/angular/test',
-		    headers: {
-		        'Content-Type': 'application/json'
-		    },
-			data: $scope.json()
-		});
-		
-		request.success(
-			function(){
-				console.log( "yes" );
+	// Start it up
+	start( $scope.friends );
+	function start( json ) {
+		service.start( json ).then(
+			function( data ) { 
+				$scope.friends = data.friends;
+				$scope.msg = "Ready!"
 			}
 		);
 	}
 	
-	
+	// Remove matching items from array
+	function rm_in_array( array, item ) {
+		for ( var i = array.length - 1; i >= 0; i-- ) {
+		    if ( array[i] === item ) {
+				array.splice(i, 1);
+			}
+		}
+	}
 });
