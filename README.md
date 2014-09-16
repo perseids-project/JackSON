@@ -22,23 +22,25 @@ Start the server.
 
 	rake server:start
 
-Include JQuery and JackSON.js in your application's HTML.
-
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-	<script src="http://your.jackson-server.com/JackSON.js"></script>
 
 ## Development
 The quickest way to begin development is to create a folder for your application like this...
 
 	mkdir public/apps/fungus-db
 
-Create the HTML, CSS, and Javascript files you need in that folder and then go to...
+Create the HTML, CSS, and Javascript files you need.
+Remembering to include JQuery and JackSON.js in your application's HTML.
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+	<script src="http://your.jackson-server.com/JackSON.js"></script>
+
+Now your application will be accessible at this URL.
 
 	http://localhost:4567/apps/fungs-db
 
 To communicate with the JackSON server from an application on another host you will need to update **JackSON.config.yml**
 
-	cors: [ 'http://localhost:4567', 'http://localhost:3000' ]
+	cors: [ 'http://localhost:4567', 'http://localhost:3000', 'http://your.app-host.com' ]
 
 ## Using the JackSON.js API
 If you're reading this on GitHub see [API.md](API.md)
