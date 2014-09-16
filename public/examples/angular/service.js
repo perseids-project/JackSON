@@ -4,7 +4,7 @@ app.service( 'service', function( $http, $q ) {
 		start: start,
 		upd: upd,
 		data: data,
-		restart: restart
+		reset: reset
 	});
 	
 	function start( scope ) {
@@ -26,20 +26,23 @@ app.service( 'service', function( $http, $q ) {
 			handErr 
 		));
 	}
-	
-	function restart( scope ) {
+
+	// Reset data on server	to default
+	function reset( scope ) {
 		var request = jackson( 'DELETE' );
 		return( request.then(
 			function( r ) { return post( scope.default ) },
 			handErr
 		));
 	}
-
+	
+	// Update data on server
 	function upd( scope ) {
 		var request = jackson( 'PUT', scope.friends );
 		return( request.then( handSuc, handErr ) );
 	}
 	
+	// JackSON wrapper
 	function jackson( method, json ) {
 		return $http({
 			method: method.toUpperCase(),

@@ -33,13 +33,14 @@ app.controller("controller", function( $scope, service ){
 		);
 	}
 	
-	$scope.restart = function() {
-		service.restart( $scope ).then(
+	// Reset data
+	$scope.reset = function() {
+		service.reset( $scope ).then(
 			function( data ) { 
 				$scope.friends = $scope.default;
-				$scope.msg = "Restarted!"
+				$scope.msg = "Data reset to default!"
 			},
-			function( data ) { $scope.msg = "Error Restarting!"}
+			function( data ) { $scope.msg = "Error Resetting!"}
 		)
 	}
 	
