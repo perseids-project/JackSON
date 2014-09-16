@@ -4,12 +4,12 @@ require_relative 'JackTEST.rb'
 # You probably do when developing.
 # ruby test_JackSON.rb --name test_AAA_post
 
-class TestJackSONFoobar < JackTEST
+class TestFoobar < JackTEST
   
   # Create a brand new JSON file
   def test_AAA_post
     r = api( POST, 'test/data', 'json/foo_bar' )
-    assert( success?(r), true )
+    assert( success?(r) )
   end
   
   # Can't POST if JSON file exists at url
@@ -20,13 +20,13 @@ class TestJackSONFoobar < JackTEST
     rescue
       check = true
     end
-    assert( check, true )
+    assert( check )
   end
   
   # PUT will change an existing JSON file
   def test_AAC_put
     r = api( PUT, 'test/data', 'json/foo_blank' )
-    assert( success?(r), true )
+    assert( success?(r) )
   end
   
   # What you retrieve and what you start with should be the same
@@ -37,12 +37,12 @@ class TestJackSONFoobar < JackTEST
     if j == r
       check = true;
     end
-    assert( check, true )
+    assert( check )
   end
   
   def test_AAE_delete
     r = api( DELETE, 'test/data' )
-    assert( success?(r), true )
+    assert( success?(r) )
   end
     
 end
