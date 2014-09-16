@@ -4,7 +4,7 @@ app.controller("controller", function( $scope, service ){
 	$scope.default = [ "Me, Myself, and I" ];
 
 	// Model
-    $scope.friends = $scope.default;
+    $scope.friends = angular.copy( $scope.default );
 	
 	// UI input
     $scope.form = {
@@ -37,7 +37,7 @@ app.controller("controller", function( $scope, service ){
 	$scope.reset = function() {
 		service.reset( $scope ).then(
 			function( data ) { 
-				$scope.friends = $scope.default;
+				$scope.friends = angular.copy( $scope.default );
 				$scope.msg = "Data reset to default!"
 			},
 			function( data ) { $scope.msg = "Error Resetting!"}

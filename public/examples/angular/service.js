@@ -7,10 +7,12 @@ app.service( 'service', function( $http, $q ) {
 		reset: reset
 	});
 	
+	// Create a new JSON file if it doesn't already exist.
 	function start( scope ) {
 		return post( scope.friends );
 	}
 	
+	// POST new JSON
 	function post( json ) {
 		var request = jackson( 'POST', json );
 		return( request.then(
@@ -19,6 +21,7 @@ app.service( 'service', function( $http, $q ) {
 		));		
 	}
 	
+	// GET the JSON
 	function data() {
 		var request = jackson( 'GET' );
 		return( request.then( 
