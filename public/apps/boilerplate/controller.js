@@ -20,6 +20,7 @@ app.controller("controller", function( $scope, service ){
 	
 	// Save!
 	$scope.save = function() {
+		$scope.data.name = $scope.form.name;
 		service.save( $scope ).then(
 			function( r ) { 
 				$scope.msg = r;

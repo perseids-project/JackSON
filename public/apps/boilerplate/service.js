@@ -18,7 +18,7 @@ app.service( 'service', function( $http, $q ) {
 	
 	// Update data on server
 	function save( scope ) {
-		var request = jackson( 'PUT', scope.url scope.data );
+		var request = jackson( 'PUT', scope.url, scope.data );
 		return( request.then( 
 			handSuc, 
 			handErr 
@@ -48,7 +48,7 @@ app.service( 'service', function( $http, $q ) {
 	
 	// JackSON formatted json
 	function wrap( json ) {
-		return { data: { friends: json } }
+		return { data: json }
 	}
 	
 	// Error handler
