@@ -5,6 +5,7 @@ JackSON will also convert JSON-LD files to Fuseki served RDF automatically.
 See [JackRDF](http://github.com/caesarfeta/jackrdf).
 
 It was designed for rapidly prototyping Javascript applications.
+For those times when MongoDB is overkill.
 
 ### Install
 Install ruby and gem.
@@ -31,12 +32,12 @@ If you're reading this on GitHub see [API.md](API.md)
 
 If you're reading this on your JackSON instance [click here](/api)
 
-### JackSON and AngularJS
+## JackSON and AngularJS
 JackSON uses 4 different HTTP methods GET, POST, PUT, DELETE to interact with a JSON file at a URL like this one http://127.0.0.1:4567/data/folder/json.
 
-Armed with this knowledge you should be able to to use AngularJS's $http service to interact with JackSON.
+This means you don't have to use the JackSON.js API. AngularJS's $http service works with JackSON as well.
 
-See [examples/angular/index.html](examples/angular/index.html)
+[An example JackSON &amp; AngularJS app](examples/angular/index.html)
 
 ## Contribute
 If you would like to contribute to this project see [DEVELOP.md](DEVELOP.md) for more details.
