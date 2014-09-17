@@ -1,0 +1,23 @@
+{
+	"@context": {
+		"pos": "http://localhost:4567/apps/lexinv/spec.html#pos",
+		"examples": "http://localhost:4567/apps/lexinv/spec.html#examples",
+		"synonyms": {
+			"@id": "http://localhost:4567/data/words/",
+			"@type": "@id"
+		},
+		"submitter": "http://localhost:4567/apps/lexinv/spec.html#submitter"
+	},
+	"pos": "adjective",
+	"examples": [ 
+		"Those cheesy jokes of his.", 
+		"What a cheesy tie he's wearing." 
+	],
+	"synonyms": [
+		"tacky", 
+		"cheap", 
+		"corny", 
+		"cornball"
+	],
+	"submitter": "Dave"
+}

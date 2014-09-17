@@ -1,0 +1,25 @@
+{
+	"@context": {
+		"word": "http://localhost:4567/apps/lexinv/spec.html#word",
+		"pos": "http://localhost:4567/apps/lexinv/spec.html#pos",
+		"examples": "http://localhost:4567/apps/lexinv/spec.html#example",
+		"synonyms": {
+			"@id": "http://localhost:4567/apps/lexinv/spec.html#synonym",
+			"@type": "@id"
+		},
+		"submitter": "http://localhost:4567/apps/lexinv/spec.html#submitter"
+	},
+	"word": "cheesy",
+	"pos": "adjective",
+	"examples": [ 
+		"Those cheesy jokes of his.", 
+		"What a cheesy tie he's wearing." 
+	],
+	"synonyms": [
+		"http://localhost:4567/data/rdf/ld_id/tacky", 
+		"http://localhost:4567/data/rdf/ld_id/cheap", 
+		"http://localhost:4567/data/rdf/ld_id/corny", 
+		"http://localhost:4567/data/rdf/ld_id/cornball"
+	],
+	"submitter": "Dave"
+}

@@ -1,0 +1,24 @@
+{
+	"@context": {
+		"word": "http://localhost:4567/apps/lexinv/spec.html#word",
+		"pos": "http://localhost:4567/apps/lexinv/spec.html#pos",
+		"examples": "http://localhost:4567/apps/lexinv/spec.html#example",
+		"synonyms": {
+			"@id": "http://localhost:4567/apps/lexinv/spec.html#synonym",
+			"@type": "@id"
+		},
+		"submitter": "http://localhost:4567/apps/lexinv/spec.html#submitter"
+	},
+	"word": "tacky",
+	"pos": "adjective",
+	"examples": [ 
+		"A tacky game show" 
+	],
+	"synonyms": [
+		"http://localhost:4567/data/rdf/ld_id/cheesy",
+		"http://localhost:4567/data/rdf/ld_id/cheap",
+		"http://localhost:4567/data/rdf/ld_id/second-rate",
+		"http://localhost:4567/data/rdf/ld_id/gaudy"
+	],
+	"submitter": "Dave"
+}
