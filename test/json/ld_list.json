@@ -1,0 +1,8 @@
+{
+  "@context": {
+    "name": "http://xmlns.com/foaf/0.1/name",
+	"employers": "http://xmlns.com/foaf/0.1/organization"
+  },
+  "name": "Manuel Surly",
+  "employers": [ "Smallville Gazette", "Burger Barn", "Bruno's Bar & Grill" ]
+}

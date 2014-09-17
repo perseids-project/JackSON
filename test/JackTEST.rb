@@ -38,10 +38,10 @@ class JackTEST < Minitest::Test
     { :data => hashit( file ) }
   end
   
-  def api( method, path, file=nil )
+  def api( method, file=nil, path )
     r = nil
     path = url( path )
-    file = hashttp( file )
+    file = hashttp( "json/#{file}" )
     case method.upcase
     when POST
       r = RestClient.post path, file

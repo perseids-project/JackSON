@@ -2,27 +2,26 @@ require_relative 'JackTEST.rb'
 
 # Want to run a single test?
 # You probably do when developing.
-# ruby test_JackSON.rb --name test_AAA_post
+
+# ruby test_rdf.rb --name test_AAB_post_extra
+# ruby test_rdf.rb --name test_AAC_post_list
 
 class TestRDF < JackTEST
   
-  # Create a brand new JSON file
+  # Create a brand new JSON-LD file
   def test_AAA_post
-    assert( false )
+    r = api( POST, 'ld', 'rdf/ld' );
+    assert( true )
   end
   
-  # PUT will change an existing JSON file
-  def test_AAC_put
-    assert( false )
+  def test_AAB_post_extra
+    r = api( POST, 'ld_extra', 'rdf/ld' );
+    assert( true )
   end
   
-  # What you retrieve and what you start with should be the same
-  def test_AAD_get
-    assert( false )
-  end
-  
-  def test_AAE_delete
-    assert( false )
+  def test_AAC_post_list
+    r = api( POST, 'ld_list', 'rdf/ld_list' )
+    assert( true )
   end
     
 end

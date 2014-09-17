@@ -9,7 +9,7 @@ class TestFoobar < JackTEST
   
   # Create a brand new JSON file
   def test_AAA_post
-    r = api( POST, 'test/data', 'json/foo_bar' )
+    r = api( POST, 'foo_bar', 'foo/bar' )
     assert( success?(r) )
   end
   
@@ -17,7 +17,7 @@ class TestFoobar < JackTEST
   def test_AAB_post_dupe
     check = false
     begin
-      api( POST, 'test/data', 'json/foo_blank' )
+      api( POST, 'foo_blank', 'foo/bar' )
     rescue
       check = true
     end
@@ -26,14 +26,14 @@ class TestFoobar < JackTEST
   
   # PUT will change an existing JSON file
   def test_AAC_put
-    r = api( PUT, 'test/data', 'json/foo_blank' )
+    r = api( PUT, 'json/foo_blank', 'foo/bar' )
     assert( success?(r) )
   end
   
   # What you retrieve and what you start with should be the same
   def test_AAD_get
     check = false;
-    r = api( GET, 'test/data' )
+    r = api( GET, nil, 'foo/bar' )
     j = hashit('json/foo_blank')
     if j == r
       check = true;
@@ -42,7 +42,7 @@ class TestFoobar < JackTEST
   end
   
   def test_AAE_delete
-    r = api( DELETE, 'test/data' )
+    r = api( DELETE, nil, 'foo/bar' )
     assert( success?(r) )
   end
     
