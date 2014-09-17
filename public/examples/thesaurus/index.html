@@ -4,11 +4,8 @@
 <body>
 	<div id='content' ng-app='app' ng-controller='controller'>
 		<h1>Examples:Thesaurus</h1>
+		<p>{{ msg }}</p>
 		<table>
-			<tr>
-				<td>Message:</td>
-				<td>{{ msg }}</td>
-			</tr>
 			<tr>
 				<td>Current Word:</td>
 				<td>{{ word }}</td>
@@ -26,6 +23,11 @@
 				<td>{{ save_url }}</td>
 			</tr>
 		</table>
+		
+		<h2>What you're actually saving</h1>
+		<pre>
+			{{ pretty }}
+		</pre>
 		
 		<input ng-model="form.word" placeholder="{{ word }}" type="text" ng-change="change_word()" size="20" />
 	</div>
