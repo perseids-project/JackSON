@@ -60,10 +60,9 @@ which has a property "extra" not defined in @context, when posted to **rdf/ld** 
 You may be wondering why you would ever retrieve source JSON-LD.  Why not just use RDF returned by SPARQL queries?  The answer is, "You'll eventually need to make a list."
 
 ### RDF and Lists
-RDF can't preserve the sequence of items in a list.
-The creators of the RDF standard seem idealogically opposed to it in fact.
+RDF can't easily preserve the sequence of items in a list, which can cause a lot of frustration.
 
-Pretend we are building a job application system.
+For example pretend we are building a job application system.
 We want to store an applicant's last three employers in chronological order.
 We can do this easily with JSON-LD
 
@@ -83,8 +82,8 @@ When this JSON-LD is posted to **rdf/ld_list** it produces RDF like this...
 	<http://localhost:4567/data/rdf/ld_list> <http://xmlns.com/foaf/0.1/organization> "Smallville Gazette"                               
 	<http://localhost:4567/data/rdf/ld_list> <http://xmlns.com/foaf/0.1/organization> "Bruno's Bar & Grill" 
 
-The original sequence of employers is not encoded in these RDF triples.
-Queries might return these triples in any permutation.
+The original sequence of employers is not encoded in these RDF triples,
+which means queries might return these triples in any permutation.
 
 	<http://localhost:4567/data/rdf/ld_list> <http://xmlns.com/foaf/0.1/organization> "Burger Barn"
 	<http://localhost:4567/data/rdf/ld_list> <http://xmlns.com/foaf/0.1/organization> "Bruno's Bar & Grill" 
@@ -93,4 +92,65 @@ Queries might return these triples in any permutation.
 Trying to preserve order in RDF is hard.
 [Smart people are working on it.](http://infolab.stanford.edu/~stefan/daml/order.html)
 
-If you don't want to deal with those headaches just GET the source JSON-LD.
+I think any solution to the problem is going to be cumbersome for developers to use anyway, 
+so if you don't want to deal with those headaches just GET the source JSON-LD, and find the items sequence in the array.
+
+### Literals and URIs
+By default JSON-LD will have its value nodes converted to an RDF-Literal not a URI.
+For example when this JSON-LD...
+
+	{
+		"@context": {
+			"word": "http://localhost:4567/apps/lexinv/spec.html#word",
+			"synonyms": "http://localhost:4567/apps/lexinv/spec.html#synonym"
+		},
+		"word": "cheesy",
+		"synonyms": [
+			"http://localhost:4567/data/rdf/ld_id/tacky", 
+			"http://localhost:4567/data/rdf/ld_id/cheap", 
+			"http://localhost:4567/data/rdf/ld_id/corny", 
+			"http://localhost:4567/data/rdf/ld_id/cornball"
+		]
+	}
+
+is POSTed to **rdf/cheesy** it produces this RDF...
+
+	<http://localhost:4567/data/rdf/cheesy> <http://localhost:4567/apps/lexinv/spec.html#synonym> "http://localhost:4567/data/rdf/tacky"
+	<http://localhost:4567/data/rdf/cheesy> <http://localhost:4567/apps/lexinv/spec.html#synonym> "http://localhost:4567/data/rdf/cheap"
+	<http://localhost:4567/data/rdf/cheesy> <http://localhost:4567/apps/lexinv/spec.html#synonym> "http://localhost:4567/data/rdf/corny"
+	<http://localhost:4567/data/rdf/cheesy> <http://localhost:4567/apps/lexinv/spec.html#synonym> "http://localhost:4567/data/rdf/cornball"
+	<http://localhost:4567/data/rdf/cheesy> <http://localhost:4567/apps/lexinv/spec.html#word>    "cheesy"
+
+The synonym URLs are stored as RDF string literals not URIs.
+
+	"http://localhost:4567/data/rdf/tacky" != <http://localhost:4567/data/rdf/tacky>
+
+They should be stored as URIs because they refer to resources similar to `<http://localhost:4567/data/rdf/cheesy>`,
+and without going into too much detail there are privileges enjoyed by URIs that are not extended to RDF string literals.
+
+Here's the JSON-LD slightly modified to produce the URIs we want...
+
+	{
+		"@context": {
+			"word": "http://localhost:4567/apps/lexinv/spec.html#word",
+			"synonyms": {
+				"@id": "http://localhost:4567/apps/lexinv/spec.html#synonym",
+				"@type": "@id"
+			}
+		},
+		"word": "cheesy",
+		"synonyms": [
+			"http://localhost:4567/data/rdf/ld_id/tacky", 
+			"http://localhost:4567/data/rdf/ld_id/cheap", 
+			"http://localhost:4567/data/rdf/ld_id/corny", 
+			"http://localhost:4567/data/rdf/ld_id/cornball"
+		]
+	}
+
+and here is the RDF it creates...
+
+	<http://localhost:4567/data/rdf/cheesy> <http://localhost:4567/apps/lexinv/spec.html#synonym> <http://localhost:4567/data/rdf/ld_id/tacky>
+	<http://localhost:4567/data/rdf/cheesy> <http://localhost:4567/apps/lexinv/spec.html#synonym> <http://localhost:4567/data/rdf/ld_id/cheap>
+	<http://localhost:4567/data/rdf/cheesy> <http://localhost:4567/apps/lexinv/spec.html#synonym> <http://localhost:4567/data/rdf/ld_id/corny>
+	<http://localhost:4567/data/rdf/cheesy> <http://localhost:4567/apps/lexinv/spec.html#synonym> <http://localhost:4567/data/rdf/ld_id/cornball>
+	<http://localhost:4567/data/rdf/cheesy> <http://localhost:4567/apps/lexinv/spec.html#word>    "cheesy"

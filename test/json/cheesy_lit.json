@@ -1,10 +1,7 @@
 {
 	"@context": {
 		"word": "http://localhost:4567/apps/lexinv/spec.html#word",
-		"synonyms": {
-			"@id": "http://localhost:4567/apps/lexinv/spec.html#synonym",
-			"@type": "@id"
-		}
+		"synonyms": "http://localhost:4567/apps/lexinv/spec.html#synonym"
 	},
 	"word": "cheesy",
 	"synonyms": [
