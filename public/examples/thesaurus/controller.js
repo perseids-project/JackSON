@@ -31,6 +31,10 @@ app.controller("controller", function( $scope, service ){
 		refresh();
 	}
 	
+	$scope.addExample = function() {}
+	
+	$scope.removeExample = function() {}
+	
 	// Save!
 	$scope.save = function() {
 		$scope.data.name = $scope.form.name;

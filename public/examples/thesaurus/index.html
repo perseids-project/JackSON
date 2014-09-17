@@ -24,12 +24,25 @@
 			</tr>
 		</table>
 		
-		<h2>What you're actually saving</h1>
+		<h2>What you are actually saving</h1>
 		<pre>
 			{{ pretty }}
 		</pre>
 		
-		<input ng-model="form.word" placeholder="{{ word }}" type="text" ng-change="change_word()" size="20" />
+		<div>word: <input ng-model="form.word" placeholder="{{ word }}" type="text" ng-change="change_word()" size="20" /></div>
+		<div>examples:
+			<ul>
+				<li ng-repeat="example in examples">
+					{{ example }}
+					<a href="" ng-click="removeExample( example )">X</a>
+				</li>
+			</ul>
+			<form ng-submit="addExample()">
+				<input type="text" ng-model="form.example" size="20" />
+				<input type="submit" value="Add Example" />
+			</form>
+		</div>
+		
 	</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js" type="text/javascript"></script>
 	<script src="app.js" type="text/javascript"></script>
