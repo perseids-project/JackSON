@@ -1,23 +1,20 @@
 {
 	"@context": {
-		"pos": "http://localhost:4567/apps/lexinv/spec.html#pos",
-		"examples": "http://localhost:4567/apps/lexinv/spec.html#examples",
+		"word": "http://localhost:4567/examples/thesaurus/spec.html#word",
+		"examples": "http://localhost:4567/examples/thesaurus/spec.html#example",
 		"synonyms": {
-			"@id": "http://localhost:4567/data/words/",
+			"@id": "http://localhost:4567/examples/thesaurus/spec.html#synonym",
 			"@type": "@id"
-		},
-		"submitter": "http://localhost:4567/apps/lexinv/spec.html#submitter"
+		}
 	},
-	"pos": "adjective",
 	"examples": [ 
-		"Those cheesy jokes of his.", 
-		"What a cheesy tie he's wearing." 
+		"Those cheesy jokes of hers.", 
+		"What a cheesy tie he's wearing!" 
 	],
 	"synonyms": [
-		"tacky", 
-		"cheap", 
-		"corny", 
-		"cornball"
+		"http://localhost:4567/data/examples/thesaurus/tacky", 
+		"http://localhost:4567/data/examples/thesaurus/cheap", 
+		"http://localhost:4567/data/examples/thesaurus/corny", 
+		"http://localhost:4567/data/examples/thesaurus/cornball"
 	],
-	"submitter": "Dave"
 }

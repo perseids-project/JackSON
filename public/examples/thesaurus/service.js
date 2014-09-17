@@ -1,5 +1,5 @@
 app.service( 'service', function( $http, $q ) {
-	
+	/*
 	// Publicly accessible methods
 	return ({
 		start: start,
@@ -66,4 +66,5 @@ app.service( 'service', function( $http, $q ) {
 	function handSuc( r ) {
 		return( r.data );
 	}
+	*/
 });

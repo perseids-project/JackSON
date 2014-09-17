@@ -26,7 +26,7 @@ class TestRDF < JackTEST
   end
   
   def test_AAD_post_id
-    r = api( POST, 'cheesy', 'rdf/cheesy' )
+#    r = api( POST, 'cheesy', 'rdf/cheesy' )
 #    r = api( POST, 'tacky', 'rdf/tacky' )
 #    r = api( POST, 'cheesy_lit', 'rdf/cheesy_lit' )
     assert( true )

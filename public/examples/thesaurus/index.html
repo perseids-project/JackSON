@@ -1,16 +1,33 @@
 <head>
-	<title>Apps:Boilerplate</title>
+	<title>Examples:Thesaurus</title>
 </head>
 <body>
 	<div id='content' ng-app='app' ng-controller='controller'>
-		<h1>Apps:Boilerplate</h1>
-		<h2>{{ data.name }}
-		<p>{{ msg }}</p>
-		<form ng-submit="save()">
-			<input type="text" ng-model="form.name" size="20" />
-			<input type="submit" value="Save" />
-		</form>
-		<a target="_blank" href="/data/{{ url }}">Saved JSON</a><br />
+		<h1>Examples:Thesaurus</h1>
+		<table>
+			<tr>
+				<td>Message:</td>
+				<td>{{ msg }}</td>
+			</tr>
+			<tr>
+				<td>Current Word:</td>
+				<td>{{ word }}</td>
+			</tr>
+			<tr>
+				<td>Application URL:</td>
+				<td>{{ app_url }}</td>
+			</tr>
+			<tr>
+				<td>Database:</td>
+				<td>{{ database }}</td>
+			</tr>
+			<tr>
+				<td>Save URL:</td>
+				<td>{{ save_url }}</td>
+			</tr>
+		</table>
+		
+		<input ng-model="form.word" placeholder="{{ word }}" type="text" ng-change="change_word()" size="20" />
 	</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js" type="text/javascript"></script>
 	<script src="app.js" type="text/javascript"></script>
