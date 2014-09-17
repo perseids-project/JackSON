@@ -55,12 +55,17 @@ which has a property "extra" not defined in @context, when posted to **rdf/ld** 
 	<http://localhost:4567/data/rdf/ld> <http://xmlns.com/foaf/0.1/homepage> "http://manuel.surly.org/"
 	<http://localhost:4567/data/rdf/ld> <http://xmlns.com/foaf/0.1/name> "Manuel Surly"
 
-"extra" values will not be searchable by SPARQL, but can be retrieved pretty easily.  Since the subject of each triple is a URL to the RDF's source JSON-LD file, making a GET request to **http://localhost:4567/data/rdf/ld** will allow you to retrieve any "extra" properties not accessible in RDF.
+"extra" values will not be searchable by SPARQL, but can be retrieved pretty easily.  
+Since the subject of each triple is a URL to the RDF's source JSON-LD file, 
+making a GET request to **http://localhost:4567/data/rdf/ld** will allow you to retrieve any "extra" properties not accessible in RDF.
 
-You may be wondering why you would ever retrieve source JSON-LD.  Why not just use RDF returned by SPARQL queries?  The answer is, "You'll eventually need to make a list."
+You may be wondering why you would ever retrieve source JSON-LD.  
+Why not just use RDF returned by SPARQL queries?  
+The answer is, "You'll eventually need a list."
 
 ### RDF and Lists
-RDF can't easily preserve the sequence of items in a list, which can cause a lot of frustration.
+RDF can't easily preserve the sequence of items in a list, 
+which can cause a lot of frustration.
 
 For example pretend we are building a job application system.
 We want to store an applicant's last three employers in chronological order.
