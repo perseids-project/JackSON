@@ -36,9 +36,9 @@ Remembering to include JQuery and JackSON.js in your application's HTML.
 
 Now your application will be accessible at this URL.
 
-	http://localhost:4567/apps/fungs-db
+	http://localhost:4567/apps/fungus-db
 
-To communicate with the JackSON server from an application on another host you will need to update **JackSON.config.yml**
+Applications that use JackSON can be hosted anywhere with one "gotcha", to communicate with the JackSON server from an application on another host you will need to update **JackSON.config.yml**
 
 	cors: [ 'http://localhost:4567', 'http://localhost:3000', 'http://your.app-host.com' ]
 
