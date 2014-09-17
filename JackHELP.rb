@@ -1,13 +1,13 @@
 require 'pathname'
 class JackHELP
   
+  # Singleton magic
   @@run = JackHELP.new
-  
   def self.run
     return @@run
   end
   
-  # Build the local path to a JSON file from a url
+  # Build the local path to a JSON file from a URL
   def json_file( path, url )
     if url[-5..-1] != '.json'
       url = "#{url}.json"
@@ -23,7 +23,7 @@ class JackHELP
     end
   end
   
-  # Remove empty parent directories recursively.
+  # Remove empty parent directories recursively
   def rm_empty_dirs( dir )
     if ( Dir.entries( dir ) - %w{ . .. .DS_Store } ).empty?
       FileUtils.rm_rf( dir )

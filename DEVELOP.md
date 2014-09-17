@@ -1,6 +1,7 @@
-# Help develop JackSON
-JackSON's preferred development and contribution procedure:
+# Help develop JackSON!
+If you dig this project and want to contribute... thank you, and read on!
 
+## Preferred Development Process
 * GitHub fork
 * write feature's unit tests
 * write feature

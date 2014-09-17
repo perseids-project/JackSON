@@ -1,11 +1,10 @@
 # JackSON
-JackSON is a lightweight server and Javascript API that will create, retrieve, update, and delete JSON files RESTfully.
+JackSON is a lightweight server and Javascript API that will create/POST, retrieve/GET, update/PUT, and delete/DELETE JSON files RESTfully.
 
 JackSON will also convert JSON-LD files to Fuseki served RDF automatically.
 See [JackRDF](http://github.com/caesarfeta/jackrdf).
 
-It was designed for rapidly prototyping Javascript applications.
-For those times when MongoDB is overkill.
+It was designed specifically for rapidly prototyping linked-data web-applications with save and search capabilities.
 
 ## Install
 Install ruby and gem.
@@ -42,24 +41,23 @@ Applications that use JackSON can be hosted anywhere with one "gotcha", to commu
 
 	cors: [ 'http://localhost:4567', 'http://localhost:3000', 'http://your.app-host.com' ]
 
-## Using the JackSON.js API
-If you're reading this on GitHub see [API.md](API.md)
-
-If you're reading this on your JackSON instance [click here](/api)
+## Using  JackSON.js
+* If you're reading this on GitHub see [API.md](API.md)
+* If you're reading this on your JackSON instance [click here](/api)
 
 ## JackSON and AngularJS
-JackSON uses 4 different HTTP methods GET, POST, PUT, DELETE to interact with a JSON file at a URL like this one http://localhost:4567/data/folder/json.
+JackSON.js is a mostly by-the-book RESTful API, so you don't have to use JackSON.js.
+AngularJS's $http service works with JackSON as well.
 
-This means you don't have to use the JackSON.js API. AngularJS's $http service works with JackSON as well.
+Here are some examples to get you started.
 
-[An example JackSON &amp; AngularJS app](examples/angular/index.html)
+* [An example JackSON &amp; AngularJS app](examples/angular/index.html)
+* [Boilerplate JackSON &amp; AngularJS app](apps/boilerplate/index.html)
 
 ## Contribute
-If you would like to contribute to this project see [DEVELOP.md](DEVELOP.md) for more details.
+If you would like to contribute code to this project see [DEVELOP.md](DEVELOP.md) for guidance.
 
 ## Useful Reading
-Manu Sporny talks about the relationshipe between [JSON-LD &amp; RDF](http://manu.sporny.org/2014/json-ld-origins-2/)
-
-[JSON-LD 1.0 W3C Recommendation](http://www.w3.org/TR/json-ld/)
-
-[JSON-LD RDF API Spec](http://json-ld.org/spec/latest/json-ld-rdf/)
+* Manu Sporny talks about the relationshipe between [JSON-LD &amp; RDF](http://manu.sporny.org/2014/json-ld-origins-2/)
+* [JSON-LD 1.0 W3C Recommendation](http://www.w3.org/TR/json-ld/)
+* [JSON-LD RDF API Spec](http://json-ld.org/spec/latest/json-ld-rdf/)

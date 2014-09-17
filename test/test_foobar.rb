@@ -2,7 +2,8 @@ require_relative 'JackTEST.rb'
 
 # Want to run a single test?
 # You probably do when developing.
-# ruby test_JackSON.rb --name test_AAA_post
+
+# ruby test_foobar.rb --name test_AAA_post
 
 class TestFoobar < JackTEST
   

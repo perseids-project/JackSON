@@ -7,12 +7,12 @@ Open your Javascript console and play along!
 
 By default the JackSON.js will communicate with the JackSON server accessible at [http://localhost:4567](http://localhost:4567)
 
-If your JackSON server is elsewhere remember to pass its address in a config object when creating the API object...
+If your JackSON server is elsewhere remember to pass its address in a config object when creating the JackSON.js API object...
 
 	var jack = new JackSON({ url: "http://my.doma.in/jackson" })
 
 ## Methods
-JackSON API method calls are asynchronous, so you have to listen for success and error events...
+JackSON.js is built on top of JQuery and uses it's AJAX system, which means JackSON.js method calls are asynchronous, so you have to listen for success and error events through the DOM...
 
 	$( document ).on( jack.events.success, function( e ) {
 		console.log( jack.result );
@@ -79,7 +79,9 @@ It looks like this.
 	  "avatar": "http://twitter.com/account/profile_image/manuelsurly"
 	}
 
-JSON uploaded to a JackSON server will be checked for a @context key.
+JSON uploaded to a JackSON server will be checked for an @context key.
 If @context exists it will be converted to RDF.
 The JackSON server will then update a SPARQL endpoint with the newly created RDF.  
 The location of the SPARQL endpoint is set with **sparql** in **JackSON.config.yml**.  See [JackRDF](http://github.com/caesarfeta/jackrdf).
+
+Note: A single SPARQL endpoint can be updated by several JackSON servers, which means lots of applications can all be gathering data and indexing them in one place.
