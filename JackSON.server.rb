@@ -174,7 +174,7 @@ get '/data/*' do
   file = json_file( pth )
   if File.exist?( file ) == false
     status 404
-    return { :error => "#{pth} does not exist.  Use POST to create file" }.to_json
+    return { :error => "#{data_url(pth)} does not exist.  Use POST to create file" }.to_json
   end
   File.read( file )
 end
