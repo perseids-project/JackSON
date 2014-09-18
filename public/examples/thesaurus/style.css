@@ -18,6 +18,20 @@ table.tiny td:first-child {
 	text-align: right;
 }
 input[type=text] {
-	padding: 5px;
+	padding: 6px;
 	min-width: 200px;
+}
+.form-g {
+	padding-top: 0.9375em;
+	padding-bottom: 0.9375em;
+}
+.form-g span {
+	display: inline-block;
+	width: 80px;
+	color: #AAA;
+	padding: 0 10px;
+	text-align: right;
+}
+.form-g .button.wide {
+	margin-bottom: 0;
 }
