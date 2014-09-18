@@ -1,5 +1,7 @@
 app.controller("controller", function( $scope, service ){
 	
+	// PROPERTIES
+	
 	// JackSON JSON URL
 	$scope.config = {
 		domain: location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: ''),
@@ -9,8 +11,11 @@ app.controller("controller", function( $scope, service ){
 	$scope.examples = [];
 	$scope.syns = [];
 
-	// What gets saved to the JackSON server.
+	// What is saved to the JackSON server.
     $scope.data = save_data();
+	
+	// Pretty print data for browser viewing.
+	$scope.pretty = angular.toJson( $scope.data, true );
 	
 	// UI input
     $scope.form = {
@@ -19,21 +24,24 @@ app.controller("controller", function( $scope, service ){
 		syn: ""
     };
 	
+	// Configuration table
 	$scope.app_url = app_url();
 	$scope.save_url = save_url();
 	$scope.database = database();
 	
 	// Messages
 	$scope.msg = "MESSAGE";
+
+
+	// METHODS
 	
-	// Scope functions
-	// Change the word!
+	// word change
 	$scope.change_word = function() {
 		$scope.word = $scope.form.word;
 		refresh();
 	}
 	
-	// EXAMPLES!!
+	// examples
 	$scope.addExample = function() {
 		var fe = $scope.form.example;
 		var exs = $scope.examples;
@@ -50,7 +58,7 @@ app.controller("controller", function( $scope, service ){
 		refresh();
 	}
 	
-	// SYNONYMS!!
+	// synonyms
 	$scope.addSyn = function() {
 		var fs = database()+"/"+$scope.form.syn;
 		var s = $scope.syns;
@@ -67,7 +75,7 @@ app.controller("controller", function( $scope, service ){
 		refresh();
 	}
 	
-	// Save!
+	// save the data.
 	$scope.save = function() {
 		service.save( $scope ).then(
 			function( r ) { 
@@ -75,9 +83,6 @@ app.controller("controller", function( $scope, service ){
 			}
 		)
 	}
-	
-	// Pretty print JSON
-	$scope.pretty = angular.toJson( $scope.data, true );
 	
 	function save_data() {
 		return { 
@@ -103,8 +108,7 @@ app.controller("controller", function( $scope, service ){
 	
 	// Return this application's url
 	function app_url() {
-		var c = $scope.config;
-		return c.domain+'/'+c.app;
+		return document.URL;
 	}
 	
 	// Return JackSON data url

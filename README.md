@@ -11,7 +11,7 @@ Install ruby and gem.
 
 Run the installer.
 
-	rake server:install
+	rake install:min
 
 Update the JackSON.config.yml file.
 
@@ -21,6 +21,12 @@ Start the server.
 
 	rake server:start
 
+## UI Development Install
+You'll need NodeJs to run this...
+
+	rake install:ui
+
+... but after you do you'll have some nice UI design tools at your displosal thanks to [Foundation's command client](http://foundation.zurb.com/docs/sass.html).
 
 ## Development
 The quickest way to begin development is to create a folder for your application like this...
@@ -52,7 +58,8 @@ AngularJS's $http service works with JackSON as well.
 Here are some examples to get you started.
 
 * [An example JackSON &amp; AngularJS app](examples/angular/index.html)
-* [Boilerplate JackSON &amp; AngularJS app](apps/boilerplate/index.html)
+* [A more complex example](examples/angular/index.html)
+* [Minimal Boilerplate JackSON &amp; AngularJS app](apps/boilerplate/index.html)
 
 ## Contribute
 If you would like to contribute code to this project see [DEVELOP.md](DEVELOP.md) for guidance.
