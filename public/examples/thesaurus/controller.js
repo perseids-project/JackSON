@@ -22,7 +22,8 @@ app.controller("controller", function( $scope, jackson ){
     $scope.form = {
     	word: "",
 		example: "",
-		syn: ""
+		syn: "",
+		search: "select ?s ?p ?o where { ?s ?p ?o }"
     };
 	
 	// Configuration table

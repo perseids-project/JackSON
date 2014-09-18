@@ -64,4 +64,14 @@ pre {
 	padding: 5px;
 	background-color: #222;
 	color: #CCC;
+	min-height: 200px;
+}
+
+textarea {
+	width: 100%;
+	min-height: 200px;
+}
+
+section {
+	margin-bottom: 40px;
 }

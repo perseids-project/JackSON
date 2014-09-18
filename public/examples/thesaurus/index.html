@@ -41,6 +41,7 @@
 		</div>
 		
 		<!-- INFO TABLE -->
+		<section>
 		<div class="row">
 			<div class="small-12 medium-6 columns">
 				<pre>{{ pretty }}</pre>
@@ -81,11 +82,20 @@
 				</div>
 			</div>
 		</div>
+		</section>
 		
 		<!-- Search Features -->
+		<section>
 		<div class="row">
-			
+			<div class="columns small-12 medium-6">
+				<textarea ng-model="form.search">select ?s ?p ?o where { ?s ?p ?o }</textarea>
+				<input type="submit" value="Query" ng-click="query()" class="button tiny" ></span>
+			</div>
+			<div class="columns small-12 medium-6">
+				<pre class="sparql">{{ sparql_json }}</pre>
+			</div>
 		</div>
+		</section>
 		
 	</div>
 	<!-- Angular -->
