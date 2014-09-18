@@ -9,16 +9,16 @@ app.service( 'service', function( $http, $q ) {
 	function save( scope ) {
 		var request = jackson( 'PUT', scope.save_url, scope.data );
 		return( request.then( 
-			function() { scope.msg = request.data  },
-			function(){ create( scope ) }
+			function( r ) { scope.msg = r.data; return r.data  },
+			function( r ){ return create( scope ) }
 		));
 	}
 	
 	function create( scope ) {
 		var request = jackson( 'POST', scope.save_url, scope.data );
 		return( request.then(
-			function() { scope.msg = request.data; console.log( request )  },
-			function() { scope.msg = request.data  }
+			function( r ) { scope.msg = r.data; return r.data  },
+			function( r ) { scope.msg = r.data; return r.data  }
 		));
 	}
 	

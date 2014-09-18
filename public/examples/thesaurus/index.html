@@ -15,7 +15,7 @@
 		<div class="row">
 			<div class="small-12 columns">
 				<h1>examples:thesaurus</h1>
-				<p>{{ msg }}</p>
+				<p class="message">{{ msg }}</p>
 			</div>
 		</div>
 		
@@ -37,7 +37,7 @@
 					</tr>
 					<tr>
 						<td>Save URL:</td>
-						<td>{{ save_url }}</td>
+						<td><a href="{{ save_url }}" target="_blank">{{ save_url }}</a></td>
 					</tr>
 				</table>
 			</div>
@@ -47,7 +47,7 @@
 				<div><span>word</span><input ng-model="form.word" placeholder="{{ word }}" type="text" ng-change="change_word()" size="20" /></div>
 				
 				<div>
-					<ul>
+					<ul class="tight">
 						<li ng-repeat="example in examples">
 							{{ example }}
 							<a href="" class="button micro secondary" ng-click="removeExample( example )">X</a>
@@ -60,7 +60,7 @@
 				</div>
 				
 				<div>
-					<ul>
+					<ul class="tight">
 						<li ng-repeat="syn in syns">
 							{{ syn }}
 							<a href="" class="button micro secondary" ng-click="removeSyn( syn )">X</a>
