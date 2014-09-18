@@ -7,14 +7,16 @@ app.controller("controller", function( $scope, service ){
 	}
 	$scope.word = 'default';
 	$scope.examples = [];
-	$scope.synonyms = [];
+	$scope.syns = [];
 
 	// What gets saved to the JackSON server.
     $scope.data = save_data();
 	
 	// UI input
     $scope.form = {
-    	word: ""
+    	word: "",
+		example: "",
+		syn: ""
     };
 	
 	$scope.app_url = app_url();
@@ -22,7 +24,7 @@ app.controller("controller", function( $scope, service ){
 	$scope.database = database();
 	
 	// Messages
-	$scope.msg = "";
+	$scope.msg = "MESSAGE";
 	
 	// Scope functions
 	// Change the word!
@@ -31,13 +33,42 @@ app.controller("controller", function( $scope, service ){
 		refresh();
 	}
 	
-	$scope.addExample = function() {}
+	// EXAMPLES!!
+	$scope.addExample = function() {
+		var fe = $scope.form.example;
+		var exs = $scope.examples;
+		if ( in_array( exs, fe ) == false ) {
+			exs.push( fe );
+			refresh();
+			return;
+		}
+		$scope.msg = "example exists";
+	}
 	
-	$scope.removeExample = function() {}
+	$scope.removeExample = function( example ) {
+		rm_in_array( $scope.examples, example );
+		refresh();
+	}
+	
+	// SYNONYMS!!
+	$scope.addSyn = function() {
+		var fs = database()+"/"+$scope.form.syn;
+		var s = $scope.syns;
+		if ( in_array( s, fs ) == false ) {
+			s.push( fs );
+			refresh();
+			return;
+		}
+		$scope.msg = "synonym exists";
+	}
+	
+	$scope.removeSyn = function( synonym ) {
+		rm_in_array( $scope.syns, synonym );
+		refresh();
+	}
 	
 	// Save!
 	$scope.save = function() {
-		$scope.data.name = $scope.form.name;
 		service.save( $scope ).then(
 			function( r ) { 
 				$scope.msg = r;
@@ -53,14 +84,14 @@ app.controller("controller", function( $scope, service ){
 			"@context": {
 				"word": app_url()+"/spec.html#word",
 				"examples": app_url()+"/spec.html#example",
-				"synonyms": {
+				"syns": {
 					"@id": app_url()+"/spec.html#synonym",
 					"@type": "@id"
 				}
 			},
 			"word": $scope.word,
 			"examples": $scope.examples,
-			"synonyms": $scope.synonyms
+			"synonyms": $scope.syns
 		};
 	}
 	
@@ -87,16 +118,21 @@ app.controller("controller", function( $scope, service ){
 		return database()+'/'+$scope.word;
 	}
 	
-	// Start me up!
-	start();
-	function start() {
-		/*
-		service.start( $scope ).then(
-			function( r ) { 
-				$scope.data = r.data;
-				$scope.msg = "Ready!"
+	// Remove matching items from array
+	function rm_in_array( array, item ) {
+		for ( var i = array.length - 1; i >= 0; i-- ) {
+		    if ( array[i] === item ) {
+				array.splice(i, 1);
 			}
-		);
-		*/
+		}
+	}
+	
+	function in_array( array, item ) {
+		for ( var i = array.length - 1; i >= 0; i-- ) {
+		    if ( array[i] === item ) {
+				return true;
+			}
+		}
+		return false;
 	}
 });
