@@ -58,3 +58,10 @@ ul.tight li:before {
 	text-align: center;
 	color: #66AA66;
 }
+
+pre {
+	overflow-x: scroll;
+	padding: 5px;
+	background-color: #222;
+	color: #CCC;
+}

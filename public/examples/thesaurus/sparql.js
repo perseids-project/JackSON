@@ -1,31 +1,23 @@
-app.service( 'service', function( $http, $q ) {
+app.service( 'sparql', function( $http, $q ) {
 
 	// Publicly accessible methods
 	return ({
-		save: save,
+		search: search
 	});
 	
 	// Update data on server
-	function save( scope ) {
-		var request = jackson( 'PUT', scope.save_url, scope.data );
+	function search( scope ) {
+		var request = sparql( 'PUT', scope.config.sparql );
 		return( request.then( 
 			function( r ) { return r.data.success  },
 			function( r ){ return create( scope ) }
 		));
 	}
 	
-	function create( scope ) {
-		var request = jackson( 'POST', scope.save_url, scope.data );
-		return( request.then(
-			function( r ) { return r.data.success  },
-			function( r ) { return r.data.error  }
-		));
-	}
-	
 	// JackSON wrapper
-	function jackson( method, url, data ) {
+	function sparql( url, data ) {
 		return $http({
-			method: method.toUpperCase(),
+			method: 'GET',
 			url: url,
 		    headers: {
 		        'Content-Type': 'application/json'

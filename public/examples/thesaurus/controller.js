@@ -1,13 +1,14 @@
-app.controller("controller", function( $scope, service ){
+app.controller("controller", function( $scope, jackson ){
 	
 	// PROPERTIES
 	
 	// JackSON JSON URL
 	$scope.config = {
 		domain: location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: ''),
-		app: 'examples/thesaurus'
+		app: 'examples/thesaurus',
+		sparql: 'http://127.0.0.1:4321/ds'
 	}
-	$scope.word = 'default';
+	$scope.word = '';
 	$scope.examples = [];
 	$scope.syns = [];
 
@@ -77,11 +78,31 @@ app.controller("controller", function( $scope, service ){
 	
 	// save the data.
 	$scope.save = function() {
-		service.save( $scope ).then(
+		jackson.save( $scope ).then(
 			function( msg ) { 
 				$scope.msg = msg;
 			}
 		)
+	}
+	
+	// get a json file.
+	$scope.gimme = function( url ) {
+		jackson.gimme( url ).then(
+			function( data ) {
+				console.log( data );
+			}
+		)
+	}
+	
+	
+	$scope.clear = function() {
+		$scope.word = '';
+		$scope.examples = [];
+		$scope.syns = [];
+		for ( var key in $scope.form ) {
+			$scope.form[key] = '';
+		}
+		refresh();
 	}
 	
 	function save_data() {
