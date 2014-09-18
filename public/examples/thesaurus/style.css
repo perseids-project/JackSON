@@ -1,0 +1,23 @@
+.button.wide {
+	width: 100%;
+}
+.button.micro {
+	font-size: .5em;
+	padding: .3em .5em;
+}
+.gray-bg {
+	background-color: #EFEFEF;
+}
+table.tiny {
+	font-size: .75em;
+}
+table.tiny td {
+	padding: 0px 10px;
+}
+table.tiny td:first-child {
+	text-align: right;
+}
+input[type=text] {
+	padding: 5px;
+	min-width: 200px;
+}

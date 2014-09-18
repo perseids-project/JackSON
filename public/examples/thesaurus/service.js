@@ -17,7 +17,7 @@ app.service( 'service', function( $http, $q ) {
 	function create( scope ) {
 		var request = jackson( 'POST', scope.save_url, scope.data );
 		return( request.then(
-			function() { scope.msg = request.data  },
+			function() { scope.msg = request.data; console.log( request )  },
 			function() { scope.msg = request.data  }
 		));
 	}

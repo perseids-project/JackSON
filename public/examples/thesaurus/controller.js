@@ -30,7 +30,7 @@ app.controller("controller", function( $scope, service ){
 	$scope.database = database();
 	
 	// Messages
-	$scope.msg = "MESSAGE";
+	$scope.msg = "Welcome!";
 
 
 	// METHODS

@@ -5,65 +5,85 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Examples:Thesaurus</title>
 		<link rel="stylesheet" href="/lib/foundation/css/foundation.css" />
+		<link rel="stylesheet" href="/lib/tables/responsive-tables.css" />
+		<link rel="stylesheet" href="style.css" />
 		<script src="/lib/foundation/js/vendor/modernizr.js"></script>
 	</head>
 <body>
 	<div id='content' ng-app='app' ng-controller='controller'>
-		<h1>Examples:Thesaurus</h1>
-		<p>{{ msg }}</p>
-		<table>
-			<tr>
-				<td>Current Word:</td>
-				<td>{{ word }}</td>
-			</tr>
-			<tr>
-				<td>Application URL:</td>
-				<td>{{ app_url }}</td>
-			</tr>
-			<tr>
-				<td>Database:</td>
-				<td>{{ database }}</td>
-			</tr>
-			<tr>
-				<td>Save URL:</td>
-				<td>{{ save_url }}</td>
-			</tr>
-		</table>
 		
-		<h2>What you are actually saving</h1>
-		<pre>
-			{{ pretty }}
-		</pre>
-		
-		<div>word: <input ng-model="form.word" placeholder="{{ word }}" type="text" ng-change="change_word()" size="20" /></div>
-		
-		<div>examples:
-			<ul>
-				<li ng-repeat="example in examples">
-					{{ example }}
-					<a href="" ng-click="removeExample( example )">X</a>
-				</li>
-			</ul>
-			<form ng-submit="addExample()">
-				<input type="text" ng-model="form.example" size="20" />
-				<input type="submit" value="Add Example" />
-			</form>
+		<div class="row">
+			<div class="small-12 columns">
+				<h1>Examples:Thesaurus</h1>
+				<p>{{ msg }}</p>
+			</div>
 		</div>
 		
-		<div>synonyms:
-			<ul>
-				<li ng-repeat="syn in syns">
-					{{ syn }}
-					<a href="" ng-click="removeSyn( syn )">X</a>
-				</li>
-			</ul>
-			<form ng-submit="addSyn()">
-				<input type="text" ng-model="form.syn" size="20" />
-				<input type="submit" value="Add Synonym" />
-			</form>
+		<!-- INFO TABLE -->
+		<div class="row">
+			<div class="small-12 medium-6 columns">
+				<table class="responsive tiny">
+					<tr>
+						<td>Current Word:</td>
+						<td>{{ word }}</td>
+					</tr>
+					<tr>
+						<td>Application URL:</td>
+						<td>{{ app_url }}</td>
+					</tr>
+					<tr>
+						<td>Database:</td>
+						<td>{{ database }}</td>
+					</tr>
+					<tr>
+						<td>Save URL:</td>
+						<td>{{ save_url }}</td>
+					</tr>
+				</table>
+			</div>
+			
+			<!-- FORM -->
+			<div class="small-12 medium-6 columns gray-bg">
+				<div><span>word</span> <input ng-model="form.word" placeholder="{{ word }}" type="text" ng-change="change_word()" size="20" /></div>
+				
+				<div>
+					<ul>
+						<li ng-repeat="example in examples">
+							{{ example }}
+							<a href="" class="button micro secondary" ng-click="removeExample( example )">X</a>
+						</li>
+					</ul>
+					<form ng-submit="addExample()">
+						<span>example</span><input type="text" ng-model="form.example" size="20" />
+						<input class="button tiny secondary" type="submit" value="Add Example" />
+					</form>
+				</div>
+				
+				<div>
+					<ul>
+						<li ng-repeat="syn in syns">
+							{{ syn }}
+							<a href="" class="button micro secondary" ng-click="removeSyn( syn )">X</a>
+						</li>
+					</ul>
+					<form ng-submit="addSyn()">
+						<span>synonym</span><input type="text" ng-model="form.syn" size="20" />
+						<input class="button tiny secondary" type="submit" value="Add Synonym" />
+					</form>
+				</div>
+				
+				<input class="button tiny wide" type="submit" value="Save" ng-click="save()" />
+			</div>
 		</div>
 		
-		<input type="submit" value="Save" ng-click="save()" />
+		<div class="row">
+			<div class="small-12 columns">
+				<h4>JSON you are saving to JackSON</h4>
+				<pre>
+					{{ pretty }}
+				</pre>
+			</div>
+		</div>
 		
 	</div>
 	<!-- Angular -->
@@ -75,6 +95,7 @@
 	<!-- Foundation -->
     <script src="/lib/foundation/js/vendor/jquery.js"></script>
     <script src="/lib/foundation/js/foundation.min.js"></script>
+	<script src="/lib/tables/responsive-tables.js"></script>
     <script>
       $(document).foundation();
     </script>
