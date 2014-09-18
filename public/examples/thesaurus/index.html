@@ -44,7 +44,7 @@
 			
 			<!-- FORM -->
 			<div class="small-12 medium-6 columns gray-bg form-g">
-				<div><span>word</span><input ng-model="form.word" placeholder="{{ word }}" type="text" ng-change="change_word()" size="20" /></div>
+				<div><input ng-model="form.word" placeholder="word" type="text" ng-change="change_word()" size="20" /></div>
 				
 				<div>
 					<ul class="tight">
@@ -54,7 +54,7 @@
 						</li>
 					</ul>
 					<form ng-submit="addExample()">
-						<span>example</span><input type="text" ng-model="form.example" size="20" />
+						<input placeholder="example" type="text" ng-model="form.example" size="20" />
 						<input class="button tiny secondary" type="submit" value="Add Example" />
 					</form>
 				</div>
@@ -67,7 +67,7 @@
 						</li>
 					</ul>
 					<form ng-submit="addSyn()">
-						<span>synonym</span><input type="text" ng-model="form.syn" size="20" />
+						<input placeholder="synonym" type="text" ng-model="form.syn" size="20" />
 						<input class="button tiny secondary" type="submit" value="Add Synonym" />
 					</form>
 				</div>
