@@ -36,6 +36,10 @@ helpers do
     params[:splat][0]
   end
   
+  def data_url( pth )
+    "#{request.env['rack.url_scheme']}://#{request.host_with_port}/data/#{pth}"
+  end
+  
   # Return JackRDF object
   def jack()
     JackRDF.new( settings.sparql )
@@ -46,7 +50,7 @@ helpers do
   def _post( pth, file )
     if File.exist?( file )
       status 403
-      return { :error => "#{pth} already exists.  Use .put() to change file" }.to_json
+      return { :error => "#{data_url(pth)} already exists.  Use PUT to change" }.to_json
     end
     
     # Create on filesytem
@@ -61,13 +65,13 @@ helpers do
     end
     
     # TODO GIT?
-    { :success => " #{pth} created." }.to_json
+    { :success => " #{data_url(pth)} created" }.to_json
   end
   
   def _delete( pth, file )
     if File.file?( file ) == false || File.directory?( file ) == true
       status 404
-      return { :error => "#{pth} not found."}.to_json
+      return { :error => "#{data_url(pth)} not found"}.to_json
     end
     
     # Delete from filesystem
@@ -82,13 +86,13 @@ helpers do
     end
     
     # TODO GIT?
-    { :success => "#{pth} deleted." }.to_json
+    { :success => "#{data_url(pth)} deleted" }.to_json
   end
   
   def _put( pth, file )
     if File.exist?( file ) == false
       status 404
-      return { :error => "#{pth} does not exist.  Use .post() to create file" }.to_json
+      return { :error => "#{data_url(pth)} does not exist.  Use POST to create" }.to_json
     end
     
     # Update filesystem
@@ -102,7 +106,7 @@ helpers do
     end
     
     # TODO GIT?
-    { :success => "#{pth} updated" }.to_json
+    { :success => "#{data_url(pth)} updated" }.to_json
   end
   
   # Dump an object to the log files
@@ -170,7 +174,7 @@ get '/data/*' do
   file = json_file( pth )
   if File.exist?( file ) == false
     status 404
-    return { :error => "#{pth} does not exist.  Use .post() to create file" }.to_json
+    return { :error => "#{pth} does not exist.  Use POST to create file" }.to_json
   end
   File.read( file )
 end

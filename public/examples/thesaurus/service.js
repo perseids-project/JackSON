@@ -9,7 +9,7 @@ app.service( 'service', function( $http, $q ) {
 	function save( scope ) {
 		var request = jackson( 'PUT', scope.save_url, scope.data );
 		return( request.then( 
-			function( r ) { scope.msg = r.data; return r.data  },
+			function( r ) { return r.data.success  },
 			function( r ){ return create( scope ) }
 		));
 	}
@@ -17,8 +17,8 @@ app.service( 'service', function( $http, $q ) {
 	function create( scope ) {
 		var request = jackson( 'POST', scope.save_url, scope.data );
 		return( request.then(
-			function( r ) { scope.msg = r.data; return r.data  },
-			function( r ) { scope.msg = r.data; return r.data  }
+			function( r ) { return r.data.success  },
+			function( r ) { return r.data.error  }
 		));
 	}
 	

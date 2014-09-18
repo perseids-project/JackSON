@@ -78,8 +78,8 @@ app.controller("controller", function( $scope, service ){
 	// save the data.
 	$scope.save = function() {
 		service.save( $scope ).then(
-			function( r ) { 
-				$scope.msg = r;
+			function( msg ) { 
+				$scope.msg = msg;
 			}
 		)
 	}
