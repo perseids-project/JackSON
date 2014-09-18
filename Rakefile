@@ -11,14 +11,14 @@ desc "Run tests"
 task :default => :test
 
 namespace :server do
-  desc "Start the sinatra server at port 4567"
+  desc "Start the server at port #{@settings["port"]}"
   task :start do
     `ruby JackSON.server.rb`
   end
 end
 
 namespace :app do
-  desc 'Create a new JackSON app in public/apps/'
+  desc 'Create a new app in public/apps/'
   task :ui, [:proj] do
     Dir.chdir( @settings["apps"] );
     `foundation new #{args[:proj]} --libsass`
@@ -47,9 +47,9 @@ namespace :install do
 end
 
 namespace :data do
-  desc 'Destroy all JackSON data'
+  desc 'Destroy all data'
   task :destroy do
-    STDOUT.puts "Are you sure you want to destroy all JackSON data? (y/n)"
+    STDOUT.puts "Are you sure you want to destroy all JSON data? (y/n)"
     input = STDIN.gets.strip
     if input == 'y'
       FileUtils.rm_rf( @settings["path"] )

@@ -12,6 +12,7 @@ require 'logger'
 enable :logging
 
 config_file 'JackSON.config.yml'
+set :port, settings.port
 
 helpers do
     

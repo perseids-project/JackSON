@@ -1,5 +1,6 @@
 path: '/usr/local/JackSON'
 apps: 'public/apps'
+port: 4567
 cors: [ 'http://localhost:4567', 'http://localhost:3000' ]
 sparql: 'http://localhost:4321/ds'
 debug: false
