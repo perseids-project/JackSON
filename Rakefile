@@ -17,6 +17,16 @@ namespace :server do
   end
 end
 
+namespace :app do
+  desc 'Create a new JackSON app in public/apps/'
+  task :ui, [:proj] do
+    Dir.chdir( @settings["apps"] );
+    `foundation new #{args[:proj]} --libsass`
+    Dir.chdir( "#{@settings["apps"]}/#{args[:proj]}" );
+    `grunt build`
+  end
+end
+
 namespace :install do
   desc 'Minimum install'
   task :min do
