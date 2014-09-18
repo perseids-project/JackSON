@@ -91,7 +91,7 @@ app.controller("controller", function( $scope, service ){
 			},
 			"word": $scope.word,
 			"examples": $scope.examples,
-			"synonyms": $scope.syns
+			"syns": $scope.syns
 		};
 	}
 	
