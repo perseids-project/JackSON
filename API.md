@@ -12,7 +12,7 @@ If your JackSON server is elsewhere remember to pass its address in a config obj
 	var jack = new JackSON({ url: "http://my.doma.in/jackson" })
 
 ## Methods
-JackSON.js is built on top of JQuery and uses it's AJAX system, which means JackSON.js method calls are asynchronous, so you have to listen for success and error events through the DOM...
+JackSON.js is built on top of JQuery and uses its AJAX system, which means JackSON.js method calls are asynchronous, so you have to listen for success and error events through the DOM...
 
 	$( document ).on( jack.events.success, function( e ) {
 		console.log( jack.result );
