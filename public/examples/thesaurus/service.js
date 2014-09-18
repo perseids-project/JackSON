@@ -9,7 +9,7 @@ app.service( 'service', function( $http, $q ) {
 	function save( scope ) {
 		var request = jackson( 'PUT', scope.save_url, scope.data );
 		return( request.then( 
-			handSuc, 
+			function() { scope.msg = request.data  },
 			function(){ create( scope ) }
 		));
 	}
@@ -17,8 +17,8 @@ app.service( 'service', function( $http, $q ) {
 	function create( scope ) {
 		var request = jackson( 'POST', scope.save_url, scope.data );
 		return( request.then(
-			handSuc,
-			handErr
+			function() { scope.msg = request.data  },
+			function() { scope.msg = request.data  }
 		));
 	}
 	
@@ -37,21 +37,5 @@ app.service( 'service', function( $http, $q ) {
 	// JackSON formatted json
 	function wrap( json ) {
 		return { data: json }
-	}
-	
-	// Error handler
-	function handErr( r ) {
-		if (
-			! angular.isObject( r.data ) ||
-			! r.data.message
-		) {
-			return( $q.reject( "An unknown error occurred." ) );
-		}
-		return( $q.reject( r.data.message ) );
-	}
-
-	// Success handler	
-	function handSuc( r ) {
-		return( r.data );
-	}
+	}	
 });
