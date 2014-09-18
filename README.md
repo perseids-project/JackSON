@@ -1,10 +1,10 @@
 # JackSON
 JackSON is a lightweight server and Javascript API that will create/POST, retrieve/GET, update/PUT, and delete/DELETE JSON files RESTfully.
 
-JackSON will also convert JSON-LD files to Fuseki served RDF automatically.
+JackSON can also convert JSON-LD files to Fuseki served RDF automatically.
 See [JackRDF](http://github.com/caesarfeta/jackrdf).
 
-It was designed specifically for rapidly prototyping linked-data web-applications with save and search capabilities.
+It was designed specifically for rapidly prototyping linked-data web applications with save and search capabilities.
 
 ## Install
 Install ruby and gem.
@@ -21,15 +21,16 @@ Start the server.
 
 	rake server:start
 
-## UI Development Install
+## UI Devkit Install
 You'll need NodeJs to run this...
 
 	rake install:ui
 
-... but after you do you'll have some nice UI design tools at your displosal thanks to [Foundation's command client](http://foundation.zurb.com/docs/sass.html).
+... but after you do you'll have some nice UI design tools at your displosal thanks to [Foundation and their 'foundation' command client](http://foundation.zurb.com/docs/sass.html).
 
-## Development
-The quickest way to begin development is to create a folder for your application like this...
+## Create a JackSON served App
+### Manually
+Create a folder for your application like this...
 
 	mkdir public/apps/fungus-db
 
@@ -43,6 +44,11 @@ Now your application will be accessible at this URL.
 
 	http://localhost:4567/apps/fungus-db
 
+### With UI Devkit
+
+	
+
+## Applications hosted elsewhere
 Applications that use JackSON can be hosted anywhere with one "gotcha", to communicate with the JackSON server from an application on another host you will need to update **JackSON.config.yml**
 
 	cors: [ 'http://localhost:4567', 'http://localhost:3000', 'http://your.app-host.com' ]
@@ -53,12 +59,12 @@ Applications that use JackSON can be hosted anywhere with one "gotcha", to commu
 
 ## JackSON and AngularJS
 JackSON.js is a mostly by-the-book RESTful API, so you don't have to use JackSON.js.
-AngularJS's $http service works with JackSON as well.
+AngularJS's $http service works with JackSON too.
 
 Here are some examples to get you started.
 
 * [An example JackSON &amp; AngularJS app](examples/angular/index.html)
-* [A more complex example](examples/angular/index.html)
+* [A more complex example](examples/thesaurus/index.html)
 * [Minimal Boilerplate JackSON &amp; AngularJS app](apps/boilerplate/index.html)
 
 ## Contribute

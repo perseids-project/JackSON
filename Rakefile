@@ -11,8 +11,6 @@ desc "Run tests"
 task :default => :test
 
 namespace :server do
-
-  
   desc "Start the sinatra server at port 4567"
   task :start do
     `ruby JackSON.server.rb`
@@ -28,6 +26,13 @@ namespace :install do
     `gem install markup`
     `gem install github-markup`
     `gem install JackRDF`
+  end
+  
+  desc 'Install UI toolkit'
+  task :ui do
+    `sudo npm install -g bower grunt-cli`
+    `sudo gem install foundation`
+    `rbenv rehash`
   end
 end
 
