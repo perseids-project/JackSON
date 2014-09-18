@@ -21,7 +21,7 @@ Start the server.
 
 	rake server:start
 
-## UI Devkit Install
+## Install UI Devkit
 You'll need NodeJs to run this...
 
 	rake install:ui
@@ -45,8 +45,17 @@ Now your application will be accessible at this URL.
 	http://localhost:4567/apps/fungus-db
 
 ### With UI Devkit
+Create a new app in **public/apps/test_app** with the 'foundation' command.
 
-	
+	rake app:ui[test_app]
+
+* This is currently broken on OSX Mavericks.  
+
+Here's the error:
+
+	Warning: bower_components/foundation/scss/foundation/functions:13: error: error reading values after )
+
+[It's a known problem.](http://foundation.zurb.com/forum/posts/19063-grunt---error-error-reading-values-after----libsass)
 
 ## Applications hosted elsewhere
 Applications that use JackSON can be hosted anywhere with one "gotcha", to communicate with the JackSON server from an application on another host you will need to update **JackSON.config.yml**
