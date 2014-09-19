@@ -16,22 +16,17 @@
 	</head>
 <body>
 	<div id='content' ng-app='app' ng-controller='controller'>
-		
+		<div class="row">
+			<div class="small-12 columns">
+				<h1>examples:thesaurus</h1>
+			</div>
+		</div>
 		<div class="row">
 			<div class="small-12 medium-6 columns">
-				<h1>examples:thesaurus</h1>
 				<p class="message">{{ msg }}</p>
 			</div>
 			<div class="small-12 medium-6 columns">
 				<table class="responsive tiny">
-					<tr>
-						<td>Application URL:</td>
-						<td>{{ app_url }}</td>
-					</tr>
-					<tr>
-						<td>Database:</td>
-						<td>{{ database }}</td>
-					</tr>
 					<tr>
 						<td>Save URL:</td>
 						<td><a href="{{ save_url }}" target="_blank">{{ save_url }}</a></td>
