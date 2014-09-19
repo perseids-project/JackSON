@@ -20,7 +20,7 @@ end
 namespace :app do
   desc 'Create a new app in public/apps/'
   task :ui, :proj do |t,args|
-    Dir.chdir( @settings["apps"] );
+    Dir.chdir( @settings["apps"] )
     `foundation new #{args[:proj]} --libsass`
   end
 end
