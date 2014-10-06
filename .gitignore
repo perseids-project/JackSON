@@ -45,9 +45,9 @@ Thumbs.db
 /SCRATCH.md
 /scratch
 
-# Save application and data to git/GitHub? Remove this #
-# apps, validators, and data are ignored by default    #
-########################################################
+# Save application and data to git/GitHub? Remove this. #
+# apps, validators, and data are ignored by default     #
+#########################################################
 /data
 /validate
 /public/apps
