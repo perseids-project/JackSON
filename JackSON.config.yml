@@ -1,4 +1,4 @@
-path: '/var/www/JackSON/data'
+path: 'data'
 apps: 'public/apps'
 port: 4567
 cors: [ 'http://localhost:4567', 'http://localhost:3000' ]

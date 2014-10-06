@@ -19,7 +19,7 @@ end
 
 namespace :app do
   desc 'Create a new app in public/apps/'
-  task :create, :proj do |t,args|
+  task :make, :proj do |t,args|
     
     # Input check
     proj = args[:proj]
@@ -40,12 +40,19 @@ namespace :app do
     FileUtils.cp_r( '../boilerplate/angular', 'angular' )
     FileUtils.cp( '../boilerplate/.foundation.html', 'index.html' )
     
+    # Replace strings in the angular/*.js files
+    Dir.glob( 'angular/*.js' ) do |fn|
+      text = File.read(fn)
+      replace = text.gsub( 'boilerplate', proj )
+      File.open(fn,'w'){ |file| file.puts replace }
+    end
+    
     # Compass will watch SCSS updates
     `bundle exec compass watch`
   end
   
   desc 'Delete an app in public/apps/'
-  task :delete, :proj do |t,args|
+  task :rm, :proj do |t,args|
     proj = args[:proj]
     if proj.nil?
       throw "A project name is needed -- rake app:create['name']"
