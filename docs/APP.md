@@ -159,3 +159,16 @@ and here is the RDF it creates...
 	<http://localhost:4567/data/rdf/cheesy> <http://localhost:4567/apps/lexinv/spec.html#synonym> <http://localhost:4567/data/rdf/ld_id/corny>
 	<http://localhost:4567/data/rdf/cheesy> <http://localhost:4567/apps/lexinv/spec.html#synonym> <http://localhost:4567/data/rdf/ld_id/cornball>
 	<http://localhost:4567/data/rdf/cheesy> <http://localhost:4567/apps/lexinv/spec.html#word>    "cheesy"
+
+### Validate uploaded JSON
+Validate uploaded JSON to ensure it adheres to a defined standard.
+This is easily done with JackSON.
+
+Create the same directory structure as the saved JSON file.
+Data saved to...
+
+	data/apps/my-app/save/data.json
+
+...will be validated by...
+
+	validate/apps/my-app/save/validate.json
