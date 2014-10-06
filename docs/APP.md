@@ -214,6 +214,9 @@ validate.json's @context key must match data.json explicitly.
 The other keys map to objects that contain two possible values.
 
 * type
+	* Acceptable values: [ "String", "Integer", "Float", "Array" ]
 * regex
 
-If a key-value pair exists in data.json that is not in validate.json you will receive a warning in the JSON object returned by the JackSON server.
+If values in **data.json** do not match the type or fail the regex check it will not be saved and the server will return an ERROR HTTP code.
+
+If a key-value pair exists in **data.json** that is not in **validate.json** it will still be saved and the server will return a SUCCESS HTTP code, but you will receive a warning in the SUCCESS JSON object.

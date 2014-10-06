@@ -57,7 +57,7 @@ Here are some examples to get you started.
 * [A more complex example](examples/thesaurus/index.html)
 * [Minimal Boilerplate JackSON &amp; AngularJS app](apps/boilerplate/index.html)
 
-### more info...
+### more info on JackSON app development...
 See **docs/APP.md**
 
 ## Contribute
