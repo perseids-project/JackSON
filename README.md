@@ -21,8 +21,7 @@ Start the server.
 	rake server:start
 
 ### Using  JackSON.js
-* If you're reading this on GitHub see [API.md](docs/API.md)
-* If you're reading this on your JackSON instance [click here](/api)
+See **docs/API.md**
 
 ### CORS "Cross-origin resource sharing"
 Applications that use JackSON can be hosted anywhere with one "gotcha", to communicate with the JackSON server from an application on another host you will need to update **JackSON.config.yml**
@@ -45,18 +44,21 @@ Run this to create a JackSON app in apps/name
 	rake app:make['name']
 
 
-## JackSON and AngularJS
+### JackSON and AngularJS
 JackSON.js is a mostly by-the-book RESTful API, so you don't have to use JackSON.js.
 AngularJS's $http service works with JackSON too.
 
 Here are some examples to get you started.
+
+	Note: If you click these links from GitHub they won't work.
+	You have to be browsing this README from your own JackSON server instance...
 
 * [An example JackSON &amp; AngularJS app](examples/angular/index.html)
 * [A more complex example](examples/thesaurus/index.html)
 * [Minimal Boilerplate JackSON &amp; AngularJS app](apps/boilerplate/index.html)
 
 ## Contribute
-If you would like to contribute code to this project see [DEVELOP.md](docs/DEVELOP.md) for guidance.
+If you would like to contribute code to this project see **docs/DEVELOP.md** for guidance.
 
 ## Useful Reading
 * Manu Sporny talks about the relationshipe between [JSON-LD &amp; RDF](http://manu.sporny.org/2014/json-ld-origins-2/)
