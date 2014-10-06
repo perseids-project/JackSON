@@ -63,7 +63,7 @@ Applications that use JackSON can be hosted anywhere with one "gotcha", to commu
 	cors: [ 'http://localhost:4567', 'http://localhost:3000', 'http://your.app-host.com' ]
 
 ## Using  JackSON.js
-* If you're reading this on GitHub see [API.md](API.md)
+* If you're reading this on GitHub see [API.md](docs/API.md)
 * If you're reading this on your JackSON instance [click here](/api)
 
 ## JackSON and AngularJS

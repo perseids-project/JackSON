@@ -164,7 +164,7 @@ end
 
 get '/api' do
   content_type :html
-  md = GitHub::Markup.render( 'API.md' )
+  md = GitHub::Markup.render( 'docs/API.md' )
   erb :api, :locals => { :md => md }
 end
 

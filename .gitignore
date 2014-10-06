@@ -44,3 +44,7 @@ Thumbs.db
 #################
 /SCRATCH.md
 /scratch
+
+# JSON data ignored by default #
+################################
+/data
