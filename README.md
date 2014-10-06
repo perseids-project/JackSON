@@ -7,8 +7,6 @@ See [JackRDF](http://github.com/caesarfeta/jackrdf).
 It was designed specifically for rapidly prototyping linked-data web applications with save and search capabilities.
 
 ## Basics
-If you're just interested in using JackSON for it's RESTful API data service...
-
 ### Install
 Install ruby and gem.
 

@@ -161,11 +161,13 @@ and here is the RDF it creates...
 	<http://localhost:4567/data/rdf/cheesy> <http://localhost:4567/apps/lexinv/spec.html#word>    "cheesy"
 
 ### Validate uploaded JSON
+TODO: Write the code to do this...
+
 Validate uploaded JSON to ensure it adheres to a defined standard.
 This is easily done with JackSON.
 
 Create the same directory structure as the saved JSON file.
-Data saved to...
+For example, data saved to...
 
 	data/apps/my-app/save/data.json
 
@@ -173,10 +175,45 @@ Data saved to...
 
 	validate/apps/my-app/save/validate.json
 
-Here's what **data/apps/my-app/save/data.json** file looks like...
+Here's what **data/apps/my-app/save/data.json** looks like...
 
-	TODO: data.json
+	{ 
+		"@context": {
+			"word": "http://sample.org/rdf/spec.html#word",
+			"examples": "http://sample.org/rdf/spec.html#example",
+			"syns": {
+				"@id": "http://sample.org/rdf/spec.html#synonym",
+				"@type": "@id"
+			}
+		},
+		"word": "sample",
+		"examples": [ "Would you like to taste a sample? Free of charge." ],
+		"syns": [ "http://sample.org/data/example", "http://sample.org/data/example/model" ]
+	}
 
-Here's what **validate/apps/my-app/save/validate.json** file looks like...
+Here's what **validate/apps/my-app/save/validate.json** looks like...
 
-	TODO: validate.json
+	{ 
+		"@context": {
+			"word": "http://sample.org/rdf/spec.html#word",
+			"examples": "http://sample.org/rdf/spec.html#example",
+			"syns": {
+				"@id": "http://sample.org/rdf/spec.html#synonym",
+				"@type": "@id"
+			}
+		},
+		"word": { "type":"String" },
+		"examples": { "type":"Array" },
+		"syns": {
+			"type":"Array",
+			"regex":"/^http:\/\/sample.org\/data\//"
+		}
+	}
+
+validate.json's @context key must match data.json explicitly.
+The other keys map to objects that contain two possible values.
+
+* type
+* regex
+
+If a key-value pair exists in data.json that is not in validate.json you will receive a warning in the JSON object returned by the JackSON server.
