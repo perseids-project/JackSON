@@ -30,6 +30,8 @@ Applications that use JackSON can be hosted anywhere with one "gotcha", to commu
 
 That's it for basics!
 
+
+
 ## Create a JackSON app
 If you want to create a JackSON app with AngularJS and Foundation boilerplate code...
 
@@ -57,8 +59,12 @@ Here are some examples to get you started.
 * [A more complex example](examples/thesaurus/index.html)
 * [Minimal Boilerplate JackSON &amp; AngularJS app](apps/boilerplate/index.html)
 
+
+
 ## Contribute
 If you would like to contribute code to this project see **docs/DEVELOP.md** for guidance.
+
+
 
 ## Useful Reading
 * Manu Sporny talks about the relationshipe between [JSON-LD &amp; RDF](http://manu.sporny.org/2014/json-ld-origins-2/)
