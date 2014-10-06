@@ -26,7 +26,7 @@ class TestFoobar < JackTEST
   
   # PUT will change an existing JSON file
   def test_AAC_put
-    r = api( PUT, 'json/foo_blank', 'foo/bar' )
+    r = api( PUT, 'foo_blank', 'foo/bar' )
     assert( success?(r) )
   end
   
@@ -34,7 +34,7 @@ class TestFoobar < JackTEST
   def test_AAD_get
     check = false;
     r = api( GET, nil, 'foo/bar' )
-    j = hashit('json/foo_blank')
+    j = hashit('foo_blank')
     if j == r
       check = true;
     end

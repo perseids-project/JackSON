@@ -29,8 +29,8 @@ class JackTEST < Minitest::Test
   end
   
   def hashit( file )
-    return {} if file ==nil
-    file = JackHELP.run.json_file( File.dirname(__FILE__), file )
+    return {} if file == nil
+    file = JackHELP.run.json_file( File.dirname(__FILE__), "json/#{file}" )
     JSON.parse( File.read( file ) )
   end
   
@@ -41,7 +41,7 @@ class JackTEST < Minitest::Test
   def api( method, file=nil, path )
     r = nil
     path = url( path )
-    file = hashttp( "json/#{file}" )
+    file = hashttp( file )
     case method.upcase
     when POST
       r = RestClient.post path, file
@@ -50,7 +50,7 @@ class JackTEST < Minitest::Test
     when GET
       r = RestClient.get path
     when DELETE
-      r = RestClient.delete path, file
+      r = RestClient.delete path
     end
     JSON.parse( r )
   end

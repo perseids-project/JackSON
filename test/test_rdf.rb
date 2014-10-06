@@ -16,7 +16,7 @@ class TestRDF < JackTEST
   end
   
   def test_AAB_post_extra
-    r = api( POST, 'ld_extra', 'rdf/ld' )
+    r = api( POST, 'ld_extra', 'rdf/ld_extra' )
     assert( true )
   end
   
