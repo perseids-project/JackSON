@@ -35,10 +35,13 @@ namespace :app do
     `foundation new #{proj}`
     Dir.chdir( proj )
     `bundle`
-    `bundle exec compass watch`
     
     # Add Angular
+    FileUtils.cp_r( '../boilerplate/angular', 'angular' )
+    FileUtils.cp( '../boilerplate/.foundation.html', 'index.html' )
     
+    # Compass will watch SCSS updates
+    `bundle exec compass watch`
   end
   
   desc 'Delete an app in public/apps/'
