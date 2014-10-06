@@ -6,65 +6,44 @@ See [JackRDF](http://github.com/caesarfeta/jackrdf).
 
 It was designed specifically for rapidly prototyping linked-data web applications with save and search capabilities.
 
-## Install
+## Basics
+If you're just interested in using JackSON for it's RESTful API data service...
+
+### Install
 Install ruby and gem.
 
 Run the installer.
 
 	rake install:min
 
-Update the JackSON.config.yml file.
-
-	path: '/where/you/will/store/the/json/files'
-
 Start the server.
 
 	rake server:start
 
-## Install UI Devkit
-You'll need NodeJs to run this...
+### Using  JackSON.js
+* If you're reading this on GitHub see [API.md](docs/API.md)
+* If you're reading this on your JackSON instance [click here](/api)
 
-	rake install:ui
-
-... but after you do you'll have some nice UI design tools at your displosal thanks to [Foundation and their 'foundation' command client](http://foundation.zurb.com/docs/sass.html).
-
-## Create a JackSON served App
-### Manually
-Create a folder for your application like this...
-
-	mkdir public/apps/fungus-db
-
-Create the HTML, CSS, and Javascript files you need.
-Remembering to include JQuery and JackSON.js in your application's HTML.
-
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-	<script src="http://your.jackson-server.com/JackSON.js"></script>
-
-Now your application will be accessible at this URL.
-
-	http://localhost:4567/apps/fungus-db
-
-### With UI Devkit
-Create a new app in **public/apps/test_app** with the 'foundation' command.
-
-	rake app:ui[test_app]
-
-* This is currently broken on OSX Mavericks.  
-
-Here's the error:
-
-	Warning: bower_components/foundation/scss/foundation/functions:13: error: error reading values after )
-
-[It's a known problem.](http://foundation.zurb.com/forum/posts/19063-grunt---error-error-reading-values-after----libsass)
-
-## Applications hosted elsewhere
+### CORS "Cross-origin resource sharing"
 Applications that use JackSON can be hosted anywhere with one "gotcha", to communicate with the JackSON server from an application on another host you will need to update **JackSON.config.yml**
 
 	cors: [ 'http://localhost:4567', 'http://localhost:3000', 'http://your.app-host.com' ]
 
-## Using  JackSON.js
-* If you're reading this on GitHub see [API.md](docs/API.md)
-* If you're reading this on your JackSON instance [click here](/api)
+That's it for basics!
+
+## Create a JackSON app
+If you want to create a JackSON app with AngularJS and Foundation boilerplate code...
+
+[Install NodeJS](http://nodejs.org/)
+
+Run this to install required command line tools.
+
+	rake install:ui
+
+Run this to create a JackSON app in apps/name
+
+	rake app:make['name']
+
 
 ## JackSON and AngularJS
 JackSON.js is a mostly by-the-book RESTful API, so you don't have to use JackSON.js.
@@ -77,7 +56,7 @@ Here are some examples to get you started.
 * [Minimal Boilerplate JackSON &amp; AngularJS app](apps/boilerplate/index.html)
 
 ## Contribute
-If you would like to contribute code to this project see [DEVELOP.md](DEVELOP.md) for guidance.
+If you would like to contribute code to this project see [DEVELOP.md](docs/DEVELOP.md) for guidance.
 
 ## Useful Reading
 * Manu Sporny talks about the relationshipe between [JSON-LD &amp; RDF](http://manu.sporny.org/2014/json-ld-origins-2/)
