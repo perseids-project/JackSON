@@ -4,11 +4,20 @@ require 'yaml'
 @settings = YAML.load( File.read( "JackSON.config.yml" ) )
 
 Rake::TestTask.new do |t|
-  t.libs << 'test'
+  t.libs = ['test']
+  t.warning = true
+  t.verbose = true
+  t.test_files = FileList[ 'test/unit/*rb', 'test/integration/*rb' ]
 end
 
 desc "Run tests"
 task :default => :test
+
+desc "Start a development console"
+task :console do
+  dir = File.dirname(__FILE__)
+  exec "irb -I #{dir} -r 'JackSON.server.rb'"
+end
 
 namespace :server do
   desc "Start the server at port #{@settings["port"]}"

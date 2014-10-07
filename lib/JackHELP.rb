@@ -8,12 +8,19 @@ class JackHELP
   end
   
   # Build the local path to a JSON file from a URL
-  def json_file( path, url )
+  def json_file( url )
     if url[-5..-1] != '.json'
       url = "#{url}.json"
     end
-    url = Pathname.new( url ).cleanpath.to_s
-    File.join( path, url )
+    Pathname.new( url ).cleanpath.to_s
+  end
+  
+  def hashit( file )
+    if file == nil
+      throw "No file was passed"
+    end
+    json = json_file( file )
+    JSON.parse( File.read( json ) )
   end
   
   # Write the JSON file

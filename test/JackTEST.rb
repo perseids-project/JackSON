@@ -2,7 +2,7 @@ require 'minitest/autorun'
 require 'benchmark'
 require 'rest_client'
 require 'json'
-require_relative '../JackHELP.rb'
+require_relative '../lib/JackHELP.rb'
 
 # Want to run a single test?
 # You probably do when developing.
@@ -29,9 +29,9 @@ class JackTEST < Minitest::Test
   end
   
   def hashit( file )
-    return {} if file ==nil
-    file = JackHELP.run.json_file( File.dirname(__FILE__), file )
-    JSON.parse( File.read( file ) )
+    return {} if file == nil
+    dir = File.dirname(__FILE__)
+    return JackHELP.run.hashit( "#{dir}/data/#{file}" )
   end
   
   def hashttp( file )
@@ -41,7 +41,7 @@ class JackTEST < Minitest::Test
   def api( method, file=nil, path )
     r = nil
     path = url( path )
-    file = hashttp( "json/#{file}" )
+    file = hashttp( file )
     case method.upcase
     when POST
       r = RestClient.post path, file
@@ -50,7 +50,7 @@ class JackTEST < Minitest::Test
     when GET
       r = RestClient.get path
     when DELETE
-      r = RestClient.delete path, file
+      r = RestClient.delete path
     end
     JSON.parse( r )
   end

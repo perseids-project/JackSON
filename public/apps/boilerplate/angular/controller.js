@@ -1,7 +1,7 @@
 app.controller("controller", function( $scope, service ){
 	
 	// JackSON JSON URL
-	$scope.url = 'apps/boilerplate'
+	$scope.url = 'apps/boilerplate/data'
 	
 	// Default data
 	$scope.default = { name: "Your Data Here!" };

@@ -1,0 +1,16 @@
+{ 
+	"@context": {
+		"word": "http://sample.org/rdf/spec.html#word",
+		"examples": "http://sample.org/rdf/spec.html#example",
+		"syns": {
+			"@id": "http://sample.org/rdf/spec.html#synonym",
+			"@type": "@id"
+		}
+	},
+	"word": { "type":"String" },
+	"examples": { "type":"Array" },
+	"syns": {
+		"type":"Array",
+		"regex":"^http://sample.org/data/"
+	}
+}

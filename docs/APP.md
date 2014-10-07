@@ -159,3 +159,64 @@ and here is the RDF it creates...
 	<http://localhost:4567/data/rdf/cheesy> <http://localhost:4567/apps/lexinv/spec.html#synonym> <http://localhost:4567/data/rdf/ld_id/corny>
 	<http://localhost:4567/data/rdf/cheesy> <http://localhost:4567/apps/lexinv/spec.html#synonym> <http://localhost:4567/data/rdf/ld_id/cornball>
 	<http://localhost:4567/data/rdf/cheesy> <http://localhost:4567/apps/lexinv/spec.html#word>    "cheesy"
+
+### Validate uploaded JSON
+TODO: Write the code to do this...
+
+Validate uploaded JSON to ensure it adheres to a defined standard.
+This is easily done with JackSON.
+
+Create the same directory structure as the saved JSON file.
+For example, data saved to...
+
+	data/apps/my-app/save/data.json
+
+...will be validated by...
+
+	validate/apps/my-app/save/validate.json
+
+Here's what **data/apps/my-app/save/data.json** looks like...
+
+	{ 
+		"@context": {
+			"word": "http://sample.org/rdf/spec.html#word",
+			"examples": "http://sample.org/rdf/spec.html#example",
+			"syns": {
+				"@id": "http://sample.org/rdf/spec.html#synonym",
+				"@type": "@id"
+			}
+		},
+		"word": "sample",
+		"examples": [ "Would you like to taste a sample? Free of charge." ],
+		"syns": [ "http://sample.org/data/example", "http://sample.org/data/example/model" ]
+	}
+
+Here's what **validate/apps/my-app/save/validate.json** looks like...
+
+	{ 
+		"@context": {
+			"word": "http://sample.org/rdf/spec.html#word",
+			"examples": "http://sample.org/rdf/spec.html#example",
+			"syns": {
+				"@id": "http://sample.org/rdf/spec.html#synonym",
+				"@type": "@id"
+			}
+		},
+		"word": { "type":"String" },
+		"examples": { "type":"Array" },
+		"syns": {
+			"type":"Array",
+			"regex":"/^http:\/\/sample.org\/data\//"
+		}
+	}
+
+validate.json's @context key must match data.json explicitly.
+The other keys map to objects that contain two possible values.
+
+* type
+	* Acceptable values: [ "String", "Integer", "Float", "Array" ]
+* regex
+
+If values in **data.json** do not match the type or fail the regex check it will not be saved and the server will return an ERROR HTTP code.
+
+If a key-value pair exists in **data.json** that is not in **validate.json** it will still be saved and the server will return a SUCCESS HTTP code, but you will receive a warning in the SUCCESS JSON object.
