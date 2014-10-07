@@ -11,6 +11,6 @@
 	"examples": { "type":"Array" },
 	"syns": {
 		"type":"Array",
-		"regex":"/^http:\/\/sample.org\/data\//"
+		"regex":"^http://sample.org/data/"
 	}
 }

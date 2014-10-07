@@ -53,8 +53,27 @@ class JackVALID
   end
   
   # JackVALID.run.regex( 'test/data/sample', 'test/validate/sample' )
-  def regex()
+  def regex( json, validator )
     pair( json, validator )
+    @validator[:data].each do |key, val|
+      next if key == '@context'
+      next if val.has_key?('regex') == false
+      next if @json[:data].has_key?(key) == false
+      data = @json[:data][key]
+      regex = Regexp.new(val['regex'])
+      if data.respond_to?(:each)
+        data.each do |item|
+          if regex.match(item) == nil
+            throw "Regex mismatch! #{item} [#{val['regex']}]"
+          end
+        end
+      else
+        if regex.match(data) == nil
+          throw "Regex mismatch! #{data} [#{val['regex']}]"
+        end
+      end
+    end
+    return true
   end
   
   # JackVALID.run.type( 'test/data/sample', 'test/validate/sample' )
@@ -62,18 +81,19 @@ class JackVALID
     pair( json, validator )
     @validator[:data].each do |key, val|
       next if key == '@context'
-      if @json[:data].has_key?(key) == false
-        throw "#{@json[:path]} is missing key '#{key}'"
-      end
-      data = @json[:data][key]
+      next if @json[:data].has_key?(key) == false
       # Not sure exactly how to enforce data-types?
       # We're talking Javascript types not Ruby types here.
+      data = @json[:data][key]
       type = val["type"].upcase
       case type
       when "STRING"
       when "INTEGER" 
       when "FLOAT"
       when "ARRAY"
+        if data.kind_of?(Array) == false
+          throw "#{data.inspect} is not an Array"
+        end
       else
         throw "#{type} is not a valid data-type"
       end
