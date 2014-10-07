@@ -52,10 +52,33 @@ class JackVALID
     return true
   end
   
+  # JackVALID.run.regex( 'test/data/sample', 'test/validate/sample' )
   def regex()
+    pair( json, validator )
   end
   
-  def type()
+  # JackVALID.run.type( 'test/data/sample', 'test/validate/sample' )
+  def type( json, validator )
+    pair( json, validator )
+    @validator[:data].each do |key, val|
+      next if key == '@context'
+      if @json[:data].has_key?(key) == false
+        throw "#{@json[:path]} is missing key '#{key}'"
+      end
+      data = @json[:data][key]
+      # Not sure exactly how to enforce data-types?
+      # We're talking Javascript types not Ruby types here.
+      type = val["type"].upcase
+      case type
+      when "STRING"
+      when "INTEGER" 
+      when "FLOAT"
+      when "ARRAY"
+      else
+        throw "#{type} is not a valid data-type"
+      end
+    end
+    return true
   end
   
   private_class_method :new
