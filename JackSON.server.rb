@@ -5,8 +5,10 @@ require 'json'
 require 'github/markup'
 require 'fileutils'
 
+# JackSON helpers
 require 'JackRDF'
 require_relative 'JackHELP'
+require_relative 'JackVALID'
 
 require 'logger'
 enable :logging
@@ -18,7 +20,7 @@ helpers do
     
   # Build the local path to a JSON file from a url
   def json_file( url )
-    JackHELP.run.json_file( settings.path, url )
+    JackHELP.run.json_file( "#{settings.path}/#{url}" )
   end
   
   # Write the JSON file

@@ -10,6 +10,12 @@ end
 desc "Run tests"
 task :default => :test
 
+desc "Start a development console"
+task :console do
+  dir = File.dirname(__FILE__)
+  exec "irb -I #{dir} -r 'JackSON.server.rb'"
+end
+
 namespace :server do
   desc "Start the server at port #{@settings["port"]}"
   task :start do

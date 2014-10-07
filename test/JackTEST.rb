@@ -30,8 +30,8 @@ class JackTEST < Minitest::Test
   
   def hashit( file )
     return {} if file == nil
-    file = JackHELP.run.json_file( File.dirname(__FILE__), "json/#{file}" )
-    JSON.parse( File.read( file ) )
+    dir = File.dirname(__FILE__)
+    return JackHELP.run.hashit( "#{dir}/json/#{file}" )
   end
   
   def hashttp( file )
