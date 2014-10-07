@@ -110,12 +110,6 @@ class JackVALID
     return true
   end
   
-  # This is just for testing...
-  # def json
-  #   @json
-  # end
-  # JackVALID.run.json[:data]['syns'].kind_of?(Array)
-  
   private_class_method :new
   
 end

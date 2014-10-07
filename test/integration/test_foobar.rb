@@ -1,4 +1,4 @@
-require_relative 'JackTEST.rb'
+require 'JackTEST'
 
 # Want to run a single test?
 # You probably do when developing.

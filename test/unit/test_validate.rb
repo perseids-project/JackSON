@@ -1,4 +1,4 @@
-require_relative 'JackTEST.rb'
+require 'JackTEST'
 
 class TestValidate < JackTEST
   
