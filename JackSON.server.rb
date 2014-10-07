@@ -7,8 +7,8 @@ require 'fileutils'
 
 # JackSON helpers
 require 'JackRDF'
-require_relative 'JackHELP'
-require_relative 'JackVALID'
+require_relative 'lib/JackHELP'
+require_relative 'lib/JackVALID'
 
 require 'logger'
 enable :logging

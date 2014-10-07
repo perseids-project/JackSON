@@ -3,11 +3,11 @@ require_relative 'JackHELP.rb'
 
 class JackVALID
   
-  # Holds the two structures to be compared
+  # Hold the two data structures to be compared
   @json = {}
   @validator = {}
   
-  # Singleton magic
+  # Singleton
   @@run = JackVALID.new
   def self.run
     return @@run
@@ -88,18 +88,33 @@ class JackVALID
       type = val["type"].upcase
       case type
       when "STRING"
-      when "INTEGER" 
+        if data.kind_of?(String) == false
+          throw "#{data.inspect} is not a String"
+        end
+      when "INTEGER"
+        if data.kind_of?(Integer) == false
+          throw "#{data.inspect} is not an Integer"
+        end
       when "FLOAT"
+        if data.kind_of?(Float) == false
+          throw "#{data.inspect} is not a Float"
+        end
       when "ARRAY"
         if data.kind_of?(Array) == false
           throw "#{data.inspect} is not an Array"
         end
       else
-        throw "#{type} is not a valid data-type"
+        throw "#{type} is not a supported data-type"
       end
     end
     return true
   end
+  
+  # This is just for testing...
+  # def json
+  #   @json
+  # end
+  # JackVALID.run.json[:data]['syns'].kind_of?(Array)
   
   private_class_method :new
   

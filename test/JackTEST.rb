@@ -2,7 +2,7 @@ require 'minitest/autorun'
 require 'benchmark'
 require 'rest_client'
 require 'json'
-require_relative '../JackHELP.rb'
+require_relative '../lib/JackHELP.rb'
 
 # Want to run a single test?
 # You probably do when developing.
