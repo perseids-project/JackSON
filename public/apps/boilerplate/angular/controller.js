@@ -23,14 +23,14 @@ app.controller("controller", function( $scope, json, sparql ){
 	$scope.save_url = save_url();
 	
 	// Search
-	$scope.search = "select ?s ?p ?o where { ?s ?p ?o }"
-	
+	$scope.search = query();
 	
 	// Messages
 	$scope.msg = "Welcome!";
 
 	// Save the data
 	$scope.save = function() {
+		$scope.form_apply();
 		$scope.refresh();
 		json.post( $scope ).then(
 			function( msg ) { 
@@ -41,16 +41,34 @@ app.controller("controller", function( $scope, json, sparql ){
 	
 	// Open saved data on load
 	$scope.open = function() {
-		console.log( 'Write this!' );
+		json.get( $scope ).then(
+			function( data ) {
+				$scope.data = data;
+				$scope.data_to_form();
+				$scope.refresh();
+			}
+		)
 	}
 	$scope.open();
 	
-	
-	// Update with form data
+	// Update schtuff
 	$scope.refresh = function() {
 		$scope.save_url = save_url();
-		$scope.data = save_data();
+		$scope.search = query();
 		$scope.pretty = angular.toJson( $scope.data, true );
+	}
+	
+	// Apply form data
+	$scope.form_apply = function() {
+		$scope.data = save_data();
+	}
+	
+	// Take JSON data and apply it to the form
+	$scope.data_to_form = function() {
+		for ( var key in $scope.data ) {
+			if ( key == '@context' ) { continue }
+			$scope.form[key] = $scope.data[key]
+		}
 	}
 	
 	// Sparql query
@@ -86,5 +104,10 @@ app.controller("controller", function( $scope, json, sparql ){
 	// Get the JackSON server save url
 	function save_url() {
 		return app_data_url();
+	}
+	
+	// Dynamic SPARQL query
+	function query() {
+		return "SELECT ?p ?o WHERE { <"+save_url()+"> ?p ?o }"
 	}
 });
