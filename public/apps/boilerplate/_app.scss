@@ -58,10 +58,16 @@ pre {
 textarea {
   min-height:15rem;
 }
-h1 {
-  font-size:.5rem;
-}
 #message {
-  width: 100%;
+  width:100%;
   text-align:center;
+}
+section#info input,
+section#info a {
+  float:left;
+}
+section#info input {
+  font-size:.75rem;
+  height:2.05rem;
+  width:15rem;
 }

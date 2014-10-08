@@ -15,8 +15,11 @@
 		<div class="small-12 medium-2 columns">
 			<a target="_blank" href="foundation.html" class="button secondary tiny">UI Reminders</a>
 		</div>
-		<div class="small-12 medium-10 columns">
+		<div class="small-12 medium-4 columns">
 			<a target="_blank" href="{{ save_url }}" target="_blank" class="button secondary tiny">{{ save_url }}</a></td>
+		</div>
+		<div class="small-12 medium-6 columns">
+			<input ng-change="refresh()" placeholder="path" type="text" ng-model="path" size="20" /><a href="" ng-click="open()" class="button secondary tiny">Open</a>
 		</div>
 	</div>
 	<div class="row">

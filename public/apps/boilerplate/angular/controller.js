@@ -15,6 +15,9 @@ app.controller("controller", function( $scope, json, sparql ){
 	// What is saved to the JackSON server
     $scope.data = save_data();
 	
+	// The path of the specific JSON file
+	$scope.path = "default"
+	
 	// Pretty print data for browser viewing
 	$scope.pretty = angular.toJson( $scope.data, true );
 	
@@ -103,7 +106,7 @@ app.controller("controller", function( $scope, json, sparql ){
 	
 	// Get the JackSON server save url
 	function save_url() {
-		return app_data_url();
+		return app_data_url()+'/'+$scope.path;
 	}
 	
 	// Dynamic SPARQL query
