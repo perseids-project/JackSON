@@ -47,7 +47,7 @@ section#save {
   background-color:#EFEFEF;
 }
 section#search {
-  background-color:#E2E2E2;
+  padding-top:5rem;
 }
 pre {
   overflow:scroll;
@@ -56,5 +56,12 @@ pre {
   padding:1rem;
 }
 textarea {
- min-height: 8rem;
+  min-height:15rem;
+}
+h1 {
+  font-size:.5rem;
+}
+#message {
+  width: 100%;
+  text-align:center;
 }

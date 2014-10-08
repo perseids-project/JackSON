@@ -12,22 +12,16 @@
 	<!-- Config Info -->
 	<section id="info">
 	<div class="row">
-		<div class="small-12 columns">
+		<div class="small-12 medium-2 columns">
 			<a target="_blank" href="foundation.html" class="button secondary tiny">UI Reminders</a>
+		</div>
+		<div class="small-12 medium-10 columns">
+			<a target="_blank" href="{{ save_url }}" target="_blank" class="button secondary tiny">{{ save_url }}</a></td>
 		</div>
 	</div>
 	<div class="row">
-		<div class="small-12 medium-6 columns">
-			<h1>{{ config.app }}</h1>
-			<p class="message">{{ msg }}</p>
-		</div>
-		<div class="small-12 medium-6 columns">
-			<table class="responsive tiny">
-				<tr>
-					<td>Save URL:</td>
-					<td><a href="{{ save_url }}" target="_blank">{{ save_url }}</a></td>
-				</tr>
-			</table>
+		<div class="small-12 columns">
+			<div id="message">{{ msg }}</div>
 		</div>
 	</div>
 	</section>
@@ -35,14 +29,13 @@
 	<!-- Angular -->
 	<section id="save">
 	<div class="row">
-	  <div class="columns small-12 medium-6">
+	  <div class="columns small-12 medium-4">
 		<form ng-submit="save()">
 		  <input ng-change="refresh()" placeholder="name" type="text" ng-model="form.name" size="20" />
 		  <input class="button tiny" type="submit" value="Save" />
-		  <a class="button secondary tiny" target="_blank" href="{{ save_url }}">Saved JSON File</a>
 		</form>
 	  </div>
-	  <div class="columns small-12 medium-6">
+	  <div class="columns small-12 medium-8">
 	    <pre>{{ pretty }}</pre>
 	  </div>
 	</div>
@@ -51,11 +44,11 @@
 	<!-- Search Features -->
 	<section id="search">
 	<div class="row">
-	  <div class="columns small-12 medium-6">
+	  <div class="columns small-12 medium-4">
 		<textarea ng-model="search"></textarea>
 		  <input type="submit" value="Query" ng-click="query()" class="button tiny" ></span>
 	  </div>
-	  <div class="columns small-12 medium-6">
+	  <div class="columns small-12 medium-8">
 	    <pre class="sparql">{{ sparql_json }}</pre>
 	  </div>
 	</div>

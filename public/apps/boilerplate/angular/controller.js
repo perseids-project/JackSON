@@ -3,7 +3,7 @@ app.controller("controller", function( $scope, json, sparql ){
 	// Configuration
 	$scope.config = {
 		domain: location.protocol+'//'+location.hostname+(location.port ? ':' + location.port: '' ),
-		app: 'apps/boilerplate'
+		app: 'boilerplate'
 	}
 	$scope.config.query = $scope.config.domain+'/query';
 	
