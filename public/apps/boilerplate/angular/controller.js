@@ -10,7 +10,6 @@ app.controller("controller", function( $scope, json, sparql ){
 	// UI input
     $scope.form = {
     	name: "",
-		search: "select ?s ?p ?o where { ?s ?p ?o }"
     };
 
 	// What is saved to the JackSON server
@@ -22,6 +21,10 @@ app.controller("controller", function( $scope, json, sparql ){
 	// Configuration table
 	$scope.app_url = app_url();
 	$scope.save_url = save_url();
+	
+	// Search
+	$scope.search = "select ?s ?p ?o where { ?s ?p ?o }"
+	
 	
 	// Messages
 	$scope.msg = "Welcome!";

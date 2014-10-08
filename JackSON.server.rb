@@ -119,6 +119,7 @@ end
 
 # Retrieve JSON from HTTP request body
 before do
+  @root = File.dirname(__FILE__)
   
   logger.level = Logger::DEBUG
   
@@ -183,6 +184,18 @@ get '/data/*' do
     return { :error => "#{data_url(pth)} does not exist.  Use POST to create file" }.to_json
   end
   File.read( file )
+end
+
+# Simplest way I've found to default to index.html
+get '/apps/*' do
+  if params[:splat].first.index('.') == nil
+    redirect File.join( 'apps', params[:splat].first, "index.html" )
+  end
+  index = File.join( @root, 'public/apps', params[:splat] )
+  if File.exist?( index ) == false
+    status 404
+  end
+  File.read( index )
 end
 
 # Create directory and JSON file
