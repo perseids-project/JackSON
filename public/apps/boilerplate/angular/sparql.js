@@ -7,27 +7,22 @@ app.service( 'sparql', function( $http, $q ) {
 	
 	// Update data on server
 	function search( scope ) {
-		var request = sparql( 'PUT', scope.config.sparql );
+		var request = get( scope.config.query, scope.form.search );
 		return( request.then( 
-			function( r ) { return r.data.success  },
-			function( r ){ return create( scope ) }
+			function( r ) { return r.data  },
+			function( r ){ return r }
 		));
 	}
 	
 	// JackSON wrapper
-	function sparql( url, data ) {
+	function get( url, search ) {
+		var query = url+'?query='+encodeURIComponent( search );
 		return $http({
 			method: 'GET',
-			url: url,
+			url: query,
 		    headers: {
 		        'Content-Type': 'application/json'
-		    },
-			data: wrap( data )
+		    }
 		});
 	}
-	
-	// JackSON formatted json
-	function wrap( json ) {
-		return { data: json }
-	}	
 });

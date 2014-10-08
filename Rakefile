@@ -50,6 +50,7 @@ namespace :app do
     # Add boilerplate js css and html
     FileUtils.cp_r( '../boilerplate/angular', 'angular' )
     FileUtils.cp( '../boilerplate/_index.html', 'index.html' )
+    FileUtils.cp( '../boilerplate/_foundation.html', 'foundation.html' )
     FileUtils.cp( '../boilerplate/_app.scss', 'scss/app.scss' )
     
     # Replace strings in the angular/*.js files

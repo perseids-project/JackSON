@@ -12,7 +12,7 @@ app.service( 'json', function( $http, $q ) {
 		var request = api( 'POST', scope.save_url, scope.data );
 		return( request.then(
 			handSuc, 
-			handErr
+			function( r ){ return put( scope ) } 
 		));
 	}
 	
