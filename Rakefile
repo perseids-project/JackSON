@@ -34,9 +34,11 @@ namespace :app do
     proj = args[:proj]
     if proj.nil?
       throw "A project name is needed -- rake app:create['name']" 
+      return
     end
     if File.directory?( proj )
       throw "Project #{proj} already exists"
+      return
     end
     
     # Add Foundation
@@ -45,9 +47,10 @@ namespace :app do
     Dir.chdir( proj )
     `bundle`
     
-    # Add Angular
+    # Add boilerplate js css and html
     FileUtils.cp_r( '../boilerplate/angular', 'angular' )
     FileUtils.cp( '../boilerplate/.foundation.html', 'index.html' )
+    FileUtils.cp( '../boilerplate/.foundation.scss', 'scss/app.scss' )
     
     # Replace strings in the angular/*.js files
     Dir.glob( 'angular/*.js' ) do |fn|

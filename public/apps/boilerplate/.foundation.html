@@ -6,29 +6,36 @@
     <title>Foundation</title>
     <link rel="stylesheet" href="stylesheets/app.css" />
     <script src="bower_components/modernizr/modernizr.js"></script>
-	<style type="text/css">
-		#content {
-			margin:10rem 0;
-		}
-	</style>
   </head>
-  <body>
+  <body id='content' ng-app='app' ng-controller='controller'>
 	  
 	<!-- Angular -->
+	<section id="app">
+	<div class="row">
+	  <div class="columns small-12 medium-6">
+		<p>{{ msg }}</p>
+		<form ng-submit="save()">
+		  <input placeholder="name" type="text" ng-model="form.name" size="20" />
+		  <input class="button tiny" type="submit" value="Save" />
+		  <a class="button secondary tiny" target="_blank" href="/data/{{ url }}">Saved JSON File</a>
+		</form>
+	  </div>
+	  <div class="columns small-12 medium-6">
+	    <pre>{{ pretty }}</pre>
+	  </div>
+	</div>
+	</section>
+	
+	<!-- Search Features -->
 	<section>
 	<div class="row">
-		<div class="large-12 columns">
-			<div id='content' ng-app='app' ng-controller='controller'>
-				<h1>Angular/JackSON</h1>
-				<h2>{{ data.name }}
-				<p>{{ msg }}</p>
-				<form ng-submit="save()">
-					<input type="text" ng-model="form.name" size="20" />
-					<input class="button" type="submit" value="Save" />
-				</form>
-				<p><a target="_blank" href="/data/{{ url }}">Saved JSON File</a></p>
-			</div>
-		</div>
+	  <div class="columns small-12 medium-6">
+		<textarea ng-model="form.search"></textarea>
+		  <input type="submit" value="Query" ng-click="query()" class="button tiny" ></span>
+	  </div>
+	  <div class="columns small-12 medium-6">
+	    <pre class="sparql">{{ sparql_json }}</pre>
+	  </div>
 	</div>
 	</section>
 	

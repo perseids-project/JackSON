@@ -43,6 +43,7 @@ Run this to create a JackSON app in apps/name
 
 	rake app:make['name']
 
+After running this rake command keep your terminal open, or push the current process into the background with CTRL-Z.  It is listening for changes to your .scss files so it can build CSS.
 
 ### JackSON and AngularJS
 JackSON.js is a mostly by-the-book RESTful API, so you don't have to use JackSON.js.

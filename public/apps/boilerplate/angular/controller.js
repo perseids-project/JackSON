@@ -10,9 +10,13 @@ app.controller("controller", function( $scope, json ){
 	// aka what gets saved to the JackSON server.
     $scope.data = angular.copy( $scope.default );
 	
+	// Pretty print data for browser viewing.
+	$scope.pretty = angular.toJson( $scope.data, true );
+	
 	// UI input
     $scope.form = {
-        name: ""
+		name: "",
+		search: "select ?s ?p ?o where { ?s ?p ?o }"
     };
 	
 	// Messages
