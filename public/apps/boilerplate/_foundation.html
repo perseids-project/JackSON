@@ -6,32 +6,10 @@
     <title>Foundation</title>
     <link rel="stylesheet" href="stylesheets/app.css" />
     <script src="bower_components/modernizr/modernizr.js"></script>
-	<style type="text/css">
-		#content {
-			margin:10rem 0;
-		}
-	</style>
   </head>
   <body>
-	  
-	<!-- Angular -->
-	<div class="row">
-		<div class="large-12 columns">
-			<div id='content' ng-app='app' ng-controller='controller'>
-				<h1>Angular/JackSON</h1>
-				<h2>{{ data.name }}
-				<p>{{ msg }}</p>
-				<form ng-submit="save()">
-					<input type="text" ng-model="form.name" size="20" />
-					<input class="button" type="submit" value="Save" />
-				</form>
-				<p><a target="_blank" href="/data/{{ url }}">Saved JSON File</a></p>
-				<hr/>
-			</div>
-		</div>
-	</div>
-	
 	<!-- Foundation -->
+	<section>
     <div class="row">
       <div class="large-12 columns">
         <h1>Foundation Reminders</h1>
@@ -179,18 +157,11 @@
         </div>
       </div>
     </div>
-
+	</section>
+	
 	<!-- JQuery & Foundation -->
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/foundation/js/foundation.min.js"></script>
-
-	<!-- Angular -->	
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js" type="text/javascript"></script>
-	<script src="angular/app.js" type="text/javascript"></script>
-	<script src="angular/controller.js" type="text/javascript"></script>
-	<script src="angular/service.js" type="text/javascript"></script>
 	
-	<!-- Application -->
-    <script src="js/app.js"></script>
   </body>
-</html>
+</html>	

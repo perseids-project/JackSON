@@ -1,41 +1,87 @@
-app.controller("controller", function( $scope, service ){
+app.controller("controller", function( $scope, json, sparql ){
 	
-	// JackSON JSON URL
-	$scope.url = 'apps/boilerplate/data'
-	
-	// Default data
-	$scope.default = { name: "Your Data Here!" };
-
-	// JSON Data model...
-	// aka what gets saved to the JackSON server.
-    $scope.data = angular.copy( $scope.default );
+	// Configuration
+	$scope.config = {
+		domain: location.protocol+'//'+location.hostname+(location.port ? ':' + location.port: '' ),
+		app: 'apps/boilerplate'
+	}
+	$scope.config.query = $scope.config.domain+'/query';
 	
 	// UI input
     $scope.form = {
-        name: ""
+    	name: "",
+		search: "select ?s ?p ?o where { ?s ?p ?o }"
     };
+
+	// What is saved to the JackSON server
+    $scope.data = save_data();
+	
+	// Pretty print data for browser viewing
+	$scope.pretty = angular.toJson( $scope.data, true );
+	
+	// Configuration table
+	$scope.app_url = app_url();
+	$scope.save_url = save_url();
 	
 	// Messages
-	$scope.msg = "";
-	
-	// Save!
+	$scope.msg = "Welcome!";
+
+	// Save the data
 	$scope.save = function() {
-		$scope.data.name = $scope.form.name;
-		service.save( $scope ).then(
-			function( r ) { 
-				$scope.msg = r;
+		$scope.refresh();
+		json.post( $scope ).then(
+			function( msg ) { 
+				$scope.msg = msg;
 			}
 		)
 	}
 	
-	// Start me up!
-	start();
-	function start() {
-		service.start( $scope ).then(
-			function( r ) { 
-				$scope.data = r.data;
-				$scope.msg = "Ready!"
+	// Open saved data on load
+	$scope.open = function() {
+		console.log( 'Write this!' );
+	}
+	$scope.open();
+	
+	
+	// Update with form data
+	$scope.refresh = function() {
+		$scope.save_url = save_url();
+		$scope.data = save_data();
+		$scope.pretty = angular.toJson( $scope.data, true );
+	}
+	
+	// Sparql query
+	$scope.query = function() {
+		sparql.search( $scope ).then(
+			function( data ) {
+				$scope.sparql_json = angular.toJson( data, true );
 			}
 		);
+	}
+	
+	// Save JSON data to JackSON server
+	function save_data() {
+		return { 
+			"@context": {
+				"name": app_url()+"/spec.html#name",
+			},
+			"name": $scope.form.name,
+		};
+	}
+	
+	// Return this application's url
+	function app_url() {
+		return document.URL;
+	}
+	
+	// Return the data url for the app
+	function app_data_url() {
+		var c = $scope.config
+		return c.domain+'/data/'+c.app;
+	}
+	
+	// Get the JackSON server save url
+	function save_url() {
+		return app_data_url();
 	}
 });

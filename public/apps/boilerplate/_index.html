@@ -1,0 +1,79 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Foundation</title>
+    <link rel="stylesheet" href="stylesheets/app.css" />
+    <script src="bower_components/modernizr/modernizr.js"></script>
+  </head>
+  <body id='content' ng-app='app' ng-controller='controller'>
+	
+	<!-- Config Info -->
+	<section id="info">
+	<div class="row">
+		<div class="small-12 columns">
+			<a target="_blank" href="foundation.html" class="button secondary tiny">UI Reminders</a>
+		</div>
+	</div>
+	<div class="row">
+		<div class="small-12 medium-6 columns">
+			<h1>{{ config.app }}</h1>
+			<p class="message">{{ msg }}</p>
+		</div>
+		<div class="small-12 medium-6 columns">
+			<table class="responsive tiny">
+				<tr>
+					<td>Save URL:</td>
+					<td><a href="{{ save_url }}" target="_blank">{{ save_url }}</a></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	</section>
+	  
+	<!-- Angular -->
+	<section id="save">
+	<div class="row">
+	  <div class="columns small-12 medium-6">
+		<form ng-submit="save()">
+		  <input ng-change="refresh()" placeholder="name" type="text" ng-model="form.name" size="20" />
+		  <input class="button tiny" type="submit" value="Save" />
+		  <a class="button secondary tiny" target="_blank" href="{{ save_url }}">Saved JSON File</a>
+		</form>
+	  </div>
+	  <div class="columns small-12 medium-6">
+	    <pre>{{ pretty }}</pre>
+	  </div>
+	</div>
+	</section>
+	
+	<!-- Search Features -->
+	<section id="search">
+	<div class="row">
+	  <div class="columns small-12 medium-6">
+		<textarea ng-model="form.search"></textarea>
+		  <input type="submit" value="Query" ng-click="query()" class="button tiny" ></span>
+	  </div>
+	  <div class="columns small-12 medium-6">
+	    <pre class="sparql">{{ sparql_json }}</pre>
+	  </div>
+	</div>
+	</section>
+
+	<!-- JQuery & Foundation -->
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/foundation/js/foundation.min.js"></script>
+
+	<!-- Angular -->	
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js" type="text/javascript"></script>
+	<script src="angular/app.js" type="text/javascript"></script>
+	<script src="angular/controller.js" type="text/javascript"></script>
+	<script src="angular/json.js" type="text/javascript"></script>
+	<script src="angular/sparql.js" type="text/javascript"></script>
+	
+	<!-- Application -->
+    <script src="js/app.js"></script>
+
+  </body>
+</html>

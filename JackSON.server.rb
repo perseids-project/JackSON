@@ -4,6 +4,8 @@ require 'sinatra/config_file'
 require 'json'
 require 'github/markup'
 require 'fileutils'
+require 'open-uri'
+require 'rest_client'
 
 # JackSON helpers
 require 'JackRDF'
@@ -66,7 +68,6 @@ helpers do
     rescue
     end
     
-    # TODO GIT?
     { :success => " #{data_url(pth)} created" }.to_json
   end
   
@@ -87,7 +88,6 @@ helpers do
     rescue
     end
     
-    # TODO GIT?
     { :success => "#{data_url(pth)} deleted" }.to_json
   end
   
@@ -107,7 +107,6 @@ helpers do
     rescue
     end
     
-    # TODO GIT?
     { :success => "#{data_url(pth)} updated" }.to_json
   end
   
@@ -136,7 +135,7 @@ before do
     return
   end
   
-  # Retrieve json body
+  # Retrieve JSON body
   data = params[:data]
   
   # Different clients may use different Content-Type headers.
@@ -170,7 +169,12 @@ get '/api' do
   erb :api, :locals => { :md => md }
 end
 
-# Return json file
+# This is done as a quick fix for bypassing Fuseki's CORS
+get '/query' do
+  RestClient.get "#{settings.sparql}/query?query=#{URI::encode(params[:query])}"
+end
+
+# Return JSON file
 get '/data/*' do
   pth = path(params)
   file = json_file( pth )
@@ -181,7 +185,7 @@ get '/data/*' do
   File.read( file )
 end
 
-# Create directory and json file
+# Create directory and JSON file
 post '/data/*' do
   pth = path(params)
   file = json_file( pth )
@@ -195,14 +199,14 @@ post '/data/*' do
   end
 end
 
-# Change json file
+# Change JSON file
 put '/data/*' do
   pth = path(params)
   file = json_file( pth )
   _put( pth, file )
 end
 
-# Delete a json file
+# Delete a JSON file
 delete '/data/*' do
   pth = path(params)
   file = json_file( pth )

@@ -1,24 +1,24 @@
-app.service( 'service', function( $http, $q ) {
+app.service( 'json', function( $http, $q ) {
 	
 	// Publicly accessible methods
 	return ({
-		start: start,
-		save: save,
-		data: data,
+		post: post,
+		put: put,
+		get: get,
 	});
 	
 	// Create a new JSON file if it doesn't already exist.
-	function start( scope ) {
-		var request = jackson( 'POST', scope.url, scope.data );
+	function post( scope ) {
+		var request = api( 'POST', scope.save_url, scope.data );
 		return( request.then(
-			function( r ) { return scope.data }, 
-			function( r ){ return data( scope ) } 
+			handSuc, 
+			function( r ){ return put( scope ) } 
 		));
 	}
 	
 	// Update data on server
-	function save( scope ) {
-		var request = jackson( 'PUT', scope.url, scope.data );
+	function put( scope ) {
+		var request = api( 'PUT', scope.save_url, scope.data );
 		return( request.then( 
 			handSuc, 
 			handErr 
@@ -26,19 +26,19 @@ app.service( 'service', function( $http, $q ) {
 	}
 	
 	// GET the JSON
-	function data() {
-		var request = jackson( 'GET', scope.url );
+	function get( scope ) {
+		var request = api( 'GET', scope.save_url );
 		return( request.then( 
 			handSuc, 
 			handErr 
 		));
 	}
 	
-	// JackSON wrapper
-	function jackson( method, url, data ) {
+	// API
+	function api( method, url, data ) {
 		return $http({
 			method: method.toUpperCase(),
-			url: '/data/'+url,
+			url: url,
 		    headers: {
 		        'Content-Type': 'application/json'
 		    },
