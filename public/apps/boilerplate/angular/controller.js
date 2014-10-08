@@ -1,45 +1,72 @@
 app.controller("controller", function( $scope, json ){
 	
-	// JackSON JSON URL
-	$scope.url = 'apps/boilerplate/data'
+	// PROPERTIES
 	
-	// Default data
-	$scope.default = { name: "Your Data Here!" };
+	// JackSON JSON URL
+	$scope.config = {
+		domain: location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: ''),
+		app: 'apps/boilerplate',
+		sparql: 'http://127.0.0.1:4321/ds'
+	}
+	
+	// UI input
+    $scope.form = {
+    	name: "",
+		search: "select ?s ?p ?o where { ?s ?p ?o }"
+    };
 
-	// JSON Data model...
-	// aka what gets saved to the JackSON server.
-    $scope.data = angular.copy( $scope.default );
+	// What is saved to the JackSON server.
+    $scope.data = save_data();
 	
 	// Pretty print data for browser viewing.
 	$scope.pretty = angular.toJson( $scope.data, true );
 	
-	// UI input
-    $scope.form = {
-		name: "",
-		search: "select ?s ?p ?o where { ?s ?p ?o }"
-    };
+	// Configuration table
+	$scope.app_url = app_url();
+	$scope.save_url = save_url();
+	$scope.database = database();
 	
 	// Messages
-	$scope.msg = "";
+	$scope.msg = "Welcome!";
+
+	// METHODS
 	
-	// Save!
+	// save the data.
 	$scope.save = function() {
-		$scope.data.name = $scope.form.name;
 		json.save( $scope ).then(
-			function( r ) { 
-				$scope.msg = r;
+			function( msg ) { 
+				$scope.msg = msg;
 			}
 		)
 	}
 	
-	// Start me up!
-	start();
-	function start() {
-		json.start( $scope ).then(
-			function( r ) { 
-				$scope.data = r.data;
-				$scope.msg = "Ready!"
-			}
-		);
+	function save_data() {
+		return { 
+			"@context": {
+				"name": app_url()+"/spec.html#name",
+			},
+			"name": $scope.form.name,
+		};
+	}
+	
+	function refresh() {
+		$scope.save_url = save_url();
+		$scope.data = save_data();
+		$scope.pretty = angular.toJson( $scope.data, true );
+	}
+	
+	// Return this application's url
+	function app_url() {
+		return document.URL;
+	}
+	
+	// Return JackSON data url
+	function database() {
+		var c = $scope.config
+		return c.domain+'/data/'+c.app;
+	}
+	
+	function save_url() {
+		return database();
 	}
 });

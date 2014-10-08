@@ -40,15 +40,18 @@
 //   "foundation/components/visibility";
 
 section {
-  padding-top: 1rem;
+  padding:1rem 0;
 }
 
-section#app {
-  background-color:#DFDFDF;
+section#info,
+section#save,
+section#search {
+  background-color:#EFEFEF;
 }
 
 pre {
-  background-color: #222;
-  color: #AAA;
-  padding: 1rem;
+  overflow:scroll;
+  background-color:#222;
+  color:#AAA;
+  padding:1rem;
 }

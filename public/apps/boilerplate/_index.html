@@ -8,14 +8,35 @@
     <script src="bower_components/modernizr/modernizr.js"></script>
   </head>
   <body id='content' ng-app='app' ng-controller='controller'>
+	
+	<!-- Config Info -->
+	<section id="info">
+	<div class="row">
+		<div class="small-12 medium-6 columns">
+			<h1>{{ config.app }}</h1>
+			<p class="message">{{ msg }}</p>
+		</div>
+		<div class="small-12 medium-6 columns">
+			<table class="responsive tiny">
+				<tr>
+					<td>Save URL:</td>
+					<td><a href="{{ save_url }}" target="_blank">{{ save_url }}</a></td>
+				</tr>
+				<tr>
+					<td>SPARQL endpoint:</td>
+					<td><a href="{{ config.sparql }}" target="_blank">{{ config.sparql }}</a></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	</section>
 	  
 	<!-- Angular -->
-	<section id="app">
+	<section id="save">
 	<div class="row">
 	  <div class="columns small-12 medium-6">
-		<p>{{ msg }}</p>
 		<form ng-submit="save()">
-		  <input placeholder="name" type="text" ng-model="form.name" size="20" />
+		  <input ng-change="refresh" placeholder="name" type="text" ng-model="form.name" size="20" />
 		  <input class="button tiny" type="submit" value="Save" />
 		  <a class="button secondary tiny" target="_blank" href="/data/{{ url }}">Saved JSON File</a>
 		</form>
@@ -27,7 +48,7 @@
 	</section>
 	
 	<!-- Search Features -->
-	<section>
+	<section id="search">
 	<div class="row">
 	  <div class="columns small-12 medium-6">
 		<textarea ng-model="form.search"></textarea>
