@@ -1,4 +1,4 @@
-app.controller("controller", function( $scope, service ){
+app.controller("controller", function( $scope, json ){
 	
 	// JackSON JSON URL
 	$scope.url = 'apps/boilerplate/data'
@@ -21,7 +21,7 @@ app.controller("controller", function( $scope, service ){
 	// Save!
 	$scope.save = function() {
 		$scope.data.name = $scope.form.name;
-		service.save( $scope ).then(
+		json.save( $scope ).then(
 			function( r ) { 
 				$scope.msg = r;
 			}
@@ -31,7 +31,7 @@ app.controller("controller", function( $scope, service ){
 	// Start me up!
 	start();
 	function start() {
-		service.start( $scope ).then(
+		json.start( $scope ).then(
 			function( r ) { 
 				$scope.data = r.data;
 				$scope.msg = "Ready!"

@@ -1,4 +1,4 @@
-app.service( 'service', function( $http, $q ) {
+app.service( 'json', function( $http, $q ) {
 	
 	// Publicly accessible methods
 	return ({
