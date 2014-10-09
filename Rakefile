@@ -81,6 +81,7 @@ end
 namespace :install do
   desc 'Minimum install'
   task :min do
+    `git submodule update --init`
     `sudo gem install sinatra`
     `sudo gem install sinatra-contrib`
     `sudo gem install sinatra-reloader`

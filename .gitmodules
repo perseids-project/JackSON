@@ -1,0 +1,3 @@
+[submodule "public/lib/jslib"]
+	path = public/lib/jslib
+	url = http://www.github.com/caesarfeta/jslib

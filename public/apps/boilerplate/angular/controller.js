@@ -9,7 +9,10 @@ app.controller("controller", function( $scope, json, sparql ){
 	
 	// UI input
     $scope.form = {
-    	name: "",
+    	name:"",
+		symbol:"",
+		weight:"",
+		number:""
     };
 
 	// What is saved to the JackSON server
@@ -22,7 +25,7 @@ app.controller("controller", function( $scope, json, sparql ){
 	$scope.pretty = angular.toJson( $scope.data, true );
 	
 	// Configuration table
-	$scope.app_url = app_url();
+	$scope.app_root = app_root();
 	$scope.save_url = save_url();
 	
 	// Search
@@ -87,15 +90,18 @@ app.controller("controller", function( $scope, json, sparql ){
 	function save_data() {
 		return { 
 			"@context": {
-				"name": app_url()+"/spec.html#name",
+				"name": app_root()+"/spec.html#name",
 			},
 			"name": $scope.form.name,
+			"symbol": $scope.form.symbol,
+			"weight": $scope.form.weight,
+			"number": $scope.form.number,
 		};
 	}
 	
-	// Return this application's url
-	function app_url() {
-		return document.URL;
+	// Return this application's root url
+	function app_root() {
+		return document.URL.replace(/\/$|\/index\.html.*/,'');
 	}
 	
 	// Return the data url for the app
