@@ -84,18 +84,15 @@ helpers do
       status 403
       return { :error => "#{data_url(pth)} already exists.  Use PUT to change" }.to_json
     end
-    
     # Create on filesytem
     FileUtils.mkdir_p( File.dirname( file ) )
     write_json( @json, file )
-
     # Insert into Fuseki
     begin
       rdf = jack()
       rdf.post( request.url, file )
     rescue
     end
-    
     { :success => " #{data_url(pth)} created" }.to_json
   end
   
@@ -104,18 +101,15 @@ helpers do
       status 404
       return { :error => "#{data_url(pth)} not found"}.to_json
     end
-    
     # Delete from filesystem
     File.delete( file )
     rm_empty_dirs( File.dirname( file ) )
-    
     # Delete from Fuseki
     begin
       rdf = jack()
       rdf.delete( request.url )
     rescue
     end
-    
     { :success => "#{data_url(pth)} deleted" }.to_json
   end
   
@@ -124,20 +118,16 @@ helpers do
       status 404
       return { :error => "#{data_url(pth)} does not exist.  Use POST to create" }.to_json
     end
-    
     # Update filesystem
     write_json( @json, file )
-    
     # Update Fuseki
     begin
       rdf = jack()
       rdf.put( request.url, file )
     rescue
     end
-    
     { :success => "#{data_url(pth)} updated" }.to_json
   end
-  
   # Dump an object to the log files
   def logdump( obj )
     logger.debug obj.inspect
@@ -148,25 +138,19 @@ end
 # Retrieve JSON from HTTP request body
 before do
   @root = File.dirname(__FILE__)
-  
   logger.level = Logger::DEBUG
-  
   # TODO CORS
   headers 'Access-Control-Allow-Origin' => '*', 
           'Access-Control-Allow-Methods' => [ 'GET', 'POST', 'PUT', 'DELETE', 'OPTIONS' ]
-          
   # We're usually just sending json
   content_type :json
-  
   # If we're dealing with a GET request we can stop here.
   # No data gets passed along.
   if ["GET"].include? request.request_method
     return
   end
-  
   # Retrieve JSON body
   data = params[:data]
-  
   # Different clients may use different Content-Type headers.
   # Sinatra doesn't build params object for all Content-Type headers.
   # Accomodate them.
@@ -177,7 +161,6 @@ before do
     end
   end
   @json = data.to_json
-  
   # Debug logging
   if settings.debug == true
     logdump request
@@ -192,12 +175,6 @@ get '/' do
   erb :home, :locals => { :md => md }
 end
 
-get '/api' do
-  content_type :html
-  md = GitHub::Markup.render( 'docs/API.md' )
-  erb :api, :locals => { :md => md }
-end
-
 # This is done as a quick fix for bypassing Fuseki's CORS
 get '/query' do
   RestClient.get "#{settings.sparql}/query?query=#{URI::encode(params[:query])}"
@@ -206,14 +183,12 @@ end
 # Return JSON file
 get '/data/*' do
   pth = path( params )
-  
   # Check to see if any command was passed
   # return { :params => params.inspect }.to_json
   if params.has_key?("cmd")
     cmd = params["cmd"]
     return run( cmd, pth )
   end
-  
   # Return json file
   file = json_file( pth )
   if File.exist?( file ) == false
