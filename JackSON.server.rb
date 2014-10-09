@@ -45,8 +45,36 @@ helpers do
   end
   
   # Return JackRDF object
-  def jack()
+  def jack
     JackRDF.new( settings.sparql )
+  end
+  
+  # Run a command
+  def run( cmd, pth )
+    valid = ['ls']
+    if cmd == nil
+      status 404
+      return { :error => "No command was passed to ?cmd=" }.to_json
+    end
+    if valid.include?(cmd) == false
+      status 404
+      return { :error => "#{cmd} is not a valid command" }.to_json
+    end
+    case cmd
+    when 'ls'
+      files = []
+      dirs = []
+      Dir["data/#{pth}/*"].map{|item| 
+        if File.directory?(item)
+          dirs.push( "#{data_url(pth)}/#{File.basename(item)}?cmd=ls" )
+          next
+        end
+        # Directory or file
+        file = File.basename(item).gsub(/\.json/,'')
+        files.push( "#{data_url(pth)}/#{file}" )
+      }
+      return { :dirs => dirs, :files => files  }.to_json
+    end
   end
   
   # Not all browsers support PUT & DELETE
@@ -177,7 +205,16 @@ end
 
 # Return JSON file
 get '/data/*' do
-  pth = path(params)
+  pth = path( params )
+  
+  # Check to see if any command was passed
+  # return { :params => params.inspect }.to_json
+  if params.has_key?("cmd")
+    cmd = params["cmd"]
+    return run( cmd, pth )
+  end
+  
+  # Return json file
   file = json_file( pth )
   if File.exist?( file ) == false
     status 404
