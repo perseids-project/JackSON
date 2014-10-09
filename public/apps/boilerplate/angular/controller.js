@@ -90,7 +90,7 @@ app.controller("controller", function( $scope, json, sparql ){
 	function save_data() {
 		return { 
 			"@context": {
-				"name": app_root()+"/spec.html#name",
+				"name": app_root()+"/schema#name",
 			},
 			"name": $scope.form.name,
 			"symbol": $scope.form.symbol,

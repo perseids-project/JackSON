@@ -52,6 +52,7 @@ namespace :app do
     FileUtils.cp( '../boilerplate/_index.html', 'index.html' )
     FileUtils.cp( '../boilerplate/_foundation.html', 'foundation.html' )
     FileUtils.cp( '../boilerplate/_app.scss', 'scss/app.scss' )
+    FileUtils.cp( '../boilerplate/_schema', 'schema' )
     
     # Replace strings in the angular/*.js files
     Dir.glob( 'angular/*.js' ) do |fn|
