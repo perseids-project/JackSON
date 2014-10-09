@@ -22,9 +22,8 @@ app.controller("controller", function( $scope, json, sparql ){
 	$scope.path = "default"
 	
 	// Pretty print data for browser viewing
-	$scope.pretty = angular.toJson( $scope.data, true );
-	
-	// Configuration table
+	$scope.pretty = pretty();
+	$scope.std_out = {};
 	$scope.app_root = app_root();
 	$scope.save_dir = save_dir();
 	$scope.save_url = save_url();
@@ -37,25 +36,23 @@ app.controller("controller", function( $scope, json, sparql ){
 
 	// Save the data
 	$scope.save = function() {
-		$scope.form_item();
-		$scope.refresh();
-		json.post( $scope ).then(
-			function( msg ) { 
-				$scope.msg = msg;
-			}
-		)
+		save();
+	}
+	
+	// Run a JackSON command on the data root
+	$scope.cmd = function( cmd ) {
+		ls();
+		return
+		switch( cmd ) {
+			case 'ls':
+				ls( json );
+				break;
+		}
 	}
 	
 	// Open saved data on load
 	$scope.open = function() {
-		json.get( $scope ).then(
-			function( data ) {
-				$scope.data = data;
-				$scope.data_to_form();
-				$scope.form_item();
-				$scope.refresh();
-			}
-		)
+		open();
 	}
 	$scope.open();
 	
@@ -118,10 +115,46 @@ app.controller("controller", function( $scope, json, sparql ){
 		};
 	}
 	
+	// Save a JSON file
+	function save() {
+		apply_for();
+		$scope.refresh();
+		json.post( $scope ).then(
+			function( msg ) { 
+				$scope.msg = msg;
+			}
+		)
+	}
+	
+	// Open a JSON file
+	function open() {
+		json.get( $scope ).then(
+			function( data ) {
+				$scope.data = data;
+				$scope.data_to_form();
+				$scope.form_item();
+				$scope.refresh();
+			}
+		)
+	}
+	
+	// Run the ls command on save_dir()
+	function ls() {
+		json.ls( $scope ).then(
+			function( data ) {
+				$scope.std_out = angular.toJson( data, true );
+			}
+		)
+	}
+	
 	// Retrieve the form's data
 	function apply_form() {
 		$scope.data = save_data();
-		$scope.pretty = angular.toJson( $scope.data, true );
+		$scope.pretty = pretty();
+	}
+	
+	function pretty() {
+		return angular.toJson( $scope.data, true );
 	}
 	
 	// Return this application's root url

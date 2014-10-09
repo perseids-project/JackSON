@@ -5,13 +5,14 @@ app.service( 'json', function( $http, $q ) {
 		post: post,
 		put: put,
 		get: get,
+		ls: ls
 	});
 	
 	// Create a new JSON file if it doesn't already exist.
 	function post( scope ) {
 		var request = api( 'POST', scope.save_url, scope.data );
 		return( request.then(
-			handSuc, 
+			success, 
 			function( r ){ return put( scope ) } 
 		));
 	}
@@ -20,8 +21,8 @@ app.service( 'json', function( $http, $q ) {
 	function put( scope ) {
 		var request = api( 'PUT', scope.save_url, scope.data );
 		return( request.then( 
-			handSuc, 
-			handErr 
+			success, 
+			error 
 		));
 	}
 	
@@ -29,8 +30,17 @@ app.service( 'json', function( $http, $q ) {
 	function get( scope ) {
 		var request = api( 'GET', scope.save_url );
 		return( request.then( 
-			handSuc, 
-			handErr 
+			success, 
+			error 
+		));
+	}
+	
+	// Run the ls command
+	function ls( scope ) {
+		var request = api( 'GET', scope.save_dir+"?cmd=ls" );
+		return( request.then(
+			success,
+			error
 		));
 	}
 	
@@ -52,7 +62,7 @@ app.service( 'json', function( $http, $q ) {
 	}
 	
 	// Error handler
-	function handErr( r ) {
+	function error( r ) {
 		if (
 			! angular.isObject( r.data ) ||
 			! r.data.message
@@ -63,7 +73,7 @@ app.service( 'json', function( $http, $q ) {
 	}
 
 	// Success handler	
-	function handSuc( r ) {
+	function success( r ) {
 		return( r.data );
 	}
 });
