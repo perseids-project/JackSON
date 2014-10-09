@@ -20,15 +20,25 @@ Test files go in...
 
 	test/
 
-JSON samples used by tests go in...
+Unit tests are for testing modules independently from JackSON's sinatra server. They go in...
 
-	test/json/
+	test/unit
+
+Integration tests are for testing JackSON's sinatra server methods using an HTTP client.  They go in...
+
+	test/integration
+
+JSON used by tests go in...
+
+	test/data/
+
+JSON validators used by tests go in..
+
+	test/validate
 
 Naming convention can be summed-up as:
 
-	test/test_group.rb
-	test/json/group.json
-
+	test/[unit or integration]/test_group.rb
 	class TestGroup < JackTEST
 
 An example test file:

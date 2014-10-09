@@ -46,9 +46,6 @@ section#info,
 section#save {
   background-color:#EFEFEF;
 }
-section#search {
-  padding-top:5rem;
-}
 pre {
   overflow:scroll;
   background-color:#222;
@@ -69,6 +66,7 @@ section#info a {
 }
 section#info input {
   font-size:.75rem;
+  padding-left: .1rem;
   height:1rem;
   width:5rem;
 }
@@ -77,5 +75,5 @@ section#info #save_dir {
   font-family:"Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
   color:#AAA;
   display: inline-block;
-  padding: 0 .25rem 0 0;
+  padding: 0 .1rem 0 0;
 }

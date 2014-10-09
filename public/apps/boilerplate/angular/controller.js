@@ -11,7 +11,7 @@ app.controller("controller", function( $scope, json, sparql ){
     $scope.form = {
     	name:'',
 		symbol:'',
-		weight:'',
+		mass:'',
 		number:''
     };
 
@@ -32,7 +32,9 @@ app.controller("controller", function( $scope, json, sparql ){
 	$scope.search = query();
 	
 	// Messages
-	$scope.msg = "Welcome!";
+	$scope.msg = "\
+	Turn this generic app into something great. \
+	See docs/APP.md for guidance.".smoosh();
 
 	// Save the data
 	$scope.save = function() {
@@ -105,12 +107,12 @@ app.controller("controller", function( $scope, json, sparql ){
 			"@context": {
 				"name": app_root()+"/schema#name",
 				"symbol": app_root()+"/schema#symbol",
-				"weight": app_root()+"/schema#weight",
+				"mass": app_root()+"/schema#mass",
 				"number": app_root()+"/schema#number",
 			},
 			"name": $scope.form.name,
 			"symbol": $scope.form.symbol,
-			"weight": $scope.form.weight,
+			"mass": $scope.form.mass,
 			"number": $scope.form.number,
 		};
 	}

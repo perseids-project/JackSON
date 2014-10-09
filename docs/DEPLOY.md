@@ -3,8 +3,6 @@
 	gem install passenger
 	passenger-install-apache2-module
 
-This server could be running on a system with other servers using a different version of ruby, so you might be using 
-
 If you're using **rbenv** instead of **rvm** you might get an error message like this one...
 
 	passenger-install-apache2-module: command not found

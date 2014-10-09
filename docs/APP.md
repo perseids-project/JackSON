@@ -161,7 +161,7 @@ and here is the RDF it creates...
 	<http://localhost:4567/data/rdf/cheesy> <http://localhost:4567/apps/lexinv/spec.html#word>    "cheesy"
 
 ### Validate uploaded JSON
-TODO: Write the code to do this...
+	NOTE:  The code that does this hasn't been implemented yet.
 
 Validate uploaded JSON to ensure it adheres to a defined standard.
 This is easily done with JackSON.
@@ -220,3 +220,9 @@ The other keys map to objects that contain two possible values.
 If values in **data.json** do not match the type or fail the regex check it will not be saved and the server will return an ERROR HTTP code.
 
 If a key-value pair exists in **data.json** that is not in **validate.json** it will still be saved and the server will return a SUCCESS HTTP code, but you will receive a warning in the SUCCESS JSON object.
+
+# Using /query
+	TODO
+
+# cmd=ls
+	TODO

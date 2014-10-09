@@ -19,7 +19,7 @@
 		* Machines suck at it currently but are slowly getting better.
 	* Poor as a specific record keeper.
 		* No native support for lists.
-		* aka ordering things is difficult.
+			* aka ordering things is difficult.
 
 ## The purpose of databases
 * archive or laboratory?
@@ -41,3 +41,5 @@ aka...
 
 Filesystem served JSON is the court stenographer.
 SPARQL served triples is the journalist covering the case.
+
+## Use URLs as URIs?

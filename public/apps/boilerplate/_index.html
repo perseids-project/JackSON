@@ -35,7 +35,7 @@
 		<form ng-submit="save()">
 		  <input ng-change="form_id('symbol')" placeholder="symbol" type="text" ng-model="form.symbol" size="20" />
 		  <input ng-change="form_item()" placeholder="name" type="text" ng-model="form.name" size="20" />
-		  <input ng-change="form_item()" placeholder="weight" type="text" ng-model="form.weight" size="20" />
+		  <input ng-change="form_item()" placeholder="weight" type="text" ng-model="form.mass" size="20" />
 		  <input ng-change="form_item()" placeholder="number" type="text" ng-model="form.number" size="20" />
 		  <input class="button tiny" type="submit" value="Save" />
 		  <a ng-click="form_clear()" class="button tiny">Clear</a>
@@ -46,6 +46,7 @@
 	  </div>
 	</div>
 	</section>
+	
 	<!-- Cmd Features -->
 	<section id="cmd">
 	<div class="row">
