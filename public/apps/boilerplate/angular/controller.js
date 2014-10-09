@@ -23,7 +23,7 @@ app.controller("controller", function( $scope, json, sparql ){
 	
 	// Pretty print data for browser viewing
 	$scope.pretty = pretty();
-	$scope.std_out = {};
+	$scope.std_out = "";
 	$scope.app_root = app_root();
 	$scope.save_dir = save_dir();
 	$scope.save_url = save_url();
