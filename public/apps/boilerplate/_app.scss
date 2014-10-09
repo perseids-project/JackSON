@@ -60,14 +60,22 @@ textarea {
 }
 #message {
   width:100%;
+  padding:1rem;
   text-align:center;
 }
 section#info input,
 section#info a {
-  float:left;
+  display:inline;
 }
 section#info input {
   font-size:.75rem;
-  height:2.05rem;
-  width:15rem;
+  height:1rem;
+  width:5rem;
+}
+section#info #save_dir {
+  font-size:.75rem;
+  font-family:"Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+  color:#AAA;
+  display: inline-block;
+  padding: 0 .25rem 0 0;
 }

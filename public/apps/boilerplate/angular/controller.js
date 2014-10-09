@@ -9,10 +9,10 @@ app.controller("controller", function( $scope, json, sparql ){
 	
 	// UI input
     $scope.form = {
-    	name:"",
-		symbol:"",
-		weight:"",
-		number:""
+    	name:'',
+		symbol:'',
+		weight:'',
+		number:''
     };
 
 	// What is saved to the JackSON server
@@ -26,6 +26,7 @@ app.controller("controller", function( $scope, json, sparql ){
 	
 	// Configuration table
 	$scope.app_root = app_root();
+	$scope.save_dir = save_dir();
 	$scope.save_url = save_url();
 	
 	// Search
@@ -36,7 +37,7 @@ app.controller("controller", function( $scope, json, sparql ){
 
 	// Save the data
 	$scope.save = function() {
-		$scope.form_apply();
+		$scope.form_item();
 		$scope.refresh();
 		json.post( $scope ).then(
 			function( msg ) { 
@@ -51,22 +52,29 @@ app.controller("controller", function( $scope, json, sparql ){
 			function( data ) {
 				$scope.data = data;
 				$scope.data_to_form();
+				$scope.form_item();
 				$scope.refresh();
 			}
 		)
 	}
 	$scope.open();
 	
+	// Form id provides the path name
+	$scope.form_id = function(e) {
+		$scope.path = $scope.form[e].file_name();
+		$scope.form_item();
+		$scope.refresh();
+	}
+	
 	// Update schtuff
 	$scope.refresh = function() {
 		$scope.save_url = save_url();
 		$scope.search = query();
-		$scope.pretty = angular.toJson( $scope.data, true );
 	}
 	
 	// Apply form data
-	$scope.form_apply = function() {
-		$scope.data = save_data();
+	$scope.form_item = function() {
+		apply_form();
 	}
 	
 	// Take JSON data and apply it to the form
@@ -86,11 +94,22 @@ app.controller("controller", function( $scope, json, sparql ){
 		);
 	}
 	
+	// Clear form
+	$scope.form_clear = function() {
+		for ( var key in $scope.form ) {
+			$scope.form[key] = '';
+		}
+		apply_form();
+	}
+	
 	// Save JSON data to JackSON server
 	function save_data() {
 		return { 
 			"@context": {
 				"name": app_root()+"/schema#name",
+				"symbol": app_root()+"/schema#symbol",
+				"weight": app_root()+"/schema#weight",
+				"number": app_root()+"/schema#number",
 			},
 			"name": $scope.form.name,
 			"symbol": $scope.form.symbol,
@@ -99,20 +118,26 @@ app.controller("controller", function( $scope, json, sparql ){
 		};
 	}
 	
+	// Retrieve the form's data
+	function apply_form() {
+		$scope.data = save_data();
+		$scope.pretty = angular.toJson( $scope.data, true );
+	}
+	
 	// Return this application's root url
 	function app_root() {
 		return document.URL.replace(/\/$|\/index\.html.*/,'');
 	}
 	
 	// Return the data url for the app
-	function app_data_url() {
+	function save_dir() {
 		var c = $scope.config
 		return c.domain+'/data/'+c.app;
 	}
 	
 	// Get the JackSON server save url
 	function save_url() {
-		return app_data_url()+'/'+$scope.path;
+		return save_dir()+'/'+$scope.path;
 	}
 	
 	// Dynamic SPARQL query

@@ -15,11 +15,10 @@
 		<div class="small-12 medium-2 columns">
 			<a target="_blank" href="foundation.html" class="button secondary tiny">UI Reminders</a>
 		</div>
-		<div class="small-12 medium-4 columns">
-			<a target="_blank" href="{{ save_url }}" target="_blank" class="button secondary tiny">{{ save_url }}</a></td>
-		</div>
 		<div class="small-12 medium-6 columns">
-			<input ng-change="refresh()" placeholder="path" type="text" ng-model="path" size="20" /><a href="" ng-click="open()" class="button secondary tiny">Open</a>
+			<span id="save_dir">{{ save_dir }}/</span><input ng-change="refresh()" placeholder="symbol" type="text" ng-model="path" size="20" />
+			<a href="" ng-click="open()" class="button secondary tiny">Open</a>
+			<a target="_blank" href="{{ save_url }}" target="_blank" class="button secondary tiny">Check</a>
 		</div>
 	</div>
 	<div class="row">
@@ -34,11 +33,12 @@
 	<div class="row">
 	  <div class="columns small-12 medium-4">
 		<form ng-submit="save()">
-		  <input ng-change="refresh()" placeholder="name" type="text" ng-model="form.name" size="20" />
-		  <input ng-change="refresh()" placeholder="symbol" type="text" ng-model="form.symbol" size="20" />
-		  <input ng-change="refresh()" placeholder="weight" type="text" ng-model="form.weight" size="20" />
-		  <input ng-change="refresh()" placeholder="number" type="text" ng-model="form.number" size="20" />
+		  <input ng-change="form_id('symbol')" placeholder="symbol" type="text" ng-model="form.symbol" size="20" />
+		  <input ng-change="form_item()" placeholder="name" type="text" ng-model="form.name" size="20" />
+		  <input ng-change="form_item()" placeholder="weight" type="text" ng-model="form.weight" size="20" />
+		  <input ng-change="form_item()" placeholder="number" type="text" ng-model="form.number" size="20" />
 		  <input class="button tiny" type="submit" value="Save" />
+		  <a ng-click="form_clear()" class="button tiny">Clear</a>
 		</form>
 	  </div>
 	  <div class="columns small-12 medium-8">
@@ -59,6 +59,9 @@
 	  </div>
 	</div>
 	</section>
+	
+	<!-- Library -->
+	<script src="/lib/jslib/src/js/StringExt.js" type="text/javascript"></script>
 
 	<!-- JQuery & Foundation -->
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
