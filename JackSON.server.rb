@@ -40,6 +40,14 @@ helpers do
     params[:splat][0]
   end
   
+  def sparql_url( query )
+    "#{settings.sparql}/query?query=#{URI::encode(query)}"
+  end
+  
+  def sparql_hash( query )
+    JSON.parse( RestClient.get( sparql_url( query ) ) )
+  end
+  
   def data_url( pth )
     "#{request.env['rack.url_scheme']}://#{request.host_with_port}/data/#{pth}"
   end
@@ -177,7 +185,18 @@ end
 
 # This is done as a quick fix for bypassing Fuseki's CORS
 get '/query' do
-  RestClient.get "#{settings.sparql}/query?query=#{URI::encode(params[:query])}"
+  RestClient.get sparql_url( params[:query] )
+end
+
+# Retrieve a JSON-LD file by URN
+get '/urn' do
+  query = "SELECT ?s WHERE { ?s <#{settings.urn}> #{params[:cite]} }"
+  r = sparql_hash( query )["results"]["bindings"]
+  if r.length < 1
+    status 404
+    return { :error => "#{params[:cite]} is not mapped to a JSON-LD file" }.to_json
+  end
+  redirect r[0]["s"]["value"]
 end
 
 # Return JSON file

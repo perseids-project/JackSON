@@ -5,8 +5,18 @@ app.service( 'json', function( $http, $q ) {
 		post: post,
 		put: put,
 		get: get,
-		ls: ls
+		ls: ls,
+		urn: urn
 	});
+	
+	// Retrieve a JSON file by URN
+	function urn( scope ) {
+		var request = api( 'GET', scope.urn_url );
+		return( request.then( 
+			success, 
+			error 
+		));
+	}
 	
 	// Create a new JSON file if it doesn't already exist.
 	function post( scope ) {
@@ -65,11 +75,11 @@ app.service( 'json', function( $http, $q ) {
 	function error( r ) {
 		if (
 			! angular.isObject( r.data ) ||
-			! r.data.message
+			! r.data.error
 		) {
 			return( $q.reject( "An unknown error occurred." ) );
 		}
-		return( $q.reject( r.data.message ) );
+		return( $q.reject( r.data.error ) );
 	}
 
 	// Success handler	

@@ -221,8 +221,36 @@ If values in **data.json** do not match the type or fail the regex check it will
 
 If a key-value pair exists in **data.json** that is not in **validate.json** it will still be saved and the server will return a SUCCESS HTTP code, but you will receive a warning in the SUCCESS JSON object.
 
-# Using /query
+### /urn?cite="urn:cite:perseus:collection.1"
+If you want an identifier different from the URL to your JSON-LD file
+include a "urn" key in your JSON-LD which references the... blabhablabj...
+
+You can retrieve the JSON-LD file using a URN like this...
+
+	http://localhost:4567/urn?cite="urn:cite:perseus:collection.1"
+
+JackSON instances can communicate with each other.
+Map a partial CITE URN to another JackSON instance in **JackSON.map.yml**.
+
+	"urn:cite:perseus:collection": http://locahost:7890
+
+
+### Using /query
 	TODO
 
-# cmd=ls
-	TODO
+### ?cmd=ls
+You can run commands on **/data/\*** URLs.
+For example if you want to see all JSON files in a URL directory you can run... 
+
+	http://localhost:4567/apps/elem?cmd=ls	
+
+...which will return JSON like this...
+
+	{
+	  "dirs": [],
+	  "files": [
+	    "http://127.0.0.1:4567/data/elem/h",
+	    "http://127.0.0.1:4567/data/elem/he",
+	    "http://127.0.0.1:4567/data/elem/li"
+	  ]
+	}

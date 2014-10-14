@@ -37,6 +37,7 @@
 		  <input ng-change="form_item()" placeholder="name" type="text" ng-model="form.name" size="20" />
 		  <input ng-change="form_item()" placeholder="weight" type="text" ng-model="form.mass" size="20" />
 		  <input ng-change="form_item()" placeholder="number" type="text" ng-model="form.number" size="20" />
+		  <input ng-change="form_item()" placeholder="URN" type="text" ng-model="form.urn" size="20" />
 		  <input class="button tiny" type="submit" value="Save" />
 		  <a ng-click="form_clear()" class="button tiny">Clear</a>
 		</form>
@@ -52,6 +53,7 @@
 	<div class="row">
 	  <div class="columns small-12 medium-4">
 		<a href="" class="button tiny secondary" ng-click="cmd('ls')">{{ save_dir }}?cmd=ls</a>
+		<a href="" class="button tiny secondary" ng-click="open_urn()">{{ urn_url }}</a>
 	  </div>
 	  <div class="columns small-12 medium-8">
 		<pre class="std_out">{{ std_out }}</pre>
