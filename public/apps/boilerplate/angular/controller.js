@@ -2,17 +2,18 @@ app.controller("controller", function( $scope, json, sparql ){
 	
 	// Configuration
 	$scope.config = {
-		domain: location.protocol+'//'+location.hostname+(location.port ? ':' + location.port: '' ),
+		host: location.protocol+'//'+location.hostname+(location.port ? ':' + location.port: '' ),
 		app: 'boilerplate'
 	}
-	$scope.config.query = $scope.config.domain+'/query';
+	$scope.config.query = $scope.config.host+'/query';
 	
 	// UI input
     $scope.form = {
     	name:'',
 		symbol:'',
 		mass:'',
-		number:''
+		number:'',
+		urn: ''
     };
 
 	// What is saved to the JackSON server
@@ -109,7 +110,9 @@ app.controller("controller", function( $scope, json, sparql ){
 				"symbol": app_root()+"/schema#symbol",
 				"mass": app_root()+"/schema#mass",
 				"number": app_root()+"/schema#number",
+				"urn": "http://github.com/caesarfeta/JackSON/docs/SCHEMA.md#urn"
 			},
+			"urn": $scope.form.urn,
 			"name": $scope.form.name,
 			"symbol": $scope.form.symbol,
 			"mass": $scope.form.mass,
@@ -167,7 +170,7 @@ app.controller("controller", function( $scope, json, sparql ){
 	// Return the data url for the app
 	function save_dir() {
 		var c = $scope.config
-		return c.domain+'/data/'+c.app;
+		return c.host+'/data/'+c.app;
 	}
 	
 	// Get the JackSON server save url
