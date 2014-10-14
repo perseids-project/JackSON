@@ -28,6 +28,7 @@ app.controller("controller", function( $scope, json, sparql ){
 	$scope.app_root = app_root();
 	$scope.save_dir = save_dir();
 	$scope.save_url = save_url();
+	$scope.urn_url = urn_url();
 	
 	// Search
 	$scope.search = query();
@@ -53,6 +54,11 @@ app.controller("controller", function( $scope, json, sparql ){
 		}
 	}
 	
+	// Retrieve JSON-LD by URN
+	$scope.open_urn = function() {
+		urn( $scope.form.urn );
+	}
+	
 	// Open saved data on load
 	$scope.open = function() {
 		open();
@@ -66,7 +72,7 @@ app.controller("controller", function( $scope, json, sparql ){
 		$scope.refresh();
 	}
 	
-	// Update schtuff
+	// Update
 	$scope.refresh = function() {
 		$scope.save_url = save_url();
 		$scope.search = query();
@@ -85,7 +91,7 @@ app.controller("controller", function( $scope, json, sparql ){
 		}
 	}
 	
-	// Sparql query
+	// SPARQL query
 	$scope.query = function() {
 		sparql.search( $scope ).then(
 			function( data ) {
@@ -110,7 +116,10 @@ app.controller("controller", function( $scope, json, sparql ){
 				"symbol": app_root()+"/schema#symbol",
 				"mass": app_root()+"/schema#mass",
 				"number": app_root()+"/schema#number",
-				"urn": "http://github.com/caesarfeta/JackSON/docs/SCHEMA.md#urn"
+				"urn": {
+					"@id": "http://github.com/caesarfeta/JackSON/docs/SCHEMA.md#urn",
+					"@type": "@id"
+				}
 			},
 			"urn": $scope.form.urn,
 			"name": $scope.form.name,
@@ -120,9 +129,18 @@ app.controller("controller", function( $scope, json, sparql ){
 		};
 	}
 	
+	// Retrieve a JSON file by URN
+	function urn( urn ) {
+		json.urn( $scope ).then(
+			function( data ) {
+				$scope.std_out = angular.toJson( data, true );
+			}
+		)
+	}
+	
 	// Save a JSON file
 	function save() {
-		apply_for();
+		apply_form();
 		$scope.refresh();
 		json.post( $scope ).then(
 			function( msg ) { 
@@ -156,26 +174,32 @@ app.controller("controller", function( $scope, json, sparql ){
 	function apply_form() {
 		$scope.data = save_data();
 		$scope.pretty = pretty();
+		$scope.urn_url = urn_url();
 	}
 	
 	function pretty() {
 		return angular.toJson( $scope.data, true );
 	}
 	
-	// Return this application's root url
+	// Return this application's root URL
 	function app_root() {
 		return document.URL.replace(/\/$|\/index\.html.*/,'');
 	}
 	
-	// Return the data url for the app
+	// Return the data URL for the app
 	function save_dir() {
 		var c = $scope.config
 		return c.host+'/data/'+c.app;
 	}
 	
-	// Get the JackSON server save url
+	// Get the JackSON server save URL
 	function save_url() {
 		return save_dir()+'/'+$scope.path;
+	}
+	
+	function urn_url() {
+		var c = $scope.config
+		return c.host+'/urn?cite="'+$scope.form.urn+'"'
 	}
 	
 	// Dynamic SPARQL query

@@ -53,7 +53,7 @@
 	<div class="row">
 	  <div class="columns small-12 medium-4">
 		<a href="" class="button tiny secondary" ng-click="cmd('ls')">{{ save_dir }}?cmd=ls</a>
-		<a href="" class="button tiny secondary" ng-click="urn('ls')">{{ config.host }}/urn?cite="{{ form.urn }}"</a>
+		<a href="" class="button tiny secondary" ng-click="open_urn()">{{ urn_url }}</a>
 	  </div>
 	  <div class="columns small-12 medium-8">
 		<pre class="std_out">{{ std_out }}</pre>

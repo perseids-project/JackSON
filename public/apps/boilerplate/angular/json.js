@@ -5,8 +5,18 @@ app.service( 'json', function( $http, $q ) {
 		post: post,
 		put: put,
 		get: get,
-		ls: ls
+		ls: ls,
+		urn: urn
 	});
+	
+	// Retrieve a JSON file by URN
+	function urn( scope ) {
+		var request = api( 'GET', scope.urn_url );
+		return( request.then( 
+			success, 
+			error 
+		));
+	}
 	
 	// Create a new JSON file if it doesn't already exist.
 	function post( scope ) {
