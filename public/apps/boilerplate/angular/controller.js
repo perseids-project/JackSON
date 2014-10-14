@@ -116,10 +116,7 @@ app.controller("controller", function( $scope, json, sparql ){
 				"symbol": app_root()+"/schema#symbol",
 				"mass": app_root()+"/schema#mass",
 				"number": app_root()+"/schema#number",
-				"urn": {
-					"@id": "http://github.com/caesarfeta/JackSON/docs/SCHEMA.md#urn",
-					"@type": "@id"
-				}
+				"urn": "http://github.com/caesarfeta/JackSON/docs/SCHEMA.md#urn"
 			},
 			"urn": $scope.form.urn,
 			"name": $scope.form.name,
@@ -132,10 +129,13 @@ app.controller("controller", function( $scope, json, sparql ){
 	// Retrieve a JSON file by URN
 	function urn( urn ) {
 		json.urn( $scope ).then(
-			function( data ) {
-				$scope.std_out = angular.toJson( data, true );
-			}
+			function( data ) { std_out(data) },
+			function( data ) { std_out(data) }
 		)
+	}
+	
+	function std_out( data ) {
+		$scope.std_out = angular.toJson( data, true );
 	}
 	
 	// Save a JSON file

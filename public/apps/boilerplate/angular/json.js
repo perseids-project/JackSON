@@ -75,11 +75,11 @@ app.service( 'json', function( $http, $q ) {
 	function error( r ) {
 		if (
 			! angular.isObject( r.data ) ||
-			! r.data.message
+			! r.data.error
 		) {
 			return( $q.reject( "An unknown error occurred." ) );
 		}
-		return( $q.reject( r.data.message ) );
+		return( $q.reject( r.data.error ) );
 	}
 
 	// Success handler	

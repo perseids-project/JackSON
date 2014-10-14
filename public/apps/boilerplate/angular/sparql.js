@@ -9,7 +9,7 @@ app.service( 'sparql', function( $http, $q ) {
 	function search( scope ) {
 		var request = get( scope.config.query, scope.search );
 		return( request.then( 
-			function( r ) { return r.data  },
+			function( r ) { return r.data.results.bindings  },
 			function( r ){ return r }
 		));
 	}
