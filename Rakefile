@@ -99,7 +99,7 @@ def tmake
   # Check for the existence of previously run task
   if File.directory?( tmake_dir )
     STDOUT.puts "#{tmake_dir} exists.
-Remove the previous runs output? (y/n)"
+Remove the previous run's output? (y/n)"
     input = STDIN.gets.strip
     case input 
     when 'y'
@@ -124,8 +124,9 @@ Remove the previous runs output? (y/n)"
   # Start building those triples!
   todo.each do |json|
     in_proc.puts(json)
+    path = json[0..-6] # remove .json
     begin
-      JackHELP.run.rdf( "POST", @settings['sparql'], "#{@settings["host"]}/#{json}", json )
+      JackHELP.run.rdf( "POST", @settings['sparql'], "#{@settings["host"]}/#{path}", json )
     rescue Exception => e
       errors.puts(e)
     end
