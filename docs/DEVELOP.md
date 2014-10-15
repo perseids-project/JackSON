@@ -1,5 +1,6 @@
 # Help develop JackSON!
-If you dig this project and want to contribute... thank you, and read on!
+If you like JackSON and want to contribute... thank you, and please read on!
+If you came here to learn how to build an app with JackSON read APP.md instead.
 
 ## Preferred Development Process
 * GitHub fork
@@ -7,7 +8,7 @@ If you dig this project and want to contribute... thank you, and read on!
 * write feature
 * run feature's unit tests
 	* pass!
-		* run full test suite
+		* run integration tests
 			* pass!
 				* send pull request through GitHub
 			* fail...

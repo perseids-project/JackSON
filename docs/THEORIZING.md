@@ -35,11 +35,9 @@ Detailed records need some abstraction, otherwise users are overwhelmed.
 
 ## Easiest way to think about it.
 Filesystem served JSON as detailed record keeping.
-SPARQL served triples as system for searching exploring connections.
+SPARQL served triples are a system for searching exploring connections.
 
 aka...
 
 Filesystem served JSON is the court stenographer.
 SPARQL served triples is the journalist covering the case.
-
-## Use URLs as URIs?

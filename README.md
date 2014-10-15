@@ -6,6 +6,68 @@ See [JackRDF](http://github.com/caesarfeta/jackrdf).
 
 It was designed specifically for rapidly prototyping linked-data web applications with save and search capabilities.
 
+## Why use it?
+Traditionally data driven web-applications use a relational database to store user data.
+This requires developers to write model classes which transform data from something transferrable over HTTP to tabular data using SQL.
+Then to get data out of the relational database you have to do the reverse.
+It's a huge time-suck and the source of a lot of frustration.
+There are libraries which make this process a bit easier, ActiveRecord for example, but they're just abstractions of a cumbersome system.
+There are more elegant ways of storing user data on a server, the easiest is just saving JSON.
+
+### JSON
+JSON can be manipulated natively with Javascript.
+Javascript is really your only choice for client-side scripting.
+Given this reality why aren't we just saving JSON on our servers?
+If we start doing that we can forego writing all the code needed to transform the data for the relational database's sake. 
+
+Right? 
+Well... no... JSON saved on a traditional filesystem is hard to search, and most applications involve searching data of some kind.  
+Luckily there are alternatives to relational databases.
+One alternative is the **RDF triple-store**, which will one day realize the dream of Tim Berners-Lee and his acolytes, a network of globally **linked-data**.
+
+### Linked-data and RDF
+Linked-data is simply applying the World Wide Web's "linked documents with global ids" model to the level of data.
+Each unit of data has a universally unique identifier and is connected to all other universally id'd data through formally defined relationships,
+in nearly the same way as how mathematician's are connected with each other through [Paul Erdos](http://en.wikipedia.org/wiki/Erd%C5%91s_number), and Hollywood actors are connected through [Kevin Bacon](http://en.wikipedia.org/wiki/Six_Degrees_of_Kevin_Bacon).
+
+The preferred format for created linked-data is RDF.
+RDF is basically data encoded in a simple declarative sentence: subject, verb, object.
+With a natural language, like English, sentences like these...
+
+	Dick likes Jane.
+	Jane pets Spot.
+	Spot buries bones.
+
+...grouped together, are creating implied relationships between all the nouns.
+
+What's the link between Dick and bones? 
+Jane, whom Dick likes, pets Spot, who buries bones.
+Simple.
+
+RDF actually looks more like this.
+
+	<http://chem.org/data/elem/he> <http://chem.org/schema#name> "Helium" 
+	<http://chem.org/data/elem/he> <http://chem.org/schema#number> "2"
+	<http://chem.org/data/elem/he> <http://chem.org/schema#symbol> "He"
+	<http://chem.org/data/elem/he> <http://chem.org/schema#prev> <http://chem.org/data/elem/h>
+	<http://chem.org/data/elem/he> <http://chem.org/schema#next> <http://chem.org/data/elem/li>
+
+...but the similarities should be apparent.
+
+### RDF is amazing!
+RDF is great.
+It solves the problem
+
+### RDF sucks!!!
+
+### JSON-LD to the rescue!
+
+### JackSON to the rescue!
+JackSON gives you a really simple way to save JSON.
+With a little know how you can convert JSON into linked-data ready to be shared with the world.
+JackSON gives you the option of 
+The boilerplate application can be modified very quickly to build useful applications in only hours.
+
 ## Basics
 ### Install
 Install ruby and gem.
@@ -18,9 +80,6 @@ Start the server.
 
 	rake server:start
 
-### Using  JackSON.js
-See **docs/API.md**
-
 ### CORS "Cross-origin resource sharing"
 Applications that use JackSON can be hosted anywhere with one "gotcha", to communicate with the JackSON server from an application on another host you will need to update **JackSON.config.yml**
 
@@ -28,43 +87,14 @@ Applications that use JackSON can be hosted anywhere with one "gotcha", to commu
 
 That's it for basics!
 
-
-
 ## Create a JackSON app
-If you want to create a JackSON app with AngularJS and Foundation boilerplate code...
-
-[Install NodeJS](http://nodejs.org/)
-
-Run this to install required command line tools.
-
-	rake install:ui
-
-Run this to create a JackSON app in apps/name
-
-	rake app:make['name']
-
-After running this rake command keep your terminal open so the running program can listen for changes to your .scss files.
-
-### JackSON and AngularJS
-JackSON.js is a mostly by-the-book RESTful API, so you don't have to use JackSON.js.
-AngularJS's $http service works with JackSON too.
-
-Here are some examples to get you started.
-
-	Note: If you click these links from GitHub they won't work.
-	You have to be browsing this README from your own JackSON server instance...
-
-* [An example JackSON &amp; AngularJS app](examples/angular/index.html)
-* [A more complex example](examples/thesaurus/index.html)
-* [Minimal Boilerplate JackSON &amp; AngularJS app](apps/boilerplate/index.html)
-
-### more info on JackSON app development...
 See **docs/APP.md**
 
-## Contribute
+### Using  JackSON.js
+If you aren't looking to create a new JackSON/Angular app and you're comfortable using JQuery checkout **docs/API.md**.
+
+## Contribute?
 If you would like to contribute code to this project see **docs/DEVELOP.md** for guidance.
-
-
 
 ## Useful Reading
 * Manu Sporny talks about the relationshipe between [JSON-LD &amp; RDF](http://manu.sporny.org/2014/json-ld-origins-2/)

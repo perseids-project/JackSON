@@ -1,12 +1,27 @@
-# Building Linked-Data Apps with JackSON
+# Build a linked-data app with JackSON
+## Quick start
+To create a JackSON app with AngularJS and Foundation boilerplate code...
 
-## Thinking about the application's data structure
+[Install NodeJS](http://nodejs.org/)
+
+Install required command line tools.
+
+	rake install:ui
+
+Create a JackSON app in apps/name
+
+	rake app:make['name']
+
+Keep your terminal open so app:make can listen for changes to your .scss files.
+
+## Go deeper...
 ### Questions to ask yourself before beginning.
 
 1. What data needs gathering?
 2. What data needs to be searchable?
 
 The answers to these questions will affect the flavor and design of your JSON.
+
 If you don't need your data searchable just use JSON.
 
 	{
@@ -15,7 +30,8 @@ If you don't need your data searchable just use JSON.
 	  "avatar": "http://twitter.com/account/profile_image/manuelsurly",
 	}
 
-To make this data SPARQL searchable use JSON-LD by adding @context and defining each property with the desired RDF ontology URL.
+To make this data SPARQL searchable use JSON-LD by adding **@context:{}**.
+Then define each property with a RDF verb definition URL.
 
 	{
 	  "@context": {
@@ -28,7 +44,7 @@ To make this data SPARQL searchable use JSON-LD by adding @context and defining 
 	  "avatar": "http://twitter.com/account/profile_image/manuelsurly"
 	}
 
-The JSON-LD posted to **rdf/ld** produces these RDF triples.
+This JSON-LD posted to **rdf/ld** produces these RDF triples.
 
 	<http://localhost:4567/data/rdf/ld> <http://xmlns.com/foaf/0.1/avatar> "http://twitter.com/account/profile_image/manuelsurly"
 	<http://localhost:4567/data/rdf/ld> <http://xmlns.com/foaf/0.1/homepage> "http://manuel.surly.org/"
@@ -161,7 +177,7 @@ and here is the RDF it creates...
 	<http://localhost:4567/data/rdf/cheesy> <http://localhost:4567/apps/lexinv/spec.html#word>    "cheesy"
 
 ### Validate uploaded JSON
-	NOTE:  The code that does this hasn't been implemented yet.
+	**Coming Soon!**
 
 Validate uploaded JSON to ensure it adheres to a defined standard.
 This is easily done with JackSON.
@@ -221,22 +237,41 @@ If values in **data.json** do not match the type or fail the regex check it will
 
 If a key-value pair exists in **data.json** that is not in **validate.json** it will still be saved and the server will return a SUCCESS HTTP code, but you will receive a warning in the SUCCESS JSON object.
 
-### /urn?cite="urn:cite:perseus:collection.1"
-If you want an identifier different from the URL to your JSON-LD file
-include a "urn" key in your JSON-LD which references the... blabhablabj...
+### /urn?cite="urn:cite:organization:elem.1"
+If you want an identifier different from the URL to a JSON-LD file
+include the "JackSON urn" verb-value pair in your JSON-LD like this...
 
-You can retrieve the JSON-LD file using a URN like this...
+	{
+	  "@context": {
+	    "name": "http://localhost:4567/apps/elem/schema#name",
+	    "symbol": "http://localhost:4567/apps/elem/schema#symbol",
+	    "mass": "http://localhost:4567/apps/elem/schema#mass",
+	    "number": "http://localhost:4567/apps/elem/schema#number",
+	    "urn": "http://github.com/caesarfeta/JackSON/docs/SCHEMA.md#urn"
+	  },
+	  "urn": "urn:cite:organization:elem.1",
+	  "name": "Hydrogen",
+	  "symbol": "H",
+	  "mass": "",
+	  "number": "1"
+	}
 
-	http://localhost:4567/urn?cite="urn:cite:perseus:collection.1"
+Then you can retrieve the JSON-LD file using a URN like this...
 
-JackSON instances can communicate with each other.
-Map a partial CITE URN to another JackSON instance in **JackSON.map.yml**.
+	http://localhost:4567/urn?cite="urn:cite:organization:elem.1"
 
-	"urn:cite:perseus:collection": http://locahost:7890
+	**Coming Soon!**
+
+A JackSON server can search other JackSON instances to resolve a URN.
+List these "family" JackSON instances in **JackSON.config.yml**.
+
+	family: [ 'http://other.jackson-server.org', 'http://another.jackson-server.org' ]
 
 
-### Using /query
-	TODO
+### /query?query=SELECT...
+You can run queries on the endpoint connected to JackSON by passing the SPARQL query as a URL escaped string.  Like this...
+
+	http://localhost:4321/ds/query?query=SELECT%20?p%20?o%20WHERE%20%7B%20%3Chttp://localhost:4567/data/elem/1%3E%20?p%20?o%20%7D
 
 ### ?cmd=ls
 You can run commands on **/data/\*** URLs.
