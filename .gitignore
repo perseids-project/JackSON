@@ -45,8 +45,13 @@ Thumbs.db
 /SCRATCH.md
 /scratch
 
+# Temp directory #
+##################
+/tmp
+
 # Save application and data to git/GitHub? Remove this. #
 # apps, validators, and data are ignored by default     #
 #########################################################
 /data
-#/public/apps
+/validate
+/public/apps

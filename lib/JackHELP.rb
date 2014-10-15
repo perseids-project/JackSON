@@ -30,6 +30,15 @@ class JackHELP
     end
   end
   
+  # Get all files matching a regex
+  def files_matching( dir, regex )
+    files = []
+    Find.find( dir ) do |file|
+      files << file if file =~ regex
+    end
+    files
+  end
+  
   # Remove empty parent directories recursively
   def rm_empty_dirs( dir )
     if ( Dir.entries( dir ) - %w{ . .. .DS_Store } ).empty?
