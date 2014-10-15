@@ -1,6 +1,8 @@
 path: 'data'
 apps: 'public/apps'
+tmp: 'tmp'
 port: 4567
+host: 'http://localhost:4567'
 urn: "http://github.com/caesarfeta/JackSON/docs/SCHEMA.md#urn"
 cors: [ 'http://localhost:4567', 'http://localhost:3000' ]
 sparql: 'http://localhost:4321/ds'

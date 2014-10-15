@@ -177,6 +177,7 @@ before do
   end
 end
 
+# Return README.md
 get '/' do
   content_type :html
   md = GitHub::Markup.render( 'README.md' )
