@@ -99,33 +99,38 @@ def tmake
   # Check for the existence of previously run task
   if File.directory?( tmake_dir )
     STDOUT.puts "#{tmake_dir} exists.
-Previous triple:make task did not complete.
-Start over? (y/n)"
+Remove the previous runs output? (y/n)"
     input = STDIN.gets.strip
     case input 
     when 'y'
       FileUtils.rm_rf( tmake_dir )
-    when 'n'
+    else
       abort("**task cancelled**")
     end
   end
   
+  # Get the paths of the JSON files in the data dir
+  files = JackHELP.run.files_matching( @settings["path"], /.*\.json$/ )
+  
   # Create the temp work directory
   FileUtils.mkdir_p( tmake_dir )
-  # Get all the JSON files in the data dir
-  files = JackHELP.run.files_matching( @settings["path"], /.*\.json$/ )
-  # Create files to manage the processing queue
-  File.open(tmake_file('IN_PROC'),"w")
-  File.open(tmake_file('DONE'),"w")
+  errors = File.open(tmake_file('ERRORS'),"w")
+  in_proc = File.open(tmake_file('IN_PROC'),"w")
+  done = File.open(tmake_file('DONE'),"w")
   todo = File.open(tmake_file('TODO'),"w") do |todo|
      files.each{|file| todo.puts(file) } # Append TODO with file paths
-   end
+  end
+   
   # Start building those triples!
-  
-  
-  puts todo.inspect
-  # Clean up temp files 
-  #FileUtils.rm_rf( tmake_dir )
+  todo.each do |json|
+    in_proc.puts(json)
+    begin
+      JackHELP.run.rdf( "POST", @settings['sparql'], "#{@settings["host"]}/#{json}", json )
+    rescue Exception => e
+      errors.puts(e)
+    end
+    done.puts(json)
+  end
 end
 
 # Install
