@@ -1,4 +1,4 @@
-# Build a linked-data app with JackSON
+#  JackSON App development
 ## Quick start
 To create a JackSON app with AngularJS and Foundation boilerplate code...
 

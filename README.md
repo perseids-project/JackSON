@@ -12,7 +12,7 @@ This requires developers to write model classes which transform data from someth
 Then to get data out of the relational database you have to do the reverse.
 It's a huge time-suck and the source of a lot of frustration.
 There are libraries which make this process a bit easier, ActiveRecord for example, but they're just abstractions of a cumbersome system.
-There are more elegant ways of storing user data on a server, the easiest is just saving JSON.
+There are more elegant ways of storing user data on a server, the easiest is just saving JSON sent over HTTP.
 
 ### JSON
 JSON can be manipulated natively with Javascript.
@@ -28,7 +28,6 @@ One alternative is the **RDF triple-store**, which will one day realize the drea
 ### Linked-data and RDF
 Linked-data is simply applying the World Wide Web's "linked documents with global ids" model to the level of data.
 Each unit of data has a universally unique identifier and is connected to all other universally id'd data through formally defined relationships,
-in nearly the same way as how mathematician's are connected with each other through [Paul Erdos](http://en.wikipedia.org/wiki/Erd%C5%91s_number), and Hollywood actors are connected through [Kevin Bacon](http://en.wikipedia.org/wiki/Six_Degrees_of_Kevin_Bacon).
 
 The preferred format for created linked-data is RDF.
 RDF is basically data encoded in a simple declarative sentence: subject, verb, object.
@@ -55,18 +54,25 @@ RDF actually looks more like this.
 ...but the similarities should be apparent.
 
 ### RDF is amazing!
-RDF is great.
-It solves the problem
+	TODO
 
-### RDF sucks!!!
+### RDF sucks!!
+	TODO
 
-### JSON-LD to the rescue!
+### JSON-LD to the rescue!!!
+	TODO
 
-### JackSON to the rescue!
-JackSON gives you a really simple way to save JSON.
-With a little know how you can convert JSON into linked-data ready to be shared with the world.
-JackSON gives you the option of 
-The boilerplate application can be modified very quickly to build useful applications in only hours.
+### JackSON to the rescue!!!!
+If you're a researcher or working with one, and are looking for a simple way to both create and publish data, JackSON is what you need.
+JackSON creates a boilerplate application that can be modified to build useful applications in hours, because the unnecessarily hard part of web-development has been removed...
+
+Creating data models ( which used to mean writing CREATE TABLE statements, server-side model classes, and a client-side API, in three different languages ) is trivial with JackSON.
+
+All you have to do is write a JSON template.
+Actually all you have to do is modify the JSON template in the boilerplate application.
+Developing that template is a very visual process too.
+Try it!
+Fork this project, install it, and then read **docs/APP.md**
 
 ## Basics
 ### Install
