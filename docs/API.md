@@ -1,4 +1,4 @@
-# How to JackSON.js
+# How to use JackSON.js
 
 Open your Javascript console and play along!
 
@@ -84,4 +84,4 @@ If @context exists it will be converted to RDF.
 The JackSON server will then update a SPARQL endpoint with the newly created RDF.  
 The location of the SPARQL endpoint is set with **sparql** in **JackSON.config.yml**.  See [JackRDF](http://github.com/caesarfeta/jackrdf).
 
-Note: A single SPARQL endpoint can be updated by several JackSON servers, which means lots of applications can all be gathering data and indexing them in one place.
+For more information see **docs/APP.md**
