@@ -17,13 +17,12 @@ Revising a data-model is as easy as writing a new JSON-LD template,
 and searching the data is as easy a suffixing a SPARQL query to a URL.
 JackSON's design goal is to find the shortest path, in terms of development time, from user input on a web page to SPARQL queryable RDF.
 
-Other people are playing this game currently.
 One of the authors of the JSON-LD 1.0 W3C recommendation, Gregg Kellogg, who also wrote the JSON-LD to RDF converter I'm using in JackRDF, has [outlined a similar system](http://www.slideshare.net/gkellogg1/jsonld-and-mongodb) that uses MongoDB as the persistent JSON store.
 I don't know if it has been built yet though.
 
 # Code complexity & our limited and precious waking hours
 Reducing development time is synonymous with reducing complexity.
-The time it takes to develop new and reliable tools should be the first priority of any development team, but especially one like ours where turnover is seasonal.
+The time it takes to develop new and reliable tools should be the first priority of any development team, but especially one like ours where turnover is basically seasonal.
 
 We have lots of bright young people eager to help us, but they all need plenty of structure to work inside to produce anything useful.
 If they didn't they wouldn't be in school in the first place :)
@@ -100,7 +99,7 @@ JackSON can be that with just a little bit more development.
 ## CITE urns
 I need to add better CITE URN support.
 Checkout this quick example.
-( I'm not typing the RDF objects like should. Forgive Me. )
+( I'm not typing the RDF objects like I should. Forgive Me. )
 
 This JSON-LD lives here http://localhost:4567/data/elem/he and it looks like this...
 
@@ -210,10 +209,11 @@ This means the system can scale horizontally fairly well.
 ## Authentication
 We need some kind of authentication system.
 One to mark applications as able to POST PUT and DELETE to JackSON.
-Also some kind of built in identity management is needed.
+Also some kind of identity management system is needed.
 
 ## Validation
 We'll need a validation system to ensure JSON uploaded to the server isn't junk.
+I started writing this... see the validation branch.
 It operates by creating a validation JSON file, which will check for the presence of certain key-value pairs,
 whether those values are the correct datatype,
 and check values more granularly with regex if need be.
