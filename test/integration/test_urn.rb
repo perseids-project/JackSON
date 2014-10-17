@@ -1,4 +1,4 @@
-require_relative '../JackTEST.rb'
+require 'JackTEST'
 
 # Want to run a single test?
 # You probably do when developing.
@@ -7,13 +7,20 @@ require_relative '../JackTEST.rb'
 
 class TestUrn < JackTEST
   
-  # Create a brand new JSON-LD file
+  # Create a new JSON-LD file and retrieve it by URN
   def test_AAA_urn
     r = api( POST, 'urn/elem/he', 'elem/he' )
     h = hashit( 'urn/elem/he' )
     r = urn_cite( h['urn'] )
-    puts h.inspect
-    assert( true )
+    assert( r == h )
   end
+  
+  def test_AAB_urn_rdf
     
+  end
+  
+  def test_AAB_urn_rdf_delete
+    
+  end
+   
 end
