@@ -32,8 +32,8 @@ class JackTEST < Minitest::Test
     "#{host}/data/#{rel}"
   end
   
-  def cite_urn( urn )
-    r = RestClient.get "#{host}/cite?urn=\"#{urn}\""
+  def urn_cite( urn )
+    r = RestClient.get "#{host}/urn?cite=#{urn}"
   end
   
   def hashit( file )

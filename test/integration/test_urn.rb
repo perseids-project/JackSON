@@ -11,7 +11,7 @@ class TestUrn < JackTEST
   def test_AAA_urn
     r = api( POST, 'urn/elem/he', 'elem/he' )
     h = hashit( 'urn/elem/he' )
-    r = urn( h['urn'] )
+    r = urn_cite( h['urn'] )
     puts h.inspect
     assert( true )
   end

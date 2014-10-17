@@ -152,7 +152,7 @@ namespace :install do
     `sudo npm install -g bower grunt-cli`
     `sudo gem install foundation`
     `sudo gem install compass`
-    `rbenv rehash`
+    #`rbenv rehash`
   end
 end
 
