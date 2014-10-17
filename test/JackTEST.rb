@@ -2,6 +2,7 @@ require 'minitest/autorun'
 require 'benchmark'
 require 'rest_client'
 require 'json'
+require 'yaml'
 require_relative '../lib/JackHELP.rb'
 
 # Want to run a single test?
@@ -17,6 +18,12 @@ class JackTEST < Minitest::Test
   PUT = 'PUT'
   DELETE = 'DELETE'
   
+  # Config will be handy for testing
+  @@settings = YAML.load( File.read("#{File.dirname(__FILE__)}/../JackSON.config.yml") )
+  def self.settings
+    @@settings
+  end
+  
   def self.test_order
     :alpha
   end
@@ -24,13 +31,24 @@ class JackTEST < Minitest::Test
   # Helper methods.
   private 
   
+  def dir
+    File.dirname(__FILE__)
+  end
+  
+  def host
+    JackTEST.settings["host"]
+  end
+  
   def url( rel )
-    "http://localhost:4567/data/#{rel}"
+    "#{host}/data/#{rel}"
+  end
+  
+  def urn_cite( urn )
+    JSON.parse( RestClient.get "#{host}/urn?cite=#{urn}" )
   end
   
   def hashit( file )
     return {} if file == nil
-    dir = File.dirname(__FILE__)
     return JackHELP.run.hashit( "#{dir}/data/#{file}" )
   end
   

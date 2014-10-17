@@ -9,6 +9,7 @@ require 'rest_client'
 
 # JackSON helpers
 require 'JackRDF'
+require_relative 'lib/String'
 require_relative 'lib/JackHELP'
 require_relative 'lib/JackVALID'
 
@@ -191,11 +192,17 @@ end
 
 # Retrieve a JSON-LD file by URN
 get '/urn' do
-  query = "SELECT ?s WHERE { ?s <#{settings.urn}> #{params[:cite]} }"
-  r = sparql_hash( query )["results"]["bindings"]
+  urn = params[:cite].quote
+  logdump urn
+  query = "SELECT ?s WHERE { ?s <#{settings.urn}> #{urn} }"
+  begin
+    r = sparql_hash( query )["results"]["bindings"]
+  rescue
+    return { :error => "An error occured resolving #{urn}" }.to_json
+  end
   if r.length < 1
     status 404
-    return { :error => "#{params[:cite]} is not mapped to a JSON-LD file" }.to_json
+    return { :error => "#{urn} is not mapped to a JSON-LD file" }.to_json
   end
   redirect r[0]["s"]["value"]
 end

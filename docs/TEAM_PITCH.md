@@ -5,30 +5,35 @@ SQL and SPARQL/RDF don't have the same limitations.
 I'm realizing it's a fundamentally flawed design.
 It was a useful experiment though.
 JackSON is a better system.
+I know that seems flakey of me, but I was still inexperienced when I started SparqlModel.
+Let me make my case for JackSON.
 
 # JackSON
 It's a database server.
 It has a restful API for doing CRUD with JSON on a filesystem and when it's coupled with the JackRDF, its sister project, it will mirror relevant JSON-LD as RDF on a SPARQL queryable endpoint.
 
-In other words it's a hybrid of filesystem served JSON and SPARQL queryable RDF which you can interact with exclusively over HTTP, and it is very easy to use.
+In other words it's a hybrid of filesystem served JSON and SPARQL queryable RDF which you can interact with exclusively over HTTP.
 
-New applications can be built exclusively with client-side HTML and Javascript.
+This means new applications can be built exclusively with client-side HTML and Javascript.
 Revising a data-model is as easy as writing a new JSON-LD template, 
 and searching the data is as easy a suffixing a SPARQL query to a URL.
 JackSON's design goal is to find the shortest path, in terms of development time, from user input on a web page to SPARQL queryable RDF.
 
-One of the authors of the JSON-LD 1.0 W3C recommendation, Gregg Kellogg, who also wrote the JSON-LD to RDF converter used in JackRDF, has [outlined a similar system](http://www.slideshare.net/gkellogg1/jsonld-and-mongodb) that uses MongoDB as the persistent JSON store.
-( I don't know if it has been built yet )
+# It's in the air...
+One of the authors of the JSON-LD 1.0 W3C recommendation, Gregg Kellogg, who also wrote the JSON-LD to RDF converter used in JackRDF, has outlined [a similar system](http://www.slideshare.net/gkellogg1/jsonld-and-mongodb) that uses MongoDB as the persistent JSON store.  I don't think it's been built or if it has it's not available for public use.
 
 # Code complexity & development time.
 Reducing development time is synonymous with reducing complexity.
-The time it takes to develop new and reliable tools should be the first priority of any development team, but especially one like ours where turnover is basically seasonal.
+The time it takes to develop new and reliable tools should be the first priority of any development team, but especially one like ours where turnover is seasonal.
 
 We have lots of bright young people eager to help us, but they all need plenty of structure to work inside to produce anything useful.
 If they didn't they wouldn't be in school in the first place :)
 If we can build infrastructure with student-developers in mind we will as a side-effect be making our own workflows more efficient.
 
 With only a bit more development on JackSON we can have students building web-applications which can create published data without having to know anything other than HTML, some basic Javascript, and how to issue HTTP requests.
+
+If it's possible for them,
+it will be easy for us full-timers.
 
 # RDF exclusively is a bad idea.
 Storing application data exclusively as RDF is hard, and I think unwise.
@@ -68,7 +73,7 @@ A hybrid database, like JackSON, means we can use RDF for search and categorizat
 But when we need an ordered list or when we just want id'd data and we want it in a familiar JSON format we just grab the source JSON-LD, and we can do that over a RESTFUL API.
 
 [Manu Sporny, another JSON-LD spec author, wrote a pretty blunt essay about RDF's limitations.](http://manu.sporny.org/2014/json-ld-origins-2/)
-I read it after I wrote SparqlModel and was having a battle with my conscience, and it expressed my feelings succinctly :)  It's funny too.
+I read it after I wrote SparqlModel and was having a battle with my conscience, and it expressed my feelings succinctly :)
 
 I agree with him.
 RDF is inadequate for modelling all the data we want, not exclusively anyway,
@@ -86,13 +91,27 @@ turn SQL data into something usable by the user's client.
 It's a huge time-suck to write all that code, but most developers see it as fate practically.
 We all have SQL-Stockholm-Syndrome to some degree, and many of us can't see any alternatives.
 
-My perspective is we should just use JSON end-to-end with a little RDF on the side for searching.
+My perspective is we should try to use JSON end-to-end with a little RDF on the side for searching.
 
-# Future development
+# Prototype
+I have a working prototype.
+You may have seen the demo video I sent out a little while ago.
+I've improved the prototype quite a bit since then.
+
+Try installing it and building a little app with it.
+I have a boilerplate application which shows JackSON off pretty well.
+These two documents should provide you with enough background to get started
+
+	README.md
+	docs/APP.md
+
+I'd be happy to give a personal demo too.
+I think with a little polish JackSON could become a very valuable tool for us.
+
+# Needed development
 ## CITE urns
 I need to add better CITE URN support.
 Checkout this quick example.
-( I'm not typing the RDF objects like I should. Forgive Me. )
 
 This JSON-LD lives here http://localhost:4567/data/elem/he and it looks like this...
 
@@ -132,7 +151,7 @@ Other people are referencing it after all.
 So we have to decouple the RDF subject id from the JSON-LD source URL.
 Our preferred way of doing this as an organization is to use CITE URNs.
 
-So the solution I came up with is if the JSON-LD has a defined urn key-value pair and the urn key is mapped to a very specific RDF verb like in the example...
+One solution to this problem is if the JSON-LD has a defined urn key-value pair and the urn key is mapped to a very specific RDF verb like in the example...
 
 	...
 	"urn": "http://github.com/caesarfeta/JackSON/docs/SCHEMA.md#urn"
@@ -140,7 +159,7 @@ So the solution I came up with is if the JSON-LD has a defined urn key-value pai
 	"urn": "urn:cite:periodic:elem.2"
 	...
 
-It should produce RDF like this instead.
+It could produce RDF like this instead.
 
 	<urn:cite:periodic:elem.2> <http://github.com/caesarfeta/JackSON/docs/SCHEMA.md#src> "http://localhost:4567/data/elem/he"
 	<urn:cite:periodic:elem.2> <http://localhost:4567/apps/elem/schema#mass> "6.64648x10^-24"
@@ -150,9 +169,9 @@ It should produce RDF like this instead.
 
 Retrieving the source JSON-LD by URN could be done like so.
 
-	http://localhost:4567/urn?cite="urn:cite:periodic:elem.2"
+	http://localhost:4567/urn?cite=urn:cite:periodic:elem.2
 
-This is  would allow multiple JSON-LD files to add verbs and values to one RDF node.
+This would allow multiple JSON-LD files to add verbs and values to one RDF node.
 This JSON-LD lives here http://localhost:7890/data/chem-hist/he and it looks like this...
 
 	{
@@ -219,7 +238,3 @@ but we could integrate JackSON with Git.
 When JSON is changed it could trigger a git commit.
 Then that commit hash could become an additional identifier for retrieving versions of JSON, and can be suffixed to RDF triples.
 
-# Wrap-up
-I think with a little polish JackSON could become a valuable tool for us.
-Try installing it and building a little app with it.
-If you'd like a personal demo to get started let me know.
