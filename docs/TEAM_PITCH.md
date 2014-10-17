@@ -56,7 +56,7 @@ Think about all the work it takes to reorder the RDF compared with doing it in J
 This is one of the reasons most of our processes for updating and creating RDF triples are manual ones.
 The limitations of the technology have to be worked around, and it isn't easy.
 A hybrid database, like JackSON, means we can use RDF for search and categorization where it's useful.
-But when we need an ordered list or when we just want id'd data and we want it in a familiar JSON format we just grab the source JSON-LD, and we can do that over a RESTFUL API.
+But when we need an ordered list or when we just want id'd data and we want it in a familiar format we just grab the source JSON-LD, and we can do that over a REST API.
 
 [Manu Sporny, another JSON-LD spec author, wrote a pretty blunt essay about RDF's limitations.](http://manu.sporny.org/2014/json-ld-origins-2/)
 I read it after I wrote SparqlModel and was having a battle with my conscience, and it expressed my feelings succinctly :)
