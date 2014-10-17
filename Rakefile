@@ -156,11 +156,11 @@ namespace :install do
   end
 end
 
-# Data
-namespace :data do
-  desc 'Destroy all data'
+# JSON
+namespace :json do
+  desc 'Destroy all json data'
   task :destroy do
-    STDOUT.puts "Are you sure you want to destroy all JSON data? (y/n)"
+    STDOUT.puts "Sure you want to destroy all JSON in \"#{@settings["path"]}/\"? (y/n)"
     input = STDIN.gets.strip
     if input == 'y'
       FileUtils.rm_rf( @settings["path"] )
@@ -168,5 +168,23 @@ namespace :data do
     else
       STDOUT.puts "No data was destroyed.  It's still all there :)"
     end
+  end
+end
+
+# RDF
+namespace :rdf do
+  desc 'Destroy all RDF data'
+  task :destroy do
+    Dir.chdir( "../JackRDF" )
+    exec 'rake data:destroy'
+  end
+end
+
+# Data
+namespace :data do
+  desc 'Destroy all data'
+  task :destroy do
+    Rake::Task['json:destroy'].invoke
+    Rake::Task['rdf:destroy'].invoke
   end
 end

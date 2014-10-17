@@ -24,8 +24,16 @@ class JackTEST < Minitest::Test
   # Helper methods.
   private 
   
+  def host
+    "http://localhost:4567"
+  end
+  
   def url( rel )
-    "http://localhost:4567/data/#{rel}"
+    "#{host}/data/#{rel}"
+  end
+  
+  def cite_urn( urn )
+    r = RestClient.get "#{host}/cite?urn=\"#{urn}\""
   end
   
   def hashit( file )

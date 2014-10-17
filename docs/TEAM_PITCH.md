@@ -92,7 +92,6 @@ My perspective is we should just use JSON end-to-end with a little RDF on the si
 ## CITE urns
 I need to add better CITE URN support.
 Checkout this quick example.
-( I'm not typing the RDF objects like I should. Forgive Me. )
 
 This JSON-LD lives here http://localhost:4567/data/elem/he and it looks like this...
 
