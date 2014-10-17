@@ -1,8 +1,8 @@
-# How to use JackSON.js
+# JackSON.js
 
 Open your Javascript console and play along!
 
-## Create a JackSON API object
+## Get an instance
 	var jack = new JackSON();
 
 By default the JackSON.js will communicate with the JackSON server accessible at [http://localhost:4567](http://localhost:4567)
@@ -21,7 +21,7 @@ JackSON.js is built on top of JQuery and uses its AJAX system, which means JackS
 		console.log( jack.result );
 	});
 
-### .post( url, json ): Create a new JSON file
+### .post( url,  json ): Create a new JSON file
 	jack.post( 'path/to/json/file', { "foo": "bar" } );
 
 You can always add .json to the url of any JackSON method...
@@ -33,7 +33,7 @@ This maps to the same JSON file as the line above.
 You can only use .post() to create a new JSON file.
 Passing an existing JSON file url to .post() will throw an error.
 
-### .put( url, json ): Update a JSON file
+### .put( url,  json ): Update a JSON file
 	jack.put( 'path/to/json/file', { "foo": "buzz" } );
 
 .put() will only update exisitng JSON files.
@@ -54,7 +54,6 @@ Remember the API calls are asynchronous, so all together you'd need...
 
 ### .delete( url ): Delete a JSON file
 	jack.delete( 'path/to/json/file' );
-
 
 ## Status messages
 By default JackSON.js will display status messages at the top of the browser window.

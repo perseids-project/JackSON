@@ -17,7 +17,7 @@ Start the server.
 
 	rake server:start
 
-## CORS "Cross-origin resource sharing"
+## CORS
 Applications that use JackSON can be hosted anywhere with one "gotcha", to communicate with the JackSON server from an application on another host you will need to update **JackSON.config.yml**
 
 	cors: [ 'http://localhost:4567', 'http://localhost:3000', 'http://your.app-host.com' ]
@@ -27,7 +27,7 @@ That's it for basics!
 ## Create a JackSON app
 See **docs/APP.md**
 
-## Using  JackSON.js
+## JackSON.js
 If you aren't looking to create a new JackSON/Angular app and you're comfortable using JQuery checkout **docs/API.md**.
 
 ## Contribute?
