@@ -208,11 +208,11 @@ It's essentially just running this SPARQL query.
 
 We could use this to locate RDF associated with a URN across several JackSON instances.
 Ideally it would be nice to have all RDF data at one SPARQL endpoint but that may not be practical.
-JackSON instance might be connected with different SPARQL endpoints.
+JackSON instances might be connected with different SPARQL endpoints.
 
 Each JackSON instance could store the URLs to all SPARQL endpoints.
 When it's not certain which endpoint contains the RDF we want we can just issue requests to all of them.
-AJAX requests aren't costly to make, and they're asynchronous.
+AJAX requests aren't that costly to make, and they're asynchronous.
 One or more of them can return urls to the source JSON-LD data.
 Then using AJAX, retrieve the source JSON-LD.
 
@@ -221,14 +221,16 @@ This means the system can scale horizontally fairly well.
 ## Authentication
 We need some kind of authentication system.
 One to mark applications as able to POST PUT and DELETE to JackSON.
-Also some kind of identity management system is needed.
+Otherwise making a JackSON server public is flirting with data-danger!
 
 ## Validation
 We'll need a validation system to ensure JSON uploaded to the server isn't junk.
 I started writing this... see the validation branch.
-It operates by creating a validation JSON file, which will check for the presence of certain key-value pairs,
+It operates by through a validation JSON file, which will check for the presence of certain key-value pairs,
 whether those values are the correct datatype,
 and check values more granularly with regex if need be.
+
+We just need a JSON-LD template to describe a datamodel and a JSON validation config to enforce it.
 
 ( docs/APP.md ### Validate uploaded JSON ) explains it in more detail.
 
