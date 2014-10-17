@@ -8,11 +8,15 @@ Install required command line tools.
 
 	rake install:ui
 
-Create a JackSON app in apps/name
+Create a JackSON app in **public/apps/name**
 
 	rake app:make['name']
 
-Keep your terminal open so app:make can listen for changes to your .scss files.
+The url to your app will be...
+
+	http://localhost:4567/apps/name
+
+Keep your terminal open so **rake app:make** can listen for changes to your .scss files.
 
 ## Go deeper...
 ### Questions to ask yourself before beginning.
