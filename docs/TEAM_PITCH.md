@@ -1,10 +1,10 @@
-# SparqlModel was kind of a failure.
+# SparqlModel is hugely flawed.
 I was trying to build ActiveRecord for RDF data.
 ActiveRecord is built around SQL and its limitations.
 SQL and SPARQL/RDF don't have the same limitations.
 I'm realizing it's a fundamentally flawed design.
 It was a useful experiment though.
-JackSON is the way forward.
+JackSON is a better system.
 
 # JackSON
 It's a database server.
@@ -17,10 +17,10 @@ Revising a data-model is as easy as writing a new JSON-LD template,
 and searching the data is as easy a suffixing a SPARQL query to a URL.
 JackSON's design goal is to find the shortest path, in terms of development time, from user input on a web page to SPARQL queryable RDF.
 
-One of the authors of the JSON-LD 1.0 W3C recommendation, Gregg Kellogg, who also wrote the JSON-LD to RDF converter I'm using in JackRDF, has [outlined a similar system](http://www.slideshare.net/gkellogg1/jsonld-and-mongodb) that uses MongoDB as the persistent JSON store.
-I don't know if it has been built yet though.
+One of the authors of the JSON-LD 1.0 W3C recommendation, Gregg Kellogg, who also wrote the JSON-LD to RDF converter used in JackRDF, has [outlined a similar system](http://www.slideshare.net/gkellogg1/jsonld-and-mongodb) that uses MongoDB as the persistent JSON store.
+( I don't know if it has been built yet )
 
-# Code complexity & our limited and precious waking hours
+# Code complexity & development time.
 Reducing development time is synonymous with reducing complexity.
 The time it takes to develop new and reliable tools should be the first priority of any development team, but especially one like ours where turnover is basically seasonal.
 
@@ -70,11 +70,11 @@ But when we need an ordered list or when we just want id'd data and we want it i
 [Manu Sporny, another JSON-LD spec author, wrote a pretty blunt essay about RDF's limitations.](http://manu.sporny.org/2014/json-ld-origins-2/)
 I read it after I wrote SparqlModel and was having a battle with my conscience, and it expressed my feelings succinctly :)  It's funny too.
 
-I'm in agreement with him.
-RDF is not up to the task of modelling all the data we want, not exclusively anyway,
+I agree with him.
+RDF is inadequate for modelling all the data we want, not exclusively anyway,
 and we should be wary of SQL picking up RDF's slack.
 
-# Using SQL to work around RDF's limitations is a bad idea.
+# SQL to work around RDF's limitations is a bad idea.
 Building a working data-model using SQL requires creating new database tables, 
 writing a model class in the server's scripting language, 
 and usually a Javascript class so the user's client can communicate exclusively with the model class.
@@ -86,16 +86,9 @@ turn SQL data into something usable by the user's client.
 It's a huge time-suck to write all that code, but most developers see it as fate practically.
 We all have SQL-Stockholm-Syndrome to some degree, and many of us can't see any alternatives.
 
-It does not have to be this way though.
-
-# We need  JackSON or something like it at least.
 My perspective is we should just use JSON end-to-end with a little RDF on the side for searching.
-JSON-LD makes this not only possible but really easy.
 
-We need a reliable JSON-LD database system that's easy to work with.
-JackSON can be that with just a little bit more development.
-
-# The little bit more development we need.
+# Future development
 ## CITE urns
 I need to add better CITE URN support.
 Checkout this quick example.
@@ -118,7 +111,7 @@ This JSON-LD lives here http://localhost:4567/data/elem/he and it looks like thi
 	    "urn": "urn:cite:periodic:elem.2"
 	}
 
-When run through JackRDF it produces this RDF...
+When run through JackRDF it produces this...
 
 	<http://localhost:4567/data/elem/he> <http://github.com/caesarfeta/JackSON/docs/SCHEMA.md#urn> "urn:cite:periodic:elem.2"
 	<http://localhost:4567/data/elem/he> <http://localhost:4567/apps/elem/schema#mass> "6.64648x10^-24"

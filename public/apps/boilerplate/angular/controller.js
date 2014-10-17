@@ -116,7 +116,7 @@ app.controller("controller", function( $scope, json, sparql ){
 				"symbol": app_root()+"/schema#symbol",
 				"mass": app_root()+"/schema#mass",
 				"number": app_root()+"/schema#number",
-				"urn": "http://github.com/caesarfeta/JackSON/docs/SCHEMA.md#urn"
+				"urn": "https://github.com/caesarfeta/JackSON/blob/master/docs/SCHEMA.md#urn"
 			},
 			"urn": $scope.form.urn,
 			"name": $scope.form.name,
