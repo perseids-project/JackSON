@@ -91,7 +91,7 @@ turn SQL data into something usable by the user's client.
 It's a huge time-suck to write all that code, but most developers see it as fate practically.
 We all have SQL-Stockholm-Syndrome to some degree, and many of us can't see any alternatives.
 
-My perspective is we should try to use JSON end-to-end with a little RDF on the side for searching.
+My perspective is we should try to use JSON end-to-end with a little RDF on the side for searching and avoid SQL if possible.
 
 # Prototype
 I have a working prototype.
