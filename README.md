@@ -22,15 +22,13 @@ Applications that use JackSON can be hosted anywhere with one "gotcha", to commu
 
 	cors: [ 'http://localhost:4567', 'http://localhost:3000', 'http://your.app-host.com' ]
 
-That's it for basics!
-
 ## Create a JackSON app
 See **docs/APP.md**
 
 ## JackSON.js
 If you aren't looking to create a new JackSON/Angular app and you're comfortable using JQuery checkout **docs/API.md**.
 
-## Contribute?
+## Contribute
 If you would like to contribute code to this project see **docs/DEVELOP.md** for guidance.
 
 ## Useful Reading
