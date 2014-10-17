@@ -15,25 +15,11 @@ It has a restful API for doing CRUD with JSON on a filesystem and when it's coup
 In other words it's a hybrid of filesystem served JSON and SPARQL queryable RDF which you can interact with exclusively over HTTP.
 
 This means new applications can be built exclusively with client-side HTML and Javascript.
-Revising a data-model is as easy as writing a new JSON-LD template, 
-and searching the data is as easy a suffixing a SPARQL query to a URL.
+Building a working data-model is as easy as writing a new JSON-LD template.
 JackSON's design goal is to find the shortest path, in terms of development time, from user input on a web page to SPARQL queryable RDF.
 
 # It's in the air...
 One of the authors of the JSON-LD 1.0 W3C recommendation, Gregg Kellogg, who also wrote the JSON-LD to RDF converter used in JackRDF, has outlined [a similar system](http://www.slideshare.net/gkellogg1/jsonld-and-mongodb) that uses MongoDB as the persistent JSON store.  I don't think it's been built or if it has it's not available for public use.
-
-# Code complexity & development time.
-Reducing development time is synonymous with reducing complexity.
-The time it takes to develop new and reliable tools should be the first priority of any development team, but especially one like ours where turnover is seasonal.
-
-We have lots of bright young people eager to help us, but they all need plenty of structure to work inside to produce anything useful.
-If they didn't they wouldn't be in school in the first place :)
-If we can build infrastructure with student-developers in mind we will as a side-effect be making our own workflows more efficient.
-
-With only a bit more development on JackSON we can have students building web-applications which can create published data without having to know anything other than HTML, some basic Javascript, and how to issue HTTP requests.
-
-If it's possible for them,
-it will be easy for us full-timers.
 
 # RDF exclusively is a bad idea.
 Storing application data exclusively as RDF is hard, and I think unwise.
@@ -92,6 +78,19 @@ It's a huge time-suck to write all that code, but most developers see it as fate
 We all have SQL-Stockholm-Syndrome to some degree, and many of us can't see any alternatives.
 
 My perspective is we should try to use JSON end-to-end with a little RDF on the side for searching and avoid SQL if possible.
+
+# Code complexity & development time.
+Reducing development time means reducing complexity, and by complexity I mean the number of tools required to do the job, and the amount of new code required to make a meaningful contribution to our systems.
+
+With only a bit more development on JackSON we can have people building web-applications which can create published data without having to know anything other than HTML, some basic Javascript, and how to issue HTTP requests.
+
+The time it takes to develop new and reliable tools should be the first priority of any development team, but especially one like ours where turnover is seasonal.
+
+We have lots of bright young people eager to help us, i.e. students, but they all need plenty of structure to work inside to produce anything useful.
+If they didn't they wouldn't be in school in the first place :)
+
+If it's easy for them,
+it will be trivial for us full-timers.
 
 # Prototype
 I have a working prototype.
