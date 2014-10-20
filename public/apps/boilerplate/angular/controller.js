@@ -116,7 +116,7 @@ app.controller("controller", function( $scope, json, sparql ){
 				"symbol": app_root()+"/schema#symbol",
 				"mass": app_root()+"/schema#mass",
 				"number": app_root()+"/schema#number",
-				"urn": "https://github.com/caesarfeta/JackSON/blob/master/docs/SCHEMA.md#urn"
+				"urn": "http://github.com/caesarfeta/JackSON/blob/master/docs/SCHEMA.md#urn"
 			},
 			"urn": $scope.form.urn,
 			"name": $scope.form.name,
@@ -199,11 +199,11 @@ app.controller("controller", function( $scope, json, sparql ){
 	
 	function urn_url() {
 		var c = $scope.config
-		return c.host+'/urn?cite="'+$scope.form.urn+'"'
+		return c.host+'/src?urn='+$scope.form.urn;
 	}
 	
 	// Dynamic SPARQL query
 	function query() {
-		return "SELECT ?p ?o WHERE { <"+save_url()+"> ?p ?o }"
+		return "SELECT ?p ?o WHERE { <"+save_url()+"> ?p ?o }";
 	}
 });
