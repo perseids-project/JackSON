@@ -24,9 +24,6 @@ Applications that use JackSON can be hosted anywhere with one "gotcha", to commu
 ## Create a JackSON backed AngularJS app
 See **docs/APP.md**
 
-## JackSON.js
-JackSON.js, a JQuery API, has documentation here: **docs/API.md**.
-
 ## Contribute
 If you would like to contribute code to this project see **docs/DEVELOP.md** for guidance.
 
