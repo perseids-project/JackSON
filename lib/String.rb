@@ -34,6 +34,18 @@ class String
     this
   end
   
+  # Dequote a string
+  def dequote
+    this = self
+    if this[0] == '"' || this[0] == "'"
+      this[0] = ''
+    end
+    if this[-1,1] == '"' || this[-1,1] == "'"
+      this[-1,1] = ''
+    end
+    this
+  end
+  
   # Wrap <>
   def tag
     this = self

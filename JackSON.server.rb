@@ -190,11 +190,10 @@ get '/query' do
   RestClient.get sparql_url( params[:query] )
 end
 
-# Retrieve a JSON-LD file by URN
-get '/urn' do
-  urn = params[:cite].quote
-  logdump urn
-  query = "SELECT ?s WHERE { ?s <#{settings.urn}> #{urn} }"
+# Retrieve a the src JSON-LD files by URN
+get '/src' do
+  urn = params[:urn].dequote
+  query = "SELECT ?o WHERE { <#{urn}> <#{settings.src}> ?o }"
   begin
     r = sparql_hash( query )["results"]["bindings"]
   rescue
@@ -204,7 +203,11 @@ get '/urn' do
     status 404
     return { :error => "#{urn} is not mapped to a JSON-LD file" }.to_json
   end
-  redirect r[0]["s"]["value"]
+  out = []
+  r.each do |item|
+    out.push item["o"]["value"]
+  end
+  return { :src => out }.to_json
 end
 
 # Return JSON file
