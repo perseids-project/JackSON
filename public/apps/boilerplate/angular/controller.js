@@ -199,11 +199,11 @@ app.controller("controller", function( $scope, json, sparql ){
 	
 	function urn_url() {
 		var c = $scope.config
-		return c.host+'/urn?cite="'+$scope.form.urn+'"'
+		return c.host+'/urn?cite='+$scope.form.urn
 	}
 	
 	// Dynamic SPARQL query
 	function query() {
-		return "SELECT ?p ?o WHERE { <"+save_url()+"> ?p ?o }"
+		return 'SELECT ?p ?o WHERE { <'+save_url()+'> ?p ?o }'
 	}
 });
