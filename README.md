@@ -1,8 +1,7 @@
 # JackSON
 JackSON is a lightweight server and Javascript API that will **create/POST**, **retrieve/GET**, **update/PUT**, and **delete/DELETE** JSON files RESTfully.
 
-JackSON can also convert JSON-LD files to Fuseki served RDF automatically.
-See [JackRDF](http://github.com/caesarfeta/jackrdf).
+[JackSON can also convert JSON-LD files to Fuseki served RDF automatically](http://github.com/caesarfeta/jackrdf)
 
 It was designed specifically for rapidly prototyping linked-data web applications with save and search capabilities.
 
@@ -17,7 +16,8 @@ Install JackSON
 	rake server:start
 
 ## CORS
-Applications that use JackSON can be hosted anywhere with one "gotcha", to communicate with the JackSON server from an application on another host you will need to update **JackSON.config.yml**
+Applications that use JackSON can be hosted anywhere with one "gotcha", 
+to communicate with the JackSON server from an application on another host you will need to update **JackSON.config.yml**
 
 	cors: [ 'http://localhost:4567', 'http://localhost:3000', 'http://your.app-host.com' ]
 
