@@ -7,14 +7,13 @@ See [JackRDF](http://github.com/caesarfeta/jackrdf).
 It was designed specifically for rapidly prototyping linked-data web applications with save and search capabilities.
 
 ## Install
-Install ruby and gem.
+[Install JackRDF](http://github.com/caesarfeta/jackrdf)
 
-Run the installer.
+Install JackSON
 
 	rake install:min
 
-Start the server.
-
+## Start
 	rake server:start
 
 ## CORS
@@ -22,11 +21,11 @@ Applications that use JackSON can be hosted anywhere with one "gotcha", to commu
 
 	cors: [ 'http://localhost:4567', 'http://localhost:3000', 'http://your.app-host.com' ]
 
-## Create a JackSON app
+## Create a JackSON backed AngularJS app
 See **docs/APP.md**
 
 ## JackSON.js
-If you aren't looking to create a new JackSON/Angular app and you're comfortable using JQuery checkout **docs/API.md**.
+JackSON.js, a JQuery API, has documentation here: **docs/API.md**.
 
 ## Contribute
 If you would like to contribute code to this project see **docs/DEVELOP.md** for guidance.
