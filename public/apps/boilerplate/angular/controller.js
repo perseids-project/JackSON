@@ -204,6 +204,6 @@ app.controller("controller", function( $scope, json, sparql ){
 	
 	// Dynamic SPARQL query
 	function query() {
-		return 'SELECT ?p ?o WHERE { <'+save_url()+'> ?p ?o }'
+		return 'SELECT ?p ?o WHERE { <'+$scope.form.urn+'> ?p ?o }'
 	}
 });
