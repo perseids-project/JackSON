@@ -191,18 +191,22 @@ namespace :data do
   end
   desc 'Create random data from a template'
   task :random, :tmpl, :gen, :n, :dir do |t,args|
+    require 'faker'
     # Get parameters
     tmpl = args[:tmpl]
     n = args[:n].to_i
-    dir = args[:dir]
+    dir = "#{@settings["path"]}/#{args[:dir]}"
     gen = args[:gen]
-    # Template
+    # Build output dir
+    FileUtils.mkdir( dir )
+    # Build!
     erb = File.read( "#{@settings["templates"]}/#{tmpl}" )
     n.times do
-      # Load generator
+      # Load generator each time for new random data
       load "#{@settings["templates"]}/#{gen}"
       output = Erubis::Eruby.new(erb).result(:data=>@data)
-      puts output
+      file = "#{dir}/#{Faker::Internet.slug(nil,"-")}.json"
+      File.open( file,"w") { |f| f.write( output ) }
     end
   end
 end
