@@ -42,4 +42,4 @@ Grab useful JSON-LD templates...
 
 	rake data:random['cite/templates/cite_property.json.erb','cite/generators/cite_property.rb',1000,'test']
 
-This command grabs the specified .erb **template** in __template/**template**__ and produces **n** JSON-LD files in __data/**dir**__ using values created by **generator**
+This command grabs the specified .erb **template** in __template/__**template** and produces **n** JSON-LD files in __data/__**dir** using values created by **generator**
