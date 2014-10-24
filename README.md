@@ -40,6 +40,6 @@ Grab useful JSON-LD templates...
 ## Build random JSON-LD test data from a template
 	rake data:random[ template, generator, n, dir ]
 
-	rake data:random['cite/templates/cite_collection.json.erb','cite/generators/cite_collection.rb',1000,'test']
+	rake data:random['cite/templates/cite_collection.json.erb','cite/generators/cite_collection.rb',10,'test']
 
 This command grabs the specified .erb **template** in __template/__**template** and produces **n** JSON-LD files in __data/__**dir** using values created by **generator**

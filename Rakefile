@@ -1,7 +1,7 @@
 require 'rake/testtask'
 require 'yaml'
 require 'find'
-require 'Shellwords'
+require 'shellwords'
 require 'erubis'
 require_relative 'lib/JackHELP'
 
@@ -196,12 +196,13 @@ namespace :data do
     n = args[:n].to_i
     dir = args[:dir]
     gen = args[:gen]
-    # Load generator
-    load "#{@settings["templates"]}/#{gen}"
     # Template
     erb = File.read( "#{@settings["templates"]}/#{tmpl}" )
-    puts Erubis::Eruby.new(erb).result(:data=>@data)
     n.times do
+      # Load generator
+      load "#{@settings["templates"]}/#{gen}"
+      output = Erubis::Eruby.new(erb).result(:data=>@data)
+      puts output
     end
   end
 end
