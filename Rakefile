@@ -186,6 +186,6 @@ namespace :data do
   desc 'Destroy all data'
   task :destroy do
     Rake::Task['json:destroy'].invoke
-    Rake::Task['rdf:destroy'].invoke
+    Rake::Task['triple:destroy'].invoke
   end
 end
