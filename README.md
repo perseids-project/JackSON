@@ -37,6 +37,9 @@ Grab useful JSON-LD templates...
 
 	git clone https://github.com/PerseusDL/CITE-JSON-LD templates/cite
 
-## Build random JSON-LD data from a template
+## Build random JSON-LD test data from a template
+	rake data:random[ template, generator, n, dir ]
 
-	rake random:data[ 'cite/templates/cite_property.json.erb', 1000 ]
+	rake data:random['cite/templates/cite_property.json.erb','cite/generators/cite_property.rb',1000,'test']
+
+This command grabs the specified .erb **template** in __template/**template**__ and produces **n** JSON-LD files in __data/**dir**__ using values created by **generator**

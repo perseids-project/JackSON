@@ -188,4 +188,14 @@ namespace :data do
     Rake::Task['json:destroy'].invoke
     Rake::Task['triple:destroy'].invoke
   end
+  
+  desc 'Create random data from a template'
+  task :random, :template, :generator, :n, :dir do |t,args|
+    template = args[:template]
+    n = args[:n].to_i
+    dir = args[:dir]
+    n.times do
+      puts "#{template} -- #{generator} -- #{n} -- #{dir}"
+    end
+  end
 end
