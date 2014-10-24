@@ -2,6 +2,7 @@ require 'rake/testtask'
 require 'yaml'
 require 'find'
 require 'Shellwords'
+require 'erubis'
 require_relative 'lib/JackHELP'
 
 @settings = YAML.load( File.read( "JackSON.config.yml" ) )
@@ -188,14 +189,19 @@ namespace :data do
     Rake::Task['json:destroy'].invoke
     Rake::Task['triple:destroy'].invoke
   end
-  
   desc 'Create random data from a template'
-  task :random, :template, :generator, :n, :dir do |t,args|
-    template = args[:template]
+  task :random, :tmpl, :gen, :n, :dir do |t,args|
+    # Get parameters
+    tmpl = args[:tmpl]
     n = args[:n].to_i
     dir = args[:dir]
+    gen = args[:gen]
+    # Load generator
+    load "#{@settings["templates"]}/#{gen}"
+    # Template
+    erb = File.read( "#{@settings["templates"]}/#{tmpl}" )
+    puts Erubis::Eruby.new(erb).result(:data=>@data)
     n.times do
-      puts "#{template} -- #{generator} -- #{n} -- #{dir}"
     end
   end
 end

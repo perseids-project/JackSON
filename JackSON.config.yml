@@ -1,4 +1,5 @@
 path: 'data'
+templates: 'templates'
 apps: 'public/apps'
 tmp: 'tmp'
 port: 4567
