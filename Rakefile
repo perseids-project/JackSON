@@ -1,6 +1,7 @@
 require 'rake/testtask'
 require 'yaml'
 require 'find'
+require 'Shellwords'
 require_relative 'lib/JackHELP'
 
 @settings = YAML.load( File.read( "JackSON.config.yml" ) )
@@ -84,6 +85,11 @@ namespace :triple do
   task :make do
     tmake
   end
+  desc 'Destroy all RDF triples in Fuseki'
+  task :destroy do
+    Dir.chdir( "../JackRDF" )
+    exec 'rake data:destroy'
+  end
 end
 
 def tmake_dir
@@ -95,7 +101,6 @@ def tmake_file( file )
 end
 
 def tmake
-  
   # Check for the existence of previously run task
   if File.directory?( tmake_dir )
     STDOUT.puts "#{tmake_dir} exists.
@@ -146,7 +151,6 @@ namespace :install do
     `sudo gem install github-markup`
     `sudo gem install JackRDF`
   end
-  
   desc 'Install UI toolkit'
   task :ui do
     `sudo npm install -g bower grunt-cli`
@@ -169,14 +173,11 @@ namespace :json do
       STDOUT.puts "No data was destroyed.  It's still all there :)"
     end
   end
-end
-
-# RDF
-namespace :rdf do
-  desc 'Destroy all RDF data'
-  task :destroy do
-    Dir.chdir( "../JackRDF" )
-    exec 'rake data:destroy'
+  desc "Change URLs by modifying JSON-LD in-place"
+  task :change, :old, :neu do |t,args|
+    old = Shellwords.escape( args[:old] )
+    neu = Shellwords.escape( args[:neu] )
+    `grep -rl \"#{old}\" #{@settings["path"]} | xargs sed -i \"\" \"s?#{old}?#{neu}?g\"`
   end
 end
 
