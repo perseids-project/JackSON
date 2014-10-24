@@ -31,3 +31,12 @@ If you would like to contribute code to this project see **docs/DEVELOP.md** for
 * Manu Sporny talks about the relationshipe between [JSON-LD &amp; RDF](http://manu.sporny.org/2014/json-ld-origins-2/)
 * [JSON-LD 1.0 W3C Recommendation](http://www.w3.org/TR/json-ld/)
 * [JSON-LD RDF API Spec](http://json-ld.org/spec/latest/json-ld-rdf/)
+
+## Templates
+Grab useful JSON-LD templates...
+
+	git clone https://github.com/PerseusDL/CITE-JSON-LD templates/cite
+
+## Build random JSON-LD data from a template
+
+	rake random:data[ 'cite/templates/cite_property.json.erb', 1000 ]

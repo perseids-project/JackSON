@@ -55,3 +55,7 @@ Thumbs.db
 /data
 /validate
 /public/apps
+
+# Templates #
+#############
+/templates/cite
