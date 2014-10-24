@@ -205,7 +205,7 @@ namespace :data do
       # Load generator each time for new random data
       load "#{@settings["templates"]}/#{gen}"
       output = Erubis::Eruby.new(erb).result(:data=>@data)
-      file = "#{dir}/#{Faker::Internet.slug(nil,"-")}.json"
+      file = "#{dir}/#{Faker::Internet.slug(nil,"_")}.json"
       File.open( file,"w") { |f| f.write( output ) }
     end
   end
