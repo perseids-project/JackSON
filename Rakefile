@@ -197,16 +197,25 @@ namespace :data do
     n = args[:n].to_i
     dir = "#{@settings["path"]}/#{args[:dir]}"
     gen = args[:gen]
-    # Build output dir
+    # Make output dir
     FileUtils.mkdir( dir )
-    # Build!
+    # Get the template
     erb = File.read( "#{@settings["templates"]}/#{tmpl}" )
+    # Get filenames
+    files = []
     n.times do
+      file = "#{dir}/#{Faker::Internet.slug(nil,"_")}.json"
+      files.push( file )
+    end
+    # Write files
+    files.each do |file|
       # Load generator each time for new random data
       load "#{@settings["templates"]}/#{gen}"
+      # Reference other files << TODO
+      # Generate files
       output = Erubis::Eruby.new(erb).result(:data=>@data)
-      file = "#{dir}/#{Faker::Internet.slug(nil,"_")}.json"
       File.open( file,"w") { |f| f.write( output ) }
     end
+    puts files.inspect
   end
 end

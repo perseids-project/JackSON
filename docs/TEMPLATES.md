@@ -3,6 +3,8 @@ Grab useful JSON-LD templates...
 
 	git clone https://github.com/PerseusDL/CITE-JSON-LD templates/cite
 
+... now CITE protocol JSON-LD is available in **templates/cite**.
+
 ## JSON-LD test data from a template
 	rake data:random[ template, generator, n, dir ]
 
@@ -14,7 +16,7 @@ This command grabs the specified .erb **template** in __template/__**template** 
 1. Use a fresh instance of JackSON
 2. Generate test JSON-LD files
 
-		rake data:random['cite/templates/cite_collection.json.erb','cite/generators/cite_collection.rb',10,'test']
+		rake data:random['cite/templates/cite_collection.json.erb','cite/generators/cite_collection.rb',1000,'test']
 
 3. Convert all test JSON-LD files to RDF
 
