@@ -16,7 +16,7 @@ This command grabs the specified .erb **template** in __template/__**template** 
 1. Use a fresh instance of JackSON
 2. Generate test JSON-LD files
 
-		rake data:random['cite/templates/cite_collection.json.erb','cite/generators/cite_collection.rb',1000,'test']
+		rake data:fake['cite/templates/cite_collection.json.erb','cite/generators/cite_collection.rb',1000,'test']
 
 3. Convert all test JSON-LD files to RDF
 

@@ -189,8 +189,8 @@ namespace :data do
     Rake::Task['json:destroy'].invoke
     Rake::Task['triple:destroy'].invoke
   end
-  desc 'Create random data from a template'
-  task :random, :tmpl, :gen, :n, :dir do |t,args|
+  desc 'Create fake data from a template'
+  task :fake, :tmpl, :gen, :n, :dir do |t,args|
     require 'faker'
     # Get parameters
     tmpl = args[:tmpl]
