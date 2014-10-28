@@ -216,6 +216,5 @@ namespace :data do
       output = Erubis::Eruby.new(erb).result(:data=>@data)
       File.open( file,"w") { |f| f.write( output ) }
     end
-    puts files.inspect
   end
 end
