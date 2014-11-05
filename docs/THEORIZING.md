@@ -1,5 +1,4 @@
 # Theorizing...
-
 ## The big picture
 * Replacing more of our minds with machines improves our individual well-being in the current political and economic system.
 

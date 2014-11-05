@@ -196,11 +196,15 @@ namespace :data do
     tmpl = args[:tmpl]
     n = args[:n].to_i
     dir = "#{@settings["path"]}/#{args[:dir]}"
+    # Get an absolute directory path
+    @settings["file"] = "#{@settings["templates"]}/#{tmpl}"
+    @settings["dir"] = "#{File.dirname(__FILE__)}/#{File.dirname( @settings["file"] )}"
+    puts @settings["dir"]
     gen = args[:gen]
     # Make output dir
     FileUtils.mkdir( dir )
     # Get the template
-    erb = File.read( "#{@settings["templates"]}/#{tmpl}" )
+    erb = File.read( @settings["file"] )
     # Get filenames
     files = []
     n.times do
@@ -213,7 +217,7 @@ namespace :data do
       load "#{@settings["templates"]}/#{gen}"
       # Reference other files << TODO
       # Generate files
-      output = Erubis::Eruby.new(erb).result(:data=>@data)
+      output = Erubis::Eruby.new(erb).result(:data=>@data,:settings=>@settings)
       File.open( file,"w") { |f| f.write( output ) }
     end
   end
