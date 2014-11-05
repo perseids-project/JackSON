@@ -178,7 +178,7 @@ namespace :data do
     Rake::Task['json:destroy'].invoke
     Rake::Task['triple:destroy'].invoke
   end
-  desc 'Create fake data from a template'
+  desc 'Create fake data from a single template'
   task :fake, :tmpl, :gen, :n, :dir do |t,args|
     require 'faker'
     # Get parameters
