@@ -104,20 +104,10 @@ end
 def tmake
   # Check for the existence of previously run task
   if File.directory?( tmake_dir )
-    STDOUT.puts "#{tmake_dir} exists.
-Remove the previous run's output? (y/n)"
-    input = STDIN.gets.strip
-    case input 
-    when 'y'
-      FileUtils.rm_rf( tmake_dir )
-    else
-      abort("**task cancelled**")
-    end
+    FileUtils.rm_rf( tmake_dir )
   end
-  
   # Get the paths of the JSON files in the data dir
   files = JackHELP.run.files_matching( @settings["path"], /.*\.json$/ )
-  
   # Create the temp work directory
   FileUtils.mkdir_p( tmake_dir )
   errors = File.open(tmake_file('ERRORS'),"w")
@@ -126,7 +116,6 @@ Remove the previous run's output? (y/n)"
   todo = File.open(tmake_file('TODO'),"w") do |todo|
      files.each{|file| todo.puts(file) } # Append TODO with file paths
   end
-   
   # Start building those triples!
   todo.each do |json|
     in_proc.puts(json)
@@ -199,7 +188,6 @@ namespace :data do
     # Get an absolute directory path
     @settings["file"] = "#{@settings["templates"]}/#{tmpl}"
     @settings["dir"] = "#{File.dirname(__FILE__)}/#{File.dirname( @settings["file"] )}"
-    puts @settings["dir"]
     gen = args[:gen]
     # Make output dir
     FileUtils.mkdir( dir )
@@ -220,5 +208,6 @@ namespace :data do
       output = Erubis::Eruby.new(erb).result(:data=>@data,:settings=>@settings)
       File.open( file,"w") { |f| f.write( output ) }
     end
+    STDOUT.puts "JSON files created in #{dir}.  Run \"rake triple:make\" to convert them to triples."
   end
 end
