@@ -28,4 +28,3 @@ See **docs/DEVELOP.md**
 * Manu Sporny talks about the relationship between [JSON-LD &amp; RDF](http://manu.sporny.org/2014/json-ld-origins-2/)
 * [JSON-LD 1.0 W3C Recommendation](http://www.w3.org/TR/json-ld/)
 * [JSON-LD RDF API Spec](http://json-ld.org/spec/latest/json-ld-rdf/)
-
