@@ -181,8 +181,9 @@ end
 # Return README.md
 get '/' do
   content_type :html
-  md = GitHub::Markup.render( 'README.md' )
-  erb :home, :locals => { :md => md }
+  return GitHub::Markup.render( 'README.md' )
+#  md = GitHub::Markup.render( 'README.md' )
+#  erb :home, :locals => { :md => md }
 end
 
 # This is done as a quick fix for bypassing Fuseki's CORS
@@ -193,7 +194,8 @@ end
 # Retrieve a the src JSON-LD files by URN
 get '/src' do
   urn = params[:urn].dequote
-  query = "SELECT ?o WHERE { <#{urn}> <#{settings.src}> ?o }"
+  rdf = jack()
+  query = "SELECT ?o WHERE { <#{urn}> <#{rdf.src_verb}> ?o }"
   begin
     r = sparql_hash( query )["results"]["bindings"]
   rescue
