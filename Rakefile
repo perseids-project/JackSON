@@ -208,6 +208,6 @@ namespace :data do
       output = Erubis::Eruby.new(erb).result(:data=>@data,:settings=>@settings)
       File.open( file,"w") { |f| f.write( output ) }
     end
-    STDOUT.puts "JSON files created in #{dir}.  Run \"rake triple:make\" to convert them to triples."
+    STDOUT.puts "JSON files created in #{dir}."
   end
 end
