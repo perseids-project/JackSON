@@ -1,11 +1,18 @@
 #!/bin/bash
 
 # Works with Ubuntu 12.04
-# Uninstall ruby 1.8
-no18 () {
-  sudo apt-get remove libruby1.8 ruby1.8 ruby1.8-dev rubygems1.8
+# Install rbenv
+i_rbenv () {
+  git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
+  echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile
+  echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
+  source ~/.bash_profile
 }
-
+i_ruby_build () {
+  git clone https://github.com/sstephenson/ruby-build.git ~/ruby-build
+  cd ~/ruby-build
+  ./install.sh
+}
 # Install ruby 1.9.3
 ruby193 () {
   apt-get install ruby 1.9.3
@@ -15,8 +22,8 @@ ruby193 () {
 }
 # Install rake and third-party gems
 gems () {
-#  apt-get install rake
-#  gem install erubis
+  apt-get install rake
+  gem install erubis
   apt-get install bundler
 }
 
@@ -30,15 +37,15 @@ sparql_model () {
 
 # Build JackRDF
 jackrdf () {
-#  mkdir -p /tmp
-#  git clone http://github.com/caesarfeta/JackRDF /tmp/JackRDF
-  cd /tmp/JackRDF
-  
+  mkdir -p /tmp
+  git clone http://github.com/caesarfeta/JackRDF /tmp/JackRDF
+  cd /var/www/JackRDF
+  rake install
 }
-
-#apt-get update
-#ruby193
-#no18
-#gems
+apt-get update
+i_rbenv
+i_ruby_build
+rbenv install 1.9.3-p0
+gems
 sparql_model
-#jackrdf
+jackrdf
