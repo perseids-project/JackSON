@@ -6,12 +6,16 @@ JackSON will also convert JSON-LD files to Fuseki served RDF automatically using
 It was designed specifically for rapidly prototyping linked-data web applications with save and search capabilities.
 
 ## Install
-If running on a fresh Ubuntu 12.04 instance.
+If running on a fresh Ubuntu 12.04 instance...
 
-	sudo ./setup.sh
+	sudo apt-get install git
+	sudo mkdir -p /var/www
+	sudo chown -R [username] /var/www
+	git clone https://github.com/caesarfeta/JackSON /var/www/JackSON
+	cd /var/www/JackSON
+	./setup.sh
 
-Don't run ./setup.sh if you have an existing, highly custom Ruby environment!
-Instead...
+If you have a functioning Ruby environment you will just need to install JackRDF and JackSON
 
 [Install JackRDF](http://github.com/caesarfeta/jackrdf)
 Install JackSON
