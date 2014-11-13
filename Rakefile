@@ -3,7 +3,7 @@ require 'yaml'
 require 'find'
 require 'shellwords'
 require 'erubis'
-require_relative 'lib/JackHELP'
+require 'lib/JackHELP'
 
 @settings = YAML.load( File.read( "JackSON.config.yml" ) )
 
@@ -147,6 +147,10 @@ namespace :install do
     `sudo gem install foundation`
     `sudo gem install compass`
     #`rbenv rehash`
+  end
+  desc 'Install JackRDF'
+  task :jackrdf do
+    STDOUT.puts "Coming Soon!"
   end
 end
 
