@@ -1,3 +1,4 @@
+require 'minitest'
 require 'minitest/autorun'
 require 'benchmark'
 require 'rest_client'
