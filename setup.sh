@@ -15,16 +15,16 @@ i_ruby_build () {
 }
 # Install ruby 1.9.3
 ruby193 () {
-  apt-get install ruby 1.9.3
+  sudo apt-get install ruby 1.9.3
   cd /etc/alternatives
   sudo ln -sf /usr/bin/ruby1.9.3 ruby
 
 }
 # Install rake and third-party gems
 gems () {
-  apt-get install rake
+  sudo apt-get install rake
   gem install erubis
-  apt-get install bundler
+  sudo apt-get install bundler
 }
 
 # Build SparqlModel
@@ -37,12 +37,11 @@ sparql_model () {
 
 # Build JackRDF
 jackrdf () {
-  mkdir -p /tmp
-  git clone http://github.com/caesarfeta/JackRDF /tmp/JackRDF
+  git clone http://github.com/caesarfeta/JackRDF /var/www/JackRDF
   cd /var/www/JackRDF
   rake install
 }
-apt-get update
+sudo apt-get update
 i_rbenv
 i_ruby_build
 rbenv install 1.9.3-p0
