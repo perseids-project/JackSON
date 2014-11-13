@@ -1,4 +1,4 @@
-require 'JackTEST'
+require_relative '../JackTEST'
 
 class TestSpeed < JackTEST
   

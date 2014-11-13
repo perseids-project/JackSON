@@ -1,4 +1,4 @@
-require 'JackTEST'
+require_relative '../JackTEST'
 
 # Want to run a single test?
 # You probably do when developing.
