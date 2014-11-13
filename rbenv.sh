@@ -11,17 +11,17 @@ install_rbenv () {
 install_ruby_build () {
   git clone https://github.com/sstephenson/ruby-build.git ~/ruby-build
   cd ~/ruby-build
-  ./install.sh
+  sudo ./install.sh
 }
 
 # Make ruby 1.9.3 the default
 install_ruby193 () {
-  source ~/.bash_profile
+  . ~/.bash_profile
   rbenv install 1.9.3-p0
   rbenv global 1.9.3-p0
   rbenv rehash
 }
 
-install_rbenv
-install_ruby_build
+#install_rbenv
+#install_ruby_build
 install_ruby193

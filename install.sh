@@ -7,9 +7,8 @@ gems () {
 
 # Build SparqlModel
 sparql_model () {
-  mkdir -p /tmp
-  git clone http://github.com/caesarfeta/sparql_model /tmp/sparql_model
-  cd /tmp/sparql_model
+  git clone http://github.com/caesarfeta/sparql_model /var/www/sparql_model
+  cd /var/www/sparql_model
   rake install  
 }
 
