@@ -1,3 +1,4 @@
+require 'rubygems'
 require 'rake/testtask'
 require 'yaml'
 require 'find'
@@ -134,19 +135,19 @@ namespace :install do
   desc 'Minimum install'
   task :min do
     `git submodule update --init`
-    `sudo gem install sinatra`
-    `sudo gem install sinatra-contrib`
-    `sudo gem install sinatra-reloader`
-    `sudo gem install markup`
-    `sudo gem install github-markup`
-    `sudo gem install JackRDF`
+    `gem install sinatra`
+    `gem install sinatra-contrib`
+    `gem install sinatra-reloader`
+    `gem install markup`
+    `gem install github-markup`
+    `gem install rest-client`
+    `gem install minitest`
   end
   desc 'Install UI toolkit'
   task :ui do
-    `sudo npm install -g bower grunt-cli`
-    `sudo gem install foundation`
-    `sudo gem install compass`
-    #`rbenv rehash`
+    `npm install -g bower grunt-cli`
+    `gem install foundation`
+    `gem install compass`
   end
   desc 'Install JackRDF'
   task :jackrdf do
