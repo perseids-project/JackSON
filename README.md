@@ -22,7 +22,7 @@ then install JackSON
 	rake install
 
 ## Start
-	rake server:start
+	rake start
 
 ## Test
 	rake test

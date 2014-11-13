@@ -24,12 +24,10 @@ task :console do
   exec "irb -I #{dir} -r 'JackSON.server.rb'"
 end
 
-# Server
-namespace :server do
-  desc "Start the server at port #{@settings["port"]}"
-  task :start do
-    `ruby JackSON.server.rb`
-  end
+# Start server
+desc "Start the server at port #{@settings["port"]}"
+task :start do
+  `ruby JackSON.server.rb`
 end
 
 # App
@@ -146,7 +144,6 @@ namespace :install do
     exec "gem install foundation compass --no-rdoc --no-ri"
   end
 end
-
 task :install do
   Rake::Task["install:server"].invoke()
 end
