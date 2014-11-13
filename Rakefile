@@ -4,7 +4,7 @@ require 'yaml'
 require 'find'
 require 'shellwords'
 require 'erubis'
-require 'lib/JackHELP'
+require_relative 'lib/JackHELP'
 
 @settings = YAML.load( File.read( "JackSON.config.yml" ) )
 
@@ -132,27 +132,23 @@ end
 
 # Install
 namespace :install do
-  desc 'Minimum install'
-  task :min do
-    `git submodule update --init`
-    `gem install sinatra`
-    `gem install sinatra-contrib`
-    `gem install sinatra-reloader`
-    `gem install markup`
-    `gem install github-markup`
-    `gem install rest-client`
-    `gem install minitest`
+  desc 'Install server'
+  task :server do
+    puts `git submodule update --init`
+    exec "gem install \
+      sinatra sinatra-contrib sinatra-reloader \
+      markup github-markup rest-client \
+      minitest --no-rdoc --no-ri"
   end
   desc 'Install UI toolkit'
   task :ui do
-    `npm install -g bower grunt-cli`
-    `gem install foundation`
-    `gem install compass`
+    puts `npm install -g bower grunt-cli`
+    exec "gem install foundation compass --no-rdoc --no-ri"
   end
-  desc 'Install JackRDF'
-  task :jackrdf do
-    STDOUT.puts "Coming Soon!"
-  end
+end
+
+task :install do
+  Rake::Task["install:server"].invoke()
 end
 
 # JSON

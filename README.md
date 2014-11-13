@@ -19,7 +19,7 @@ If running on a fresh Ubuntu 12.04 instance...
 If you have a functioning Ruby 1.9.2+ environment you will just need to install [JackRDF](http://github.com/caesarfeta/jackrdf)...
 then install JackSON
 
-	rake install:min
+	rake install
 
 ## Start
 	rake server:start
