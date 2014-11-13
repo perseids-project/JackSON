@@ -13,18 +13,11 @@ i_ruby_build () {
   cd ~/ruby-build
   ./install.sh
 }
-# Install ruby 1.9.3
-ruby193 () {
-  sudo apt-get install ruby 1.9.3
-  cd /etc/alternatives
-  sudo ln -sf /usr/bin/ruby1.9.3 ruby
 
-}
 # Install rake and third-party gems
 gems () {
-  sudo apt-get install rake
+  gem install bundler
   gem install erubis
-  sudo apt-get install bundler
 }
 
 # Build SparqlModel
@@ -41,10 +34,12 @@ jackrdf () {
   cd /var/www/JackRDF
   rake install
 }
-sudo apt-get update
-i_rbenv
-i_ruby_build
+#sudo apt-get update
+#i_rbenv
+#i_ruby_build
 rbenv install 1.9.3-p0
-gems
-sparql_model
-jackrdf
+rbenv global 1.9.3-p0
+rbenv rehash
+#gems
+#sparql_model
+#jackrdf
