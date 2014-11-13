@@ -22,6 +22,6 @@ install_ruby193 () {
   rbenv rehash
 }
 
-#install_rbenv
-#install_ruby_build
+install_rbenv
+install_ruby_build
 install_ruby193
