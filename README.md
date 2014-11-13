@@ -10,29 +10,30 @@ If running on a fresh Ubuntu 12.04 instance...
 
 	sudo apt-get install git
 	sudo mkdir -p /var/www
-	sudo chown -R [username] /var/www
+	sudo chown -R [username]:[group] /var/www
+	chmod +s /var/www
 	git clone https://github.com/caesarfeta/JackSON /var/www/JackSON
 	cd /var/www/JackSON
 	./setup.sh
 
-If you have a functioning Ruby environment you will just need to install JackRDF and JackSON
-
-[Install JackRDF](http://github.com/caesarfeta/jackrdf)
-Install JackSON
+If you have a functioning Ruby 1.9.2+ environment you will just need to install [JackRDF](http://github.com/caesarfeta/jackrdf)...
+then install JackSON
 
 	rake install:min
 
 ## Start
 	rake server:start
 
-## Create a JackSON backed AngularJS app
-See **docs/APP.md**
+## Test
+	rake test
 
-## Test JSON-LD templates
-See **docs/TEMPLATES.md**
-
-## Contribute?
-See **docs/DEVELOP.md**
+## Develop
+* Create a JackSON backed AngularJS app
+	* See **docs/APP.md**
+* Test JSON-LD templates
+	* See **docs/TEMPLATES.md**
+* Contribute?
+	* See **docs/DEVELOP.md**
 
 ## Useful Reading
 * Manu Sporny talks about the relationship between [JSON-LD &amp; RDF](http://manu.sporny.org/2014/json-ld-origins-2/)

@@ -7,14 +7,14 @@ gems () {
 
 # Build SparqlModel
 sparql_model () {
-  git clone http://github.com/caesarfeta/sparql_model /var/www/sparql_model
+  git clone https://github.com/caesarfeta/sparql_model /var/www/sparql_model
   cd /var/www/sparql_model
   rake install  
 }
 
 # Build JackRDF
 jackrdf () {
-  git clone http://github.com/caesarfeta/JackRDF /var/www/JackRDF
+  git clone https://github.com/caesarfeta/JackRDF /var/www/JackRDF
   cd /var/www/JackRDF
   rake install
 }
