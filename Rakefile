@@ -1,9 +1,10 @@
+require 'rubygems'
 require 'rake/testtask'
 require 'yaml'
 require 'find'
 require 'shellwords'
 require 'erubis'
-require_relative 'lib/JackHELP'
+require 'lib/JackHELP'
 
 @settings = YAML.load( File.read( "JackSON.config.yml" ) )
 
