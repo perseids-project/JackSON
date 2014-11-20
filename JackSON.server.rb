@@ -42,7 +42,7 @@ helpers do
   end
   
   def sparql_url( query )
-    "#{settings.sparql}/query?query=#{URI::encode(query)}"
+    "#{settings.sparql}/query?query=#{ URI::escape( query, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))}"
   end
   
   def sparql_hash( query )
