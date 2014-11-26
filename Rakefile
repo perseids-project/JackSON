@@ -96,10 +96,14 @@ end
 
 # Triples
 
-namespace :triple do
+namespace :triple do 
   desc 'Update Fuseki from saved JSON-LD'
-  task :make do
-    tmake
+  task :make, :default do |t,args|
+    
+    # Input check
+    
+    default = args[:default]
+    tmake( default )
   end
   desc 'Destroy all RDF triples in Fuseki'
   task :destroy do
@@ -119,7 +123,7 @@ def tmake_file( file )
 end
 
 
-def tmake
+def tmake( default )
   
   # Check for the existence of previously run task
   
@@ -130,6 +134,20 @@ def tmake
   # Get the paths of the JSON files in the data dir
   
   files = JackHELP.run.files_matching( @settings["path"], /.*\.json$/ )
+  
+  # Loop through files ignoring those starting with '/data/default'
+  
+  if default != true
+    clean = []
+    beatit = []
+    files.each do |file|
+      if file.include? 'data/default/'
+        next
+      end
+      clean.push file
+    end
+    files = clean
+  end
   
   # Create the temp work directory
   
