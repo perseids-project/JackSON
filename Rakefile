@@ -141,7 +141,7 @@ def tmake( default )
     clean = []
     beatit = []
     files.each do |file|
-      if file.include? 'data/default/'
+      if file.include? "#{@settings["path"]}/default"
         next
       end
       clean.push file
