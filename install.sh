@@ -2,6 +2,7 @@
 
 # Install rake and third-party gems
 gems () {
+  gem install rack rake sinatra
   gem install bundler erubis --no-rdoc --no-ri
 }
 
