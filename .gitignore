@@ -30,6 +30,10 @@
 ####################
 *.pid
 
+# Lock files #
+##############
+*.lock
+
 # OS generated files #
 ######################
 .DS_Store
@@ -55,7 +59,9 @@ Thumbs.db
 /data
 /validate
 /public/apps
+public/apps/imgcollect
 
 # Templates #
 #############
 /templates/cite
+

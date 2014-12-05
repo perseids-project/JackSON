@@ -8,13 +8,21 @@ It was designed specifically for rapidly prototyping linked-data web application
 ## Install
 If running on a fresh Ubuntu 12.04 instance...
 
+	sudo apt-get update
 	sudo apt-get install git
 	sudo mkdir -p /var/www
 	sudo chown -R [username]:[group] /var/www
 	chmod +s /var/www
 	git clone https://github.com/caesarfeta/JackSON /var/www/JackSON
 	cd /var/www/JackSON
+
+Then run the install scripts in the following order
+
 	./setup.sh
+	./rbenv.sh
+	source ~/.bash_profile
+	rbenv rehash
+	sudo ./install.sh
 
 If you have a functioning Ruby 1.9.2+ environment you will just need to install [JackRDF](http://github.com/caesarfeta/jackrdf)...
 then install JackSON

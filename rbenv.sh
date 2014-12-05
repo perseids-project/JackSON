@@ -16,7 +16,7 @@ install_ruby_build () {
 
 # Make ruby 1.9.3 the default
 install_ruby193 () {
-  . ~/.bash_profile
+  source ~/.bash_profile
   rbenv install 1.9.3-p0
   rbenv global 1.9.3-p0
   rbenv rehash
