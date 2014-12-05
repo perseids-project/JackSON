@@ -2,8 +2,8 @@
 
 # Install rake and third-party gems
 gems () {
-  gem install rack rake sinatra
-  gem install bundler erubis --no-rdoc --no-ri
+  bundle install
+  # gem install rack rake sinatra bundler sinatra-reloader github-markup markdown rest-client erubis minitest --no-rdoc --no-ri
 }
 
 # Build SparqlModel
