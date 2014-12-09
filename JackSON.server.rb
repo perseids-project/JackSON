@@ -26,6 +26,7 @@ enable :logging
 
 config_file 'JackSON.config.yml'
 set :port, settings.port
+set :bind, settings.addr
 
 helpers do
     
