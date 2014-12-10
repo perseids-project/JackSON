@@ -58,8 +58,6 @@ Thumbs.db
 #########################################################
 /data
 /validate
-/public/apps
-public/apps/imgcollect
 
 # Templates #
 #############
