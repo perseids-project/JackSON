@@ -3,8 +3,9 @@ templates: 'templates'
 apps: 'public/apps'
 tmp: 'tmp'
 port: 4567
+addr: '0.0.0.0'
 host: 'http://localhost:4567'
 cors: [ 'http://localhost:4567', 'http://localhost:3000' ]
 sparql: 'http://localhost:4321/ds'
 family: []
-debug: false
+debug: false 
