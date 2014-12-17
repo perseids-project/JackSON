@@ -15,12 +15,10 @@ require_relative 'lib/String'
 require_relative 'lib/JackHELP'
 require_relative 'lib/JackVALID'
 
-
 # Yes I want logging!
 
 require 'logger'
 enable :logging
-
 
 # How is the server configured?
 
@@ -86,7 +84,7 @@ helpers do
   
   # Run a command
   # ls is the only available command
-  # http://localhost:4567/data/path/to/dir?cmd=ls
+  # data/path/to/dir?cmd=ls
   
   def run( cmd, pth )
     valid = ['ls']
