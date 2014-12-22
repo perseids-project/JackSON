@@ -10,6 +10,7 @@ class TestFoobar < JackTEST
   # Create a brand new JSON file
   def test_AAA_post
     r = api( POST, 'foo_bar', 'foo/bar' )
+    puts r.inspect
     assert( success?(r) )
   end
   

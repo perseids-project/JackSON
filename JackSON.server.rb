@@ -117,17 +117,35 @@ helpers do
   # This allows for pseudo HTTP methods over POST
   
   def _post( pth, file )
+    
+    # check if file already exists
+    
     if File.exist?( file )
       status 403
       return { :error => "#{data_url(pth)} already exists.  Use PUT to change" }.to_json
     end
+    
+    # validate input
+    
+    validate( pth, file )
+    
+    # write JSON to disk
+    
     FileUtils.mkdir_p( File.dirname( file ) )
     write_json( @json, file )
+    
+    # convert to RDF
+    
     begin
       rdf = jack()
       rdf.post( request.url, file )
+    rescue JackRDF_Critical => e
+      return { :error => e }.to_json
     rescue
     end
+    
+    # send success message
+    
     { :success => " #{data_url(pth)} created" }.to_json
   end
   
@@ -136,17 +154,23 @@ helpers do
   # Delete triples from Fuseki
   
   def _delete( pth, file )
+    
     if File.file?( file ) == false || File.directory?( file ) == true
       status 404
       return { :error => "#{data_url(pth)} not found"}.to_json
     end
+    
     File.delete( file )
     rm_empty_dirs( File.dirname( file ) )
+    
     begin
       rdf = jack()
-      rdf.delete( request.url )
+      rdf.delete( request.url, file )
+    rescue JackRDF_Critical => e
+      return { :error => e }.to_json
     rescue
     end
+    
     { :success => "#{data_url(pth)} deleted" }.to_json
   end
   
@@ -156,14 +180,25 @@ helpers do
   # Update Fuseki triples
   
   def _put( pth, file )
+    
+    # check if file already exists
+    
     if File.exist?( file ) == false
       status 404
       return { :error => "#{data_url(pth)} does not exist.  Use POST to create" }.to_json
     end
     
+    # validate input
+    
+    validate( pth, file )
+    
+    # convert to RDF
+    
     rdf = jack()
     begin
       rdf.delete( request.url, file )
+    rescue JackRDF_Critical => e
+      return { :error => e }.to_json
     rescue
     end
     
@@ -171,8 +206,11 @@ helpers do
     
     begin
       rdf.post( request.url, file )
+    rescue JackRDF_Critical => e
+      return { :error => e }.to_json
     rescue
     end
+    
     { :success => "#{data_url(pth)} updated" }.to_json
   end
   
@@ -181,6 +219,14 @@ helpers do
   
   def logdump( obj )
     logger.debug obj.inspect
+  end
+  
+  
+  # Validate data
+  
+  def validate( pth, file )
+    logdump( pth )
+    logdump( file )
   end
   
 end

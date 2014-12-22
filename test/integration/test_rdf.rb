@@ -24,12 +24,5 @@ class TestRDF < JackTEST
     r = api( POST, 'ld_list', 'rdf/ld_list' )
     assert( true )
   end
-  
-  def test_AAD_post_id
-#    r = api( POST, 'cheesy', 'rdf/cheesy' )
-#    r = api( POST, 'tacky', 'rdf/tacky' )
-#    r = api( POST, 'cheesy_lit', 'rdf/cheesy_lit' )
-    assert( true )
-  end
     
 end
