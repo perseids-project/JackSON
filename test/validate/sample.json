@@ -1,12 +1,14 @@
-"@config": {
-	"edit_block": true,
-	"timestamp": true
-},
-"@validate": {
-	"word": { "type":"String" },
-	"examples": { "type":"Array" },
-	"syns": {
-		"type":"Array",
-		"regex":"^http://sample.org/data/"
+{
+	"@config": {
+		"edit_block": true,
+		"timestamp": true
+	},
+	"@validate": {
+		"word": { "type":"String" },
+		"examples": { "type":"Array" },
+		"syns": {
+			"type":"Array",
+			"regex":"^http://sample.org/data/"
+		}
 	}
 }

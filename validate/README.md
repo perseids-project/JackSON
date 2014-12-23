@@ -1,1 +1,0 @@
-See docs/APP.md ### Validate uploaded JSON

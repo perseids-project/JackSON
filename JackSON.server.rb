@@ -26,6 +26,20 @@ config_file 'JackSON.config.yml'
 set :port, settings.port
 set :bind, settings.addr
 
+
+# non-YAML file configuration
+
+configure do
+  
+  # Store the data-subdirectory to config mapping
+
+  set :map, JSON.parse( File.read( "#{settings.guard}/map.json" ) )
+  set :guards, {}
+end
+
+
+# Helper functions
+
 helpers do
     
     
@@ -33,6 +47,12 @@ helpers do
   
   def json_file( url )
     JackHELP.run.json_file( "#{settings.path}/#{url}" )
+  end
+  
+  # Build the path to a JSON config file in conf directory
+  
+  def guard_file( file )
+    JackHelp.run.json_file( "#{settings.guard}/#{file}.json" )
   end
   
   
@@ -125,9 +145,9 @@ helpers do
       return { :error => "#{data_url(pth)} already exists.  Use PUT to change" }.to_json
     end
     
-    # validate input
+    # guard input
     
-    validate( pth, file )
+    guard( pth, file )
     
     # write JSON to disk
     
@@ -188,9 +208,9 @@ helpers do
       return { :error => "#{data_url(pth)} does not exist.  Use POST to create" }.to_json
     end
     
-    # validate input
+    # guard input
     
-    validate( pth, file )
+    guard( pth, file )
     
     # convert to RDF
     
@@ -224,9 +244,49 @@ helpers do
   
   # Validate data
   
-  def validate( pth, file )
-    logdump( pth )
-    logdump( file )
+  def guard( pth, file )
+    pth = pth.chomp("/")
+    return if has_guard?( pth ) == false
+    
+    # Run interference, guard.
+    
+    guard = settings.guards[pth]
+    
+    # Run data validators: guard['@data']
+    # Add extras: guard['@extra']
+  end
+  
+  
+  # Is there a directory level config?
+  
+  def has_guard?( pth )
+    settings.map.each do | key, val |
+      key = key.chomp("/")
+      if key.include?( pth )
+        
+        # Add validator file to settings
+        
+        add_guard( pth, val )
+        
+        # Your job here is done
+        
+        return true
+        
+      end
+    end
+    
+    # No guard configured...
+    
+    return false
+    
+  end
+  
+  # Add a directory level data guard to settings
+  
+  def add_guard( pth, val )
+    if settings.guards.has_key?( pth ) == false
+      settings.guards[pth] = JSON.parse( File.read( "#{settings.guard}/#{val}.json" ) )
+    end
   end
   
 end
@@ -239,7 +299,7 @@ before do
   logger.level = Logger::DEBUG
   
   
-  # TODO CORS
+  # TODO CORS see imgup
   
   headers 'Access-Control-Allow-Origin' => '*', 
           'Access-Control-Allow-Methods' => [ 'GET', 'POST', 'PUT', 'DELETE', 'OPTIONS' ]

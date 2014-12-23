@@ -1,4 +1,5 @@
 path: 'data'
+guard: 'guard'
 templates: 'templates'
 apps: 'public/apps'
 tmp: 'tmp'
