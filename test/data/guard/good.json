@@ -5,7 +5,7 @@
 		"He's a doofus, dummy."
 	],
 	"syns": [
-		"spazz",
-		"dingus"
+		"http://sample.org/data/spazz",
+		"http://sample.org/data/dingus"
 	]
 }

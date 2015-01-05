@@ -295,7 +295,20 @@ helpers do
       if val.has_key?('regex')
         if @data.has_key?( key )
           
+          regex = Regexp.new val['regex']
           
+          # Array?
+          
+          if @data[key].kind_of?( Array )
+            @data[key].each do | item |
+              regcheck( regex, item, key )
+            end
+          
+          # scalar...  
+          
+          else
+            regcheck( regex, @data[key], key )
+          end
           
         end
       end
@@ -303,9 +316,19 @@ helpers do
   end
   
   
+  # Check a regex item
+  
+  def regcheck( regex, item, key )
+    if item !~ regex
+      status 500
+      return { :error => "#{key} value #{item} does not pass #{regex}" }
+    end
+  end
+  
+  
   # Add extra
   
-  def extra( valid )
+  def extra( data )
   end
   
   
@@ -316,7 +339,6 @@ helpers do
     return if has_guard?( pth ) == false
     
     guard = settings.guards[pth]
-    
     validate( guard['@data'] )      
     extra( guard['@extra'] )
   end
