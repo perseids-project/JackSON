@@ -1,7 +1,20 @@
 {
 	"@extra": {
-		"edit_block": true,
-		"timestamp": "added"
+		"edit_block":true,
+		"timestamp":"added"
 	},
-	"@data": {}
+	"@data": {
+		"word": { 
+			"type":"String",
+			"required":true
+		},
+		"examples": { 
+			"type":"Array",
+			"required":true
+		},
+		"syns": {
+			"type":"Array",
+			"regex":"^http://sample.org/data/"
+		}
+	}
 }

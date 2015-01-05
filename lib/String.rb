@@ -1,28 +1,38 @@
 class String
   
+  
   # Check to see if we're looking at an integer in string's clothing
+  
   def is_i?
      !!( self =~ /\A[-+]?[0-9]+\z/ )
   end
   
+  
   # Turn delimiters into colons
   # c { String } The character to change
+  
   def colonize( c )
     self.gsub!( c, ':' ) || self
   end
   
+  
   # Turn a URN into a path
+  
   def urn_to_path()
     this = self.detagify
     this.gsub!( /:|\./, '/' ) || out
   end
   
+  
   # Return only integers
+  
   def just_i
     /\d+/.match( self ).to_s.to_i
   end
   
+  
   # Quote a string
+  
   def quote( c='"' )
     this = self
     if this[0] != '"' && this[0] != "'"
@@ -34,7 +44,9 @@ class String
     this
   end
   
+  
   # Dequote a string
+  
   def dequote
     this = self
     if this[0] == '"' || this[0] == "'"
@@ -46,7 +58,9 @@ class String
     this
   end
   
+  
   # Wrap <>
+  
   def tag
     this = self
     if this[0] != "<"
@@ -58,7 +72,9 @@ class String
     this
   end
   
+  
   # Unwrap <>
+  
   def detag
     this = self
     if this[0] == "<"
@@ -69,4 +85,5 @@ class String
     end
     this
   end
+  
 end

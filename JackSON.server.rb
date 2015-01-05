@@ -14,6 +14,7 @@ require 'JackRDF'
 require_relative 'lib/String'
 require_relative 'lib/JackHELP'
 require_relative 'lib/JackVALID'
+require_relative 'lib/JackGUARD'
 
 # Yes I want logging!
 
@@ -195,7 +196,6 @@ helpers do
   end
   
 
-  
   # Update filesystem JSON
   # Update Fuseki triples
   
@@ -244,16 +244,81 @@ helpers do
   
   # Validate data
   
+  def validate( data )
+    required( data )
+    type( data )
+    regex( data )
+  end
+  
+  
+  # Make sure required data is there
+  
+  def required( data )
+    data.each do | key, val |
+      if val.has_key?('required') && val['required'] == true
+        
+        if @data.has_key?( key ) == false
+          status 500
+          return { :error => "#{key} missing" }.to_json
+        end
+        
+      end
+    end
+  end
+  
+  
+  # Make sure the data type is correct
+  
+  def type( data )
+    data.each do | key, val |
+      if val.has_key?('type')
+        if @data.has_key?( key )
+          
+          type = @data[key].class.to_s
+          check = val['type'].dequote
+          
+          if type != check
+            status 500
+            return { :error => "#{key} is #{type} and not #{check}" }.to_json
+          end
+          
+        end
+      end
+    end
+  end
+  
+  
+  # Regex that heez
+  
+  def regex( data )
+    data.each do | key, val |
+      if val.has_key?('regex')
+        if @data.has_key?( key )
+          
+          
+          
+        end
+      end
+    end
+  end
+  
+  
+  # Add extra
+  
+  def extra( valid )
+  end
+  
+  
+  # Run interference, guard.
+  
   def guard( pth, file )
     pth = pth.chomp("/")
     return if has_guard?( pth ) == false
     
-    # Run interference, guard.
-    
     guard = settings.guards[pth]
     
-    # Run data validators: guard['@data']
-    # Add extras: guard['@extra']
+    validate( guard['@data'] )      
+    extra( guard['@extra'] )
   end
   
   
@@ -280,6 +345,7 @@ helpers do
     return false
     
   end
+  
   
   # Add a directory level data guard to settings
   
@@ -334,6 +400,7 @@ before do
     end
   end
   @json = data.to_json
+  @data = data
   
   
   # Debug logging
