@@ -165,7 +165,7 @@ def tmake( default )
     in_proc.puts(json)
     path = json[0..-6] # remove .json
     begin
-      JackHELP.run.rdf( "POST", @settings['sparql'], "#{@settings["host"]}/#{path}", json )
+      JackHELP.run.rdf( "POST", @settings['sparql'], "http://localhost:#{@settings["port"]}/#{path}", json )
     rescue Exception => e
       errors.puts(e)
     end

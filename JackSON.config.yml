@@ -21,7 +21,8 @@ tmp: 'tmp'
 # url to sparql endpoint
 sparql: 'http://localhost:4321/ds'
 
-host: 'http://localhost:4567'
+
 cors: [ 'http://localhost:4567', 'http://localhost:3000' ]
-family: []
+
+# debug output
 debug: false 

@@ -12,14 +12,17 @@ require_relative '../lib/JackHELP.rb'
 
 class JackTEST < Minitest::Test
   
-  # Big bold HTTP method constants.
-  # Better reminders?
+  
+  # Big bold HTTP method constants
+  
   POST = 'POST'
   GET = 'GET'
   PUT = 'PUT'
   DELETE = 'DELETE'
   
+  
   # Config will be handy for testing
+  
   @@settings = YAML.load( File.read("#{File.dirname(__FILE__)}/../JackSON.config.yml") )
   def self.settings
     @@settings
@@ -29,7 +32,9 @@ class JackTEST < Minitest::Test
     :alpha
   end
   
-  # Helper methods.
+  
+  # Helper methods
+  
   private 
   
   def dir
@@ -37,7 +42,7 @@ class JackTEST < Minitest::Test
   end
   
   def host
-    JackTEST.settings["host"]
+    "http://localhost:#{JackTEST.settings["port"]}"
   end
   
   def url( rel )
