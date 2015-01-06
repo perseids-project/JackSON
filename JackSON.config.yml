@@ -1,12 +1,27 @@
-path: 'data'
-guard: 'guard'
-templates: 'templates'
-apps: 'public/apps'
-tmp: 'tmp'
-port: 4567
 addr: '0.0.0.0'
+
+# run on port
+port: 4567
+
+# directory to store data JSON
+path: 'data'
+
+# directory to store guard JSON ( data validators/config )
+guard: 'guard'
+
+# directory to store JSON templates
+templates: 'templates'
+
+# directory to store apps
+apps: 'public/apps'
+
+# directory to store tmp files
+tmp: 'tmp'
+
+# url to sparql endpoint
+sparql: 'http://localhost:4321/ds'
+
 host: 'http://localhost:4567'
 cors: [ 'http://localhost:4567', 'http://localhost:3000' ]
-sparql: 'http://localhost:4321/ds'
 family: []
 debug: false 
