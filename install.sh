@@ -13,5 +13,4 @@ jackrdf () {
 }
 
 # gems
-sparql_model
 jackrdf

@@ -22,12 +22,12 @@ Then run the install scripts in the following order
 	./rbenv.sh
 	source ~/.bash_profile
 	rbenv rehash
-	sudo ./install.sh
+	sudo apt-get install rubygems
+	gem install bundler
+	rbenv rehash
+	bundle install
 
-If you have a functioning Ruby 1.9.2+ environment you will just need to install [JackRDF](http://github.com/caesarfeta/jackrdf)...
-then install JackSON
-
-	rake install
+Install [JackRDF](http://github.com/caesarfeta/jackrdf)...
 
 ## Start
 	rake start
@@ -36,12 +36,9 @@ then install JackSON
 	rake test
 
 ## Develop
-* Create a JackSON backed AngularJS app
-	* See **docs/APP.md**
-* Test JSON-LD templates
-	* See **docs/TEMPLATES.md**
-* Contribute?
-	* See **docs/DEVELOP.md**
+* [Create a JackSON backed AngularJS app](docs/APP.md)
+* [Test JSON-LD templates](docs/TEMPLATES.md)
+* [Contribute?](docs/DEVELOP.md)
 
 ## Useful Reading
 * Manu Sporny talks about the relationship between [JSON-LD &amp; RDF](http://manu.sporny.org/2014/json-ld-origins-2/)
