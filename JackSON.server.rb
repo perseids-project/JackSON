@@ -381,7 +381,9 @@ helpers do
     end
   end
   
-  # Allow requests from origin
+  
+  # CORS Cross Origin Resource Sharing
+  # aka "allow requests from"
   
   def cors
     if settings.allow_origin.respond_to? :each
@@ -456,6 +458,9 @@ end
 
 # This is done as a quick fix for bypassing Fuseki's CORS
 
+# If queries need to be scrubbed or modified for performance
+# this will give us a method to do that
+
 get '/query' do
   cors
   RestClient.get sparql_url( params[:query] )
@@ -494,7 +499,6 @@ get '/data/*' do
   
   
   # Check to see if any command was passed
-  # return { :params => params.inspect }.to_json
   
   if params.has_key?("cmd")
     cmd = params["cmd"]
