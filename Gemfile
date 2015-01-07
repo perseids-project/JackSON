@@ -1,6 +1,7 @@
 # A sample Gemfile
 source "http://rubygems.org"
 
+gem "sinatra-cross_origin", "~> 0.3.1"
 gem 'rake' 
 gem 'sinatra' 
 gem 'sinatra-reloader'

@@ -18,11 +18,11 @@ apps: 'public/apps'
 # directory to store tmp files
 tmp: 'tmp'
 
+# accept requests from
+allow_origin: [ 'http://localhost:4567' ]
+
 # url to sparql endpoint
 sparql: 'http://localhost:4321/ds'
-
-
-cors: [ 'http://localhost:4567', 'http://localhost:3000' ]
 
 # debug output
 debug: false 

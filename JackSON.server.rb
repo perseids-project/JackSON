@@ -1,12 +1,12 @@
 require 'sinatra'
 require 'sinatra/reloader'
 require 'sinatra/config_file'
+require 'sinatra/cross_origin'
 require 'json'
 require 'github/markup'
 require 'fileutils'
 require 'open-uri'
 require 'rest_client'
-
 
 # Custom JackSON helpers
 
@@ -20,6 +20,7 @@ require_relative 'lib/JackGUARD'
 
 require 'logger'
 enable :logging
+enable :cross_origin
 
 # How is the server configured?
 
@@ -377,6 +378,14 @@ helpers do
     end
   end
   
+  # Allow requests from origin
+  
+  def allow_origin
+    settings.allow_origin.each do | host |
+      cross_origin :allow_origin => host
+    end
+  end
+  
 end
 
 
@@ -385,12 +394,6 @@ end
 before do
   @root = File.dirname(__FILE__)
   logger.level = Logger::DEBUG
-  
-  
-  # TODO CORS see imgup
-  
-  headers 'Access-Control-Allow-Origin' => '*', 
-          'Access-Control-Allow-Methods' => [ 'GET', 'POST', 'PUT', 'DELETE', 'OPTIONS' ]
 
 
   # We're usually just sending json
@@ -438,6 +441,7 @@ end
 # Return README.md
 
 get '/?' do
+  allow_origin
   content_type :html
   return GitHub::Markup.render( 'README.md' )
 #  md = GitHub::Markup.render( 'README.md' )
@@ -448,6 +452,7 @@ end
 # This is done as a quick fix for bypassing Fuseki's CORS
 
 get '/query' do
+  allow_origin
   RestClient.get sparql_url( params[:query] )
 end
 
@@ -455,6 +460,7 @@ end
 # Retrieve a the src JSON-LD files by URN
 
 get '/src' do
+  allow_origin
   urn = params[:urn].dequote
   rdf = jack()
   query = "SELECT ?o WHERE { <#{urn}> <#{rdf.src_verb}> ?o }"
@@ -478,6 +484,7 @@ end
 # Return JSON file
 
 get '/data/*' do
+  allow_origin
   pth = path( params )
   
   
@@ -504,6 +511,7 @@ end
 # Simplest way I've found to default to index.html
 
 get '/apps/*' do
+  allow_origin
   if params[:splat].first.index('.') == nil
     redirect File.join( 'apps', params[:splat].first, "index.html" )
   end
@@ -518,6 +526,7 @@ end
 # Create directory and JSON file
 
 post '/data/*' do
+  allow_origin
   pth = path(params)
   file = json_file( pth )
   case params[:_method]
@@ -534,6 +543,7 @@ end
 # Change JSON file
 
 put '/data/*' do
+  allow_origin
   pth = path(params)
   file = json_file( pth )
   _put( pth, file )
@@ -543,6 +553,7 @@ end
 # Delete a JSON file
 
 delete '/data/*' do
+  allow_origin
   pth = path(params)
   file = json_file( pth )
   _delete( pth, file )
