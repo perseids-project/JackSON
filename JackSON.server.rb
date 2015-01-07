@@ -20,6 +20,9 @@ require_relative 'lib/JackGUARD'
 
 require 'logger'
 enable :logging
+
+# Yes I want CORS support
+
 enable :cross_origin
 
 # How is the server configured?
@@ -380,9 +383,13 @@ helpers do
   
   # Allow requests from origin
   
-  def allow_origin
-    settings.allow_origin.each do | host |
-      cross_origin :allow_origin => host
+  def cors
+    if settings.allow_origin.respond_to? :each
+      settings.allow_origin.each do | host |
+        cross_origin :allow_origin => host
+      end
+    else
+      cross_origin :allow_origin => settings.allow_origin
     end
   end
   
@@ -441,18 +448,16 @@ end
 # Return README.md
 
 get '/?' do
-  allow_origin
+  cors
   content_type :html
   return GitHub::Markup.render( 'README.md' )
-#  md = GitHub::Markup.render( 'README.md' )
-#  erb :home, :locals => { :md => md }
 end
 
 
 # This is done as a quick fix for bypassing Fuseki's CORS
 
 get '/query' do
-  allow_origin
+  cors
   RestClient.get sparql_url( params[:query] )
 end
 
@@ -460,7 +465,7 @@ end
 # Retrieve a the src JSON-LD files by URN
 
 get '/src' do
-  allow_origin
+  cors
   urn = params[:urn].dequote
   rdf = jack()
   query = "SELECT ?o WHERE { <#{urn}> <#{rdf.src_verb}> ?o }"
@@ -484,7 +489,7 @@ end
 # Return JSON file
 
 get '/data/*' do
-  allow_origin
+  cors
   pth = path( params )
   
   
@@ -511,7 +516,7 @@ end
 # Simplest way I've found to default to index.html
 
 get '/apps/*' do
-  allow_origin
+  cors
   if params[:splat].first.index('.') == nil
     redirect File.join( 'apps', params[:splat].first, "index.html" )
   end
@@ -526,7 +531,7 @@ end
 # Create directory and JSON file
 
 post '/data/*' do
-  allow_origin
+  cors
   pth = path(params)
   file = json_file( pth )
   case params[:_method]
@@ -543,7 +548,7 @@ end
 # Change JSON file
 
 put '/data/*' do
-  allow_origin
+  cors
   pth = path(params)
   file = json_file( pth )
   _put( pth, file )
@@ -553,7 +558,7 @@ end
 # Delete a JSON file
 
 delete '/data/*' do
-  allow_origin
+  cors
   pth = path(params)
   file = json_file( pth )
   _delete( pth, file )
