@@ -437,7 +437,7 @@ end
 
 # Return README.md
 
-get '/' do
+get '/?' do
   content_type :html
   return GitHub::Markup.render( 'README.md' )
 #  md = GitHub::Markup.render( 'README.md' )
