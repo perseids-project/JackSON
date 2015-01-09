@@ -94,12 +94,22 @@ helpers do
   def sparql_hash( query )
     JSON.parse( RestClient.get( sparql_url( query ) ) )
   end
-  
+ 
+  # this is the real url to the data object being stored
   def data_url( pth )
-    "#{request.env['rack.url_scheme']}://#{request.host_with_port}/data/#{pth}"
+    # prefer the configured base_url over the request url
+    # if we have it in case we are deployed behind a proxy
+    base_url = settings.base_url ? settings.base_url : "#{request.env['rack.url_scheme']}://#{request.host_with_port}"
+    return "#{base_url}/data/#{pth}"
   end
-  
-  
+
+  # this is the (theoretically) stable url for the data item
+  # as recorded to the triple store
+  def data_src_url( request ) 
+    # use the configured uri_prefix over the request url if we have it
+    src_url = settings.uri_prefix ? "#{settings.uri_prefix}#{request.path}" : request.url
+  end
+ 
   # Return JackRDF object
   
   def jack
@@ -163,10 +173,11 @@ helpers do
     
     begin
       rdf = jack()
-      rdf.post( request.url, file )
+      rdf.post( data_src_url(request), file )
     rescue JackRDF_Critical => e
       return { :error => e }.to_json
-    rescue
+    rescue Exception => e
+      return { :error => e }.to_json
     end
     
     # send success message
@@ -190,7 +201,7 @@ helpers do
     
     begin
       rdf = jack()
-      rdf.delete( request.url, file )
+      rdf.delete( data_src_url(request), file )
     rescue JackRDF_Critical => e
       return { :error => e }.to_json
     rescue
@@ -220,7 +231,7 @@ helpers do
     
     rdf = jack()
     begin
-      rdf.delete( request.url, file )
+      rdf.delete( data_src_url(request), file )
     rescue JackRDF_Critical => e
       return { :error => e }.to_json
     rescue
@@ -229,10 +240,11 @@ helpers do
     write_json( @json, file )
     
     begin
-      rdf.post( request.url, file )
+      rdf.post( data_src_url(request), file )
     rescue JackRDF_Critical => e
       return { :error => e }.to_json
-    rescue
+    rescue Exception => e
+      return { :error => e }.to_json
     end
     
     { :success => "#{data_url(pth)} updated" }.to_json

@@ -19,10 +19,17 @@ apps: 'public/apps'
 tmp: 'tmp'
 
 # accept requests from
-allow_origin: [ 'http://localhost:4567' ]
+allow_origin: 'http://localhost:4567'
 
 # url to sparql endpoint
 sparql: 'http://localhost:4321/ds'
+
+# baseurl of deployment
+# uncomment this and set if deployment environment is behind a proxy
+#base_url: 'http://www.perseids.org/jackson'
+
+# uri prefix for data object urns
+#uri_prefix: 'http://www.perseids.org/jackson'
 
 # debug output
 debug: false 
