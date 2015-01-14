@@ -113,7 +113,10 @@ helpers do
   # Return JackRDF object
   
   def jack
-    JackRDF.new( settings.sparql )
+    ontology = { 'uri_prefix' => "http://data.perseus.org/collections/urn:",
+                 'src_verb' => settings.src_verb 
+               }
+    JackRDF.new( settings.sparql, ontology)
   end
   
   
