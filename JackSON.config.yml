@@ -32,7 +32,8 @@ sparql: 'http://localhost:4321/ds'
 #uri_prefix: 'http://www.perseids.org/jackson'
 
 # src verb
-src_verb: 'http://github.com/caesarfeta/JackRDF/blob/master/docs/SCHEMA.md#src'
+src_verb: 'http://purl.org/dc/terms/source'
+
 
 
 # debug output
