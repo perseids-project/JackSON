@@ -82,28 +82,55 @@ helpers do
   end
   
   
-  #  The URL to the SPARQL query endpoint
+  # The URL to the SPARQL query endpoint
   
   def sparql_url( query )
     "#{settings.sparql}/query?query=#{ URI::escape( query, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]")) }"
   end
   
   
-  #  Hashify SPARQL data
+  # Hashify SPARQL data
   
   def sparql_hash( query )
     JSON.parse( RestClient.get( sparql_url( query ) ) )
   end
+
+
+  # This is the real url to the data object being stored
   
   def data_url( pth )
-    "#{request.env['rack.url_scheme']}://#{request.host_with_port}/data/#{pth}"
+    
+    if defined? settings.base_url
+      base_url = settings.base_url
+    else
+      base_url = "#{request.env['rack.url_scheme']}://#{request.host_with_port}"
+    end
+    return "#{base_url}/data/#{pth}"
   end
   
+
+  # This is the (theoretically) stable url for the data item
+  # as recorded to the triple store
   
+  def data_src_url( request ) 
+    
+    # Use the configured uri_prefix over the request url if we have it
+    
+    if defined? settings.uri_prefix
+      src_url = request.url
+    else
+      src_url = "#{settings.uri_prefix}#{request.path}"
+    end
+    return src_url
+  end
+ 
   # Return JackRDF object
   
   def jack
-    JackRDF.new( settings.sparql )
+    ontology = { 'uri_prefix' => "http://data.perseus.org/collections/urn:",
+                 'src_verb' => settings.src_verb 
+               }
+    JackRDF.new( settings.sparql, ontology)
   end
   
   
@@ -163,10 +190,11 @@ helpers do
     
     begin
       rdf = jack()
-      rdf.post( request.url, file )
+      rdf.post( data_src_url(request), file )
     rescue JackRDF_Critical => e
       return { :error => e }.to_json
-    rescue
+    rescue Exception => e
+      return { :error => e }.to_json
     end
     
     # send success message
@@ -190,7 +218,7 @@ helpers do
     
     begin
       rdf = jack()
-      rdf.delete( request.url, file )
+      rdf.delete( data_src_url(request), file )
     rescue JackRDF_Critical => e
       return { :error => e }.to_json
     rescue
@@ -220,7 +248,7 @@ helpers do
     
     rdf = jack()
     begin
-      rdf.delete( request.url, file )
+      rdf.delete( data_src_url(request), file )
     rescue JackRDF_Critical => e
       return { :error => e }.to_json
     rescue
@@ -229,10 +257,11 @@ helpers do
     write_json( @json, file )
     
     begin
-      rdf.post( request.url, file )
+      rdf.post( data_src_url(request), file )
     rescue JackRDF_Critical => e
       return { :error => e }.to_json
-    rescue
+    rescue Exception => e
+      return { :error => e }.to_json
     end
     
     { :success => "#{data_url(pth)} updated" }.to_json
