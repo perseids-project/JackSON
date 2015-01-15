@@ -82,32 +82,46 @@ helpers do
   end
   
   
-  #  The URL to the SPARQL query endpoint
+  # The URL to the SPARQL query endpoint
   
   def sparql_url( query )
     "#{settings.sparql}/query?query=#{ URI::escape( query, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]")) }"
   end
   
   
-  #  Hashify SPARQL data
+  # Hashify SPARQL data
   
   def sparql_hash( query )
     JSON.parse( RestClient.get( sparql_url( query ) ) )
   end
- 
-  # this is the real url to the data object being stored
+
+
+  # This is the real url to the data object being stored
+  
   def data_url( pth )
-    # prefer the configured base_url over the request url
-    # if we have it in case we are deployed behind a proxy
-    base_url = settings.base_url ? settings.base_url : "#{request.env['rack.url_scheme']}://#{request.host_with_port}"
+    
+    if defined? settings.base_url
+      base_url = settings.base_url
+    else
+      base_url = "#{request.env['rack.url_scheme']}://#{request.host_with_port}"
+    end
     return "#{base_url}/data/#{pth}"
   end
+  
 
-  # this is the (theoretically) stable url for the data item
+  # This is the (theoretically) stable url for the data item
   # as recorded to the triple store
+  
   def data_src_url( request ) 
-    # use the configured uri_prefix over the request url if we have it
-    src_url = settings.uri_prefix ? "#{settings.uri_prefix}#{request.path}" : request.url
+    
+    # Use the configured uri_prefix over the request url if we have it
+    
+    if defined? settings.uri_prefix
+      src_url = request.url
+    else
+      src_url = "#{settings.uri_prefix}#{request.path}"
+    end
+    return src_url
   end
  
   # Return JackRDF object
