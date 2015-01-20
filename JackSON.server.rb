@@ -117,9 +117,9 @@ helpers do
     # Use the configured uri_prefix over the request url if we have it
     
     if defined? settings.uri_prefix
-      src_url = request.url
-    else
       src_url = "#{settings.uri_prefix}#{request.path}"
+    else
+      src_url = request.url
     end
     return src_url
   end
