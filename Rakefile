@@ -10,13 +10,15 @@ require_relative 'lib/JackHELP'
 
 Rake::TestTask.new do |t|
   t.libs = ['test']
-  t.warning = true
-  t.verbose = true
+#  t.warning = true
+#  t.verbose = true
   t.test_files = FileList[ 'test/unit/*rb', 'test/integration/*rb' ]
 end
 
+
 desc "Run tests"
 task :default => :test
+
 
 desc "Start a development console"
 task :console do
@@ -97,6 +99,7 @@ end
 # Triples
 
 namespace :triple do 
+  
   desc 'Update Fuseki from saved JSON-LD'
   task :make, :default do |t,args|
     
@@ -105,11 +108,13 @@ namespace :triple do
     default = args[:default]
     tmake( default )
   end
+  
   desc 'Destroy all RDF triples in Fuseki'
   task :destroy do
     Dir.chdir( "../JackRDF" )
     exec 'rake data:destroy'
   end
+  
 end
 
 
@@ -177,6 +182,7 @@ end
 # Install
 
 namespace :install do
+  
   desc 'Install server'
   task :server do
     puts `git submodule update --init`
@@ -185,11 +191,13 @@ namespace :install do
       markup github-markup rest-client \
       minitest --no-rdoc --no-ri"
   end
+  
   desc 'Install UI toolkit'
   task :ui do
     puts `npm install -g bower grunt-cli`
     exec "gem install foundation compass --no-rdoc --no-ri"
   end
+  
 end
 task :install do
   Rake::Task["install:server"].invoke()
@@ -199,6 +207,7 @@ end
 # JSON
 
 namespace :json do
+  
   desc 'Destroy all json data'
   task :destroy do
     STDOUT.puts "Sure you want to destroy all JSON in \"#{@settings["path"]}/\"? (y/n)"
@@ -210,23 +219,27 @@ namespace :json do
       STDOUT.puts "No data was destroyed.  It's still all there :)"
     end
   end
+  
   desc "Change URLs by modifying JSON-LD in-place"
   task :change, :old, :neu do |t,args|
     old = Shellwords.escape( args[:old] )
     neu = Shellwords.escape( args[:neu] )
     `grep -rl \"#{old}\" #{@settings["path"]} | xargs sed -i \"\" \"s?#{old}?#{neu}?g\"`
   end
+  
 end
 
 
 # Data
 
 namespace :data do
+  
   desc 'Destroy all data'
   task :destroy do
     Rake::Task['json:destroy'].invoke
     Rake::Task['triple:destroy'].invoke
   end
+  
   desc 'Create fake data from a single template'
   task :fake, :tmpl, :gen, :n, :dir do |t,args|
     require 'faker'

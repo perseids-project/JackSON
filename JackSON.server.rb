@@ -177,6 +177,8 @@ helpers do
   
   def _post( pth, file )
     
+    logdump file
+    
     # check if file already exists
     
     if File.exist?( file )
@@ -194,19 +196,22 @@ helpers do
     write_json( @json, file )
     
     # convert to RDF
-    
+    out = { :warning => [], :success => '' }    
     begin
       rdf = jack()
       rdf.post( data_src_url(request), file )
     rescue JackRDF_Critical => e
+      fs_delete( file )
+      status 404
       return { :error => e }.to_json
-    rescue Exception => e
-      return { :error => e }.to_json
+    rescue JackRDF_Error => e
+      out[:warning].push( e )
     end
     
     # send success message
     
-    { :success => " #{data_url(pth)} created" }.to_json
+    out[:success] = " #{data_url(pth)} created"
+    out.to_json
   end
   
   
@@ -220,18 +225,26 @@ helpers do
       return { :error => "#{data_url(pth)} not found"}.to_json
     end
     
-    File.delete( file )
-    rm_empty_dirs( File.dirname( file ) )
-    
     begin
       rdf = jack()
-      rdf.delete( data_src_url(request), file )
+      rdf.delete( data_src_url( request ), file )
     rescue JackRDF_Critical => e
       return { :error => e }.to_json
     rescue
     end
     
+    # Delete from the file-system
+    
+    fs_delete( file )
+    
     { :success => "#{data_url(pth)} deleted" }.to_json
+  end
+  
+  
+  
+  def fs_delete( file )
+    File.delete( file )
+    rm_empty_dirs( File.dirname( file ) )
   end
   
 
@@ -251,27 +264,31 @@ helpers do
     
     guard( pth, file )
     
-    # convert to RDF
+    write_json( @json, file )
     
-    rdf = jack()
+    # delete
+    
     begin
-      rdf.delete( data_src_url(request), file )
+      rdf = jack()
+      rdf.delete( data_src_url( request ), file )
     rescue JackRDF_Critical => e
       return { :error => e }.to_json
     rescue
     end
     
-    write_json( @json, file )
-    
+    # save the data
+    out = { :warning => [], :success => '' }        
     begin
       rdf.post( data_src_url(request), file )
     rescue JackRDF_Critical => e
       return { :error => e }.to_json
-    rescue Exception => e
-      return { :error => e }.to_json
+    rescue JackRDF_Error => e
+      out[:warning].push( e )
     end
     
-    { :success => "#{data_url(pth)} updated" }.to_json
+    
+    out[:success] = "#{data_url(pth)} updated"
+    out.json
   end
   
   

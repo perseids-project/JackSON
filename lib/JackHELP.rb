@@ -1,7 +1,7 @@
 require 'pathname'
 require 'JackRDF'
 require 'yaml'
-require_relative 'JackONTO'
+
 class JackHELP
   
   # Get settings
