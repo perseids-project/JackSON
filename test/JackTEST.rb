@@ -12,14 +12,12 @@ require_relative '../lib/JackHELP.rb'
 
 class JackTEST < Minitest::Test
   
-  
   # Big bold HTTP method constants
   
   POST = 'POST'
   GET = 'GET'
   PUT = 'PUT'
   DELETE = 'DELETE'
-  
   
   # Config will be handy for testing
   
@@ -32,7 +30,7 @@ class JackTEST < Minitest::Test
     :alpha
   end
   
-  
+
   # Helper methods
   
   private 

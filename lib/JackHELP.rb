@@ -1,7 +1,15 @@
 require 'pathname'
 require 'JackRDF'
+require 'yaml'
+require_relative 'JackONTO'
 class JackHELP
   
+  # Get settings
+  
+  @@settings = YAML.load( File.read("#{File.dirname(__FILE__)}/../JackSON.config.yml") )
+  def self.settings
+    @@settings
+  end
   
   # Singleton magic
   
@@ -64,7 +72,7 @@ class JackHELP
   
   # Create rdf at SPARQL endpoint
   
-  def rdf( method, endpoint, url, file )
+  def rdf( method, endpoint, url, file, onto )
     throw "method parameter cannot be nil" if method == nil
     sparql = JackRDF.new( endpoint )
     case method.upcase
