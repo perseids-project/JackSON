@@ -124,12 +124,11 @@ end
 namespace :triple do 
   
   desc 'Update Fuseki from saved JSON-LD'
-  task :make, :default do |t,args|
+  task :make do |t,args|
     
     # Input check
     
-    default = args[:default]
-    tmake( default )
+    tmake( true )
   end
   
   desc 'Destroy all RDF triples in Fuseki'
@@ -198,6 +197,11 @@ def tmake( default )
     end
     done.puts(json)
   end
+  
+  # Better error output...
+  
+  puts "Done!"
+  puts "See #{tmake_dir} for more info."
 end
 
 
