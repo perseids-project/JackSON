@@ -530,14 +530,14 @@ end
 # or have sorted out what we want to do with the image
 # urls
 get '/srcref' do
-  if ! defined? settings.uri_prefix
+  if ! defined? settings.ref_verb
     status 500
     return { :error => "Service misconfiguration - no ref_verb defined" }.to_json
   end
   cors
   urn = params[:urn].dequote
   rdf = jack()
-  query = "SELECT ?o WHERE { <#{urn}> <#{settings.ref_verb}> ?o }"
+  query = "SELECT ?o WHERE { <#{urn}> <#{settings.ref_verb}> ?s . ?s <#{settings.ref_verb}> ?o . }"
   begin
     r = sparql_hash( query )["results"]["bindings"]
   rescue Exception => e
