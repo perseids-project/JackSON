@@ -12,7 +12,6 @@ class TestFoobar < JackTEST
   
   def test_AAA_post
     r = api( POST, 'foo_bar', 'foo/bar' )
-    puts r.inspect
     assert( success?(r) )
   end
   
