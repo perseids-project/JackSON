@@ -34,6 +34,9 @@ sparql: 'http://localhost:4321/ds'
 # src verb
 src_verb: 'http://purl.org/dc/terms/source'
 
+# ref verb
+ref_verb: 'http://purl.org/dc/terms/references'
+
 
 
 # debug output
