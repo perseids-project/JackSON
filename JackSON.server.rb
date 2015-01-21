@@ -85,7 +85,14 @@ helpers do
   # The URL to the SPARQL query endpoint
   
   def sparql_url( query )
-    "#{settings.sparql}/query?query=#{ URI::escape( query, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]")) }"
+    "#{settings.sparql}/query?query=#{ sparql_escape( query ) }"
+  end
+
+
+  # Escape SPARQL query
+  
+  def sparql_escape( query )
+    URI::escape( query, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
   end
   
   
@@ -99,7 +106,6 @@ helpers do
   # This is the real url to the data object being stored
   
   def data_url( pth )
-    
     if defined? settings.base_url
       base_url = settings.base_url
     else
@@ -127,10 +133,11 @@ helpers do
   # Return JackRDF object
   
   def jack
-    ontology = { 'uri_prefix' => "http://data.perseus.org/collections/urn:",
-                 'src_verb' => settings.src_verb 
-               }
-    JackRDF.new( settings.sparql, ontology)
+    onto = { 
+      'uri_prefix' => "http://data.perseus.org/collections/urn:",
+      'src_verb' => settings.src_verb 
+    }
+    JackRDF.new( settings.sparql, onto)
   end
   
   
@@ -170,6 +177,8 @@ helpers do
   
   def _post( pth, file )
     
+    logdump file
+    
     # check if file already exists
     
     if File.exist?( file )
@@ -187,19 +196,22 @@ helpers do
     write_json( @json, file )
     
     # convert to RDF
-    
+    out = { :warning => [], :success => '' }    
     begin
       rdf = jack()
       rdf.post( data_src_url(request), file )
     rescue JackRDF_Critical => e
+      fs_delete( file )
+      status 404
       return { :error => e }.to_json
-    rescue Exception => e
-      return { :error => e }.to_json
+    rescue JackRDF_Error => e
+      out[:warning].push( e )
     end
     
     # send success message
     
-    { :success => " #{data_url(pth)} created" }.to_json
+    out[:success] = " #{data_url(pth)} created"
+    out.to_json
   end
   
   
@@ -213,18 +225,26 @@ helpers do
       return { :error => "#{data_url(pth)} not found"}.to_json
     end
     
-    File.delete( file )
-    rm_empty_dirs( File.dirname( file ) )
-    
     begin
       rdf = jack()
-      rdf.delete( data_src_url(request), file )
+      rdf.delete( data_src_url( request ), file )
     rescue JackRDF_Critical => e
       return { :error => e }.to_json
     rescue
     end
     
+    # Delete from the file-system
+    
+    fs_delete( file )
+    
     { :success => "#{data_url(pth)} deleted" }.to_json
+  end
+  
+  
+  
+  def fs_delete( file )
+    File.delete( file )
+    rm_empty_dirs( File.dirname( file ) )
   end
   
 
@@ -244,27 +264,31 @@ helpers do
     
     guard( pth, file )
     
-    # convert to RDF
+    write_json( @json, file )
     
-    rdf = jack()
+    # delete
+    
     begin
-      rdf.delete( data_src_url(request), file )
+      rdf = jack()
+      rdf.delete( data_src_url( request ), file )
     rescue JackRDF_Critical => e
       return { :error => e }.to_json
     rescue
     end
     
-    write_json( @json, file )
-    
+    # save the data
+    out = { :warning => [], :success => '' }        
     begin
       rdf.post( data_src_url(request), file )
     rescue JackRDF_Critical => e
       return { :error => e }.to_json
-    rescue Exception => e
-      return { :error => e }.to_json
+    rescue JackRDF_Error => e
+      out[:warning].push( e )
     end
     
-    { :success => "#{data_url(pth)} updated" }.to_json
+    
+    out[:success] = "#{data_url(pth)} updated"
+    out.to_json
   end
   
   
@@ -433,11 +457,9 @@ before do
   @root = File.dirname(__FILE__)
   logger.level = Logger::DEBUG
 
-
   # We're usually just sending json
   
   content_type :json
-  
   
   # If we're dealing with a GET request we can stop here.
   # No data gets passed along.
@@ -446,11 +468,9 @@ before do
     return
   end
   
-  
   # Retrieve JSON body
   
   data = params[:data]
-  
   
   # Different clients may use different Content-Type headers.
   # Sinatra doesn't build params object for all Content-Type headers.
@@ -464,7 +484,6 @@ before do
   end
   @json = data.to_json
   @data = data
-  
   
   # Debug logging
   
@@ -526,14 +545,12 @@ get '/data/*' do
   cors
   pth = path( params )
   
-  
   # Check to see if any command was passed
   
   if params.has_key?("cmd")
     cmd = params["cmd"]
     return run( cmd, pth )
   end
-  
   
   # Return json file
   

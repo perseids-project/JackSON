@@ -12,14 +12,12 @@ require_relative '../lib/JackHELP.rb'
 
 class JackTEST < Minitest::Test
   
-  
   # Big bold HTTP method constants
   
   POST = 'POST'
   GET = 'GET'
   PUT = 'PUT'
   DELETE = 'DELETE'
-  
   
   # Config will be handy for testing
   
@@ -32,7 +30,7 @@ class JackTEST < Minitest::Test
     :alpha
   end
   
-  
+
   # Helper methods
   
   private 
@@ -55,7 +53,7 @@ class JackTEST < Minitest::Test
   
   def hashit( file )
     return {} if file == nil
-    return JackHELP.run.hashit( "#{dir}/data/#{file}" )
+    return JackHELP.run.hashit( "#{dir}/data/#{file}.json" )
   end
   
   def hashttp( file )
@@ -83,4 +81,8 @@ class JackTEST < Minitest::Test
     hash.include?("success")
   end
   
+  def destroy_data
+    JackHELP.run.destroy_data()
+  end
+
 end
