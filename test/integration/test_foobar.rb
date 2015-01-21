@@ -1,16 +1,15 @@
 require_relative '../JackTEST'
 
-# Want to run a single test?
-# You probably do when developing.
-
-# ruby test_foobar.rb --name test_AAA_post
+# Test of the most basic PUT POST GET DELETE functionality.
+# RESTful API basics.
 
 class TestFoobar < JackTEST
   
   
   # Create a brand new JSON file
   
-  def test_AAA_post
+  def test_post
+    destroy_data()
     r = api( POST, 'foo_bar', 'foo/bar' )
     assert( success?(r) )
   end
@@ -18,9 +17,14 @@ class TestFoobar < JackTEST
   
   # Can't POST if JSON file exists at url
   
-  def test_AAB_post_dupe
+  def test_post_dupe
+    destroy_data()
     check = false
+    
+    # Error should be raised
+    
     begin
+      api( POST, 'foo_blank', 'foo/bar' )
       api( POST, 'foo_blank', 'foo/bar' )
     rescue
       check = true
@@ -31,7 +35,9 @@ class TestFoobar < JackTEST
   
   # PUT will change an existing JSON file
   
-  def test_AAC_put
+  def test_put
+    destroy_data()
+    api( POST, 'foo_blank', 'foo/bar' )
     r = api( PUT, 'foo_blank', 'foo/bar' )
     assert( success?(r) )
   end
@@ -39,17 +45,24 @@ class TestFoobar < JackTEST
   
   # What you retrieve and what you start with should be the same
   
-  def test_AAD_get
-    check = false;
+  def test_get
+    destroy_data()
+    api( POST, 'foo_blank', 'foo/bar' )
     r = api( GET, nil, 'foo/bar' )
     j = hashit('foo_blank')
+    check = false;
     if j == r
       check = true;
     end
     assert( check )
   end
   
-  def test_AAE_delete
+  
+  # Make sure you can delete
+  
+  def test_delete
+    destroy_data()
+    api( POST, 'foo_blank', 'foo/bar' )
     r = api( DELETE, nil, 'foo/bar' )
     assert( success?(r) )
   end

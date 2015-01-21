@@ -81,4 +81,8 @@ class JackTEST < Minitest::Test
     hash.include?("success")
   end
   
+  def destroy_data
+    JackHELP.run.destroy_data()
+  end
+
 end

@@ -288,7 +288,7 @@ helpers do
     
     
     out[:success] = "#{data_url(pth)} updated"
-    out.json
+    out.to_json
   end
   
   

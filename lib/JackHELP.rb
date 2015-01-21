@@ -70,7 +70,7 @@ class JackHELP
   end
   
   
-  # Create rdf at SPARQL endpoint
+  # Create RDF at SPARQL endpoint
   
   def rdf( method, endpoint, url, file, onto )
     throw "method parameter cannot be nil" if method == nil
@@ -83,6 +83,30 @@ class JackHELP
     when "DELETE"
       sparql.delete( url )
     end
+  end
+  
+  
+  # Destroy all data
+  
+  def destroy_data
+    destroy_json()
+    destroy_triples()
+  end
+  
+  
+  # Destroy all JSON
+  
+  def destroy_json
+    FileUtils.rm_rf( @@settings["path"] )
+    FileUtils.mkdir( @@settings["path"] )
+  end
+  
+  
+  # Destroy all Fuseki triples
+  
+  def destroy_triples
+    quick = SparqlQuick.new( @@settings["sparql"] )
+    quick.empty( :all )
   end
   
   private_class_method :new
