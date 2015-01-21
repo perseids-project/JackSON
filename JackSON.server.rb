@@ -40,6 +40,12 @@ configure do
 
   set :map, JSON.parse( File.read( "#{settings.guard}/map.json" ) )
   set :guards, {}
+
+  # this is to allow crossdomain browser access to the /srcref route
+  # (e.g. to serve referenced images)
+  # ideally it shouldn't be needed but see 
+  # https://github.com/rkh/rack-protection/issues/84
+  set :protection, :except => [:json_csrf]
 end
 
 
@@ -117,9 +123,9 @@ helpers do
     # Use the configured uri_prefix over the request url if we have it
     
     if defined? settings.uri_prefix
-      src_url = request.url
-    else
       src_url = "#{settings.uri_prefix}#{request.path}"
+    else
+      src_url = request.url
     end
     return src_url
   end
@@ -505,7 +511,8 @@ get '/src' do
   query = "SELECT ?o WHERE { <#{urn}> <#{rdf.src_verb}> ?o }"
   begin
     r = sparql_hash( query )["results"]["bindings"]
-  rescue
+  rescue Exception => e
+    logger.error e
     return { :error => "An error occured resolving #{urn}" }.to_json
   end
   if r.length < 1
@@ -519,6 +526,35 @@ get '/src' do
   return { :src => out }.to_json
 end
 
+# this is a hack until we have a real image server
+# or have sorted out what we want to do with the image
+# urls
+get '/srcref' do
+  if ! defined? settings.uri_prefix
+    status 500
+    return { :error => "Service misconfiguration - no ref_verb defined" }.to_json
+  end
+  cors
+  urn = params[:urn].dequote
+  rdf = jack()
+  query = "SELECT ?o WHERE { <#{urn}> <#{settings.ref_verb}> ?o }"
+  begin
+    r = sparql_hash( query )["results"]["bindings"]
+  rescue Exception => e
+    logger.error e
+    return { :error => "An error occured resolving #{urn}" }.to_json
+  end
+  if r.length < 1
+    status 404
+    return { :error => "#{urn} has no references" }.to_json
+  end
+  out = []
+  r.each do |item|
+    out.push item["o"]["value"]
+  end
+  # hack in the future should know what to do
+  return redirect out[0], 303
+end
 
 # Return JSON file
 
