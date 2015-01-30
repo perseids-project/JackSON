@@ -133,9 +133,10 @@ helpers do
   # Return JackRDF object
   
   def jack
-    ontology = { 'uri_prefix' => "http://data.perseus.org/collections/urn:",
-                 'src_verb' => settings.src_verb 
-               }
+    ontology = { 
+      'uri_prefix' => "http://data.perseus.org/collections/urn:",
+      'src_verb' => settings.src_verb 
+    }
     JackRDF.new( settings.sparql, ontology)
   end
   
@@ -219,9 +220,6 @@ helpers do
       return { :error => "#{data_url(pth)} not found"}.to_json
     end
     
-    File.delete( file )
-    rm_empty_dirs( File.dirname( file ) )
-    
     begin
       rdf = jack()
       rdf.delete( data_src_url(request), file )
@@ -229,6 +227,11 @@ helpers do
       return { :error => e }.to_json
     rescue
     end
+    
+    # delete the file from the filesystem
+    
+    File.delete( file )
+    rm_empty_dirs( File.dirname( file ) )
     
     { :success => "#{data_url(pth)} deleted" }.to_json
   end

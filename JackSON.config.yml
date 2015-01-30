@@ -28,16 +28,14 @@ sparql: 'http://localhost:4321/ds'
 # uncomment this and set if deployment environment is behind a proxy
 #base_url: 'http://www.perseids.org/jackson'
 
-# uri prefix for data object urns
-#uri_prefix: 'http://www.perseids.org/jackson'
+# data prefix for data object urns
+#data_prefix: 'http://www.perseids.org/jackson'
 
 # src verb
 src_verb: 'http://purl.org/dc/terms/source'
 
 # ref verb
 ref_verb: 'http://purl.org/dc/terms/references'
-
-
 
 # debug output
 debug: false 
