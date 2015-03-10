@@ -105,7 +105,6 @@ helpers do
   # This is the real url to the data object being stored
   
   def data_url( pth )
-    
     if defined? settings.base_url
       base_url = settings.base_url
     else
@@ -219,6 +218,8 @@ helpers do
       status 404
       return { :error => "#{data_url(pth)} not found"}.to_json
     end
+    
+    # delete RDF
     
     begin
       rdf = jack()
@@ -529,9 +530,11 @@ get '/src' do
   return { :src => out }.to_json
 end
 
+
 # this is a hack until we have a real image server
 # or have sorted out what we want to do with the image
 # urls
+
 get '/srcref' do
   if ! defined? settings.uri_prefix
     status 500
@@ -559,12 +562,12 @@ get '/srcref' do
   return redirect out[0], 303
 end
 
+
 # Return JSON file
 
 get '/data/*' do
   cors
   pth = path( params )
-  
   
   # Check to see if any command was passed
   
@@ -572,7 +575,6 @@ get '/data/*' do
     cmd = params["cmd"]
     return run( cmd, pth )
   end
-  
   
   # Return json file
   
