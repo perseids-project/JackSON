@@ -72,7 +72,7 @@ class JackHELP
   
   # Create RDF at SPARQL endpoint
   
-  def rdf( method, endpoint, url, file, onto )
+  def rdf( method, endpoint, url, file )
     throw "method parameter cannot be nil" if method == nil
     sparql = JackRDF.new( endpoint )
     case method.upcase
