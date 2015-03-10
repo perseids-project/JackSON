@@ -40,6 +40,12 @@ configure do
 
   set :map, JSON.parse( File.read( "#{settings.guard}/map.json" ) )
   set :guards, {}
+
+  # this is to allow crossdomain browser access to the /srcref route
+  # (e.g. to serve referenced images)
+  # ideally it shouldn't be needed but see 
+  # https://github.com/rkh/rack-protection/issues/84
+  set :protection, :except => [:json_csrf]
 end
 
 
@@ -85,14 +91,7 @@ helpers do
   # The URL to the SPARQL query endpoint
   
   def sparql_url( query )
-    "#{settings.sparql}/query?query=#{ sparql_escape( query ) }"
-  end
-
-
-  # Escape SPARQL query
-  
-  def sparql_escape( query )
-    URI::escape( query, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
+    "#{settings.sparql}/query?query=#{ URI::escape( query, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]")) }"
   end
   
   
@@ -133,11 +132,11 @@ helpers do
   # Return JackRDF object
   
   def jack
-    onto = { 
+    ontology = { 
       'uri_prefix' => "http://data.perseus.org/collections/urn:",
       'src_verb' => settings.src_verb 
     }
-    JackRDF.new( settings.sparql, onto)
+    JackRDF.new( settings.sparql, ontology)
   end
   
   
@@ -177,8 +176,6 @@ helpers do
   
   def _post( pth, file )
     
-    logdump file
-    
     # check if file already exists
     
     if File.exist?( file )
@@ -196,22 +193,19 @@ helpers do
     write_json( @json, file )
     
     # convert to RDF
-    out = { :warning => [], :success => '' }    
+    
     begin
       rdf = jack()
       rdf.post( data_src_url(request), file )
     rescue JackRDF_Critical => e
-      fs_delete( file )
-      status 404
       return { :error => e }.to_json
-    rescue JackRDF_Error => e
-      out[:warning].push( e )
+    rescue Exception => e
+      return { :error => e }.to_json
     end
     
     # send success message
     
-    out[:success] = " #{data_url(pth)} created"
-    out.to_json
+    { :success => " #{data_url(pth)} created" }.to_json
   end
   
   
@@ -225,26 +219,22 @@ helpers do
       return { :error => "#{data_url(pth)} not found"}.to_json
     end
     
+    # delete RDF
+    
     begin
       rdf = jack()
-      rdf.delete( data_src_url( request ), file )
+      rdf.delete( data_src_url(request), file )
     rescue JackRDF_Critical => e
       return { :error => e }.to_json
     rescue
     end
     
-    # Delete from the file-system
+    # delete the file from the filesystem
     
-    fs_delete( file )
-    
-    { :success => "#{data_url(pth)} deleted" }.to_json
-  end
-  
-  
-  
-  def fs_delete( file )
     File.delete( file )
     rm_empty_dirs( File.dirname( file ) )
+    
+    { :success => "#{data_url(pth)} deleted" }.to_json
   end
   
 
@@ -264,31 +254,27 @@ helpers do
     
     guard( pth, file )
     
-    write_json( @json, file )
+    # convert to RDF
     
-    # delete
-    
+    rdf = jack()
     begin
-      rdf = jack()
-      rdf.delete( data_src_url( request ), file )
+      rdf.delete( data_src_url(request), file )
     rescue JackRDF_Critical => e
       return { :error => e }.to_json
     rescue
     end
     
-    # save the data
-    out = { :warning => [], :success => '' }        
+    write_json( @json, file )
+    
     begin
       rdf.post( data_src_url(request), file )
     rescue JackRDF_Critical => e
       return { :error => e }.to_json
-    rescue JackRDF_Error => e
-      out[:warning].push( e )
+    rescue Exception => e
+      return { :error => e }.to_json
     end
     
-    
-    out[:success] = "#{data_url(pth)} updated"
-    out.to_json
+    { :success => "#{data_url(pth)} updated" }.to_json
   end
   
   
@@ -457,9 +443,11 @@ before do
   @root = File.dirname(__FILE__)
   logger.level = Logger::DEBUG
 
+
   # We're usually just sending json
   
   content_type :json
+  
   
   # If we're dealing with a GET request we can stop here.
   # No data gets passed along.
@@ -468,9 +456,11 @@ before do
     return
   end
   
+  
   # Retrieve JSON body
   
   data = params[:data]
+  
   
   # Different clients may use different Content-Type headers.
   # Sinatra doesn't build params object for all Content-Type headers.
@@ -484,6 +474,7 @@ before do
   end
   @json = data.to_json
   @data = data
+  
   
   # Debug logging
   
@@ -524,7 +515,8 @@ get '/src' do
   query = "SELECT ?o WHERE { <#{urn}> <#{rdf.src_verb}> ?o }"
   begin
     r = sparql_hash( query )["results"]["bindings"]
-  rescue
+  rescue Exception => e
+    logger.error e
     return { :error => "An error occured resolving #{urn}" }.to_json
   end
   if r.length < 1
@@ -536,6 +528,38 @@ get '/src' do
     out.push item["o"]["value"]
   end
   return { :src => out }.to_json
+end
+
+
+# this is a hack until we have a real image server
+# or have sorted out what we want to do with the image
+# urls
+
+get '/srcref' do
+  if ! defined? settings.ref_verb
+    status 500
+    return { :error => "Service misconfiguration - no ref_verb defined" }.to_json
+  end
+  cors
+  urn = params[:urn].dequote
+  rdf = jack()
+  query = "SELECT ?o WHERE { <#{urn}> <#{settings.ref_verb}> ?s . ?s <#{settings.ref_verb}> ?o . }"
+  begin
+    r = sparql_hash( query )["results"]["bindings"]
+  rescue Exception => e
+    logger.error e
+    return { :error => "An error occured resolving #{urn}" }.to_json
+  end
+  if r.length < 1
+    status 404
+    return { :error => "#{urn} has no references" }.to_json
+  end
+  out = []
+  r.each do |item|
+    out.push item["o"]["value"]
+  end
+  # hack in the future should know what to do
+  return redirect out[0], 303
 end
 
 

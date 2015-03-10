@@ -5,39 +5,59 @@ JackSON will also convert JSON-LD files to Fuseki served RDF automatically using
 
 It was designed specifically for rapidly prototyping linked-data web applications with save and search capabilities.
 
-## Install
-If running on a fresh Ubuntu 12.04 instance...
+# Development Installation
+
+Fresh Install of Ubuntu 12.04
+
+	Note I used VirtualBox for testing
+	This reminder is for me...
+		fn+shift UP and DOWN to terminal scroll with Macbook
+
+### Basic Environment
 
 	sudo apt-get update
-	sudo apt-get install git
+	sudo apt-get install build-essential zlib1g-dev libssl1.0.0 libssl-dev git 
+
+### Setup JackSON
+
 	sudo mkdir -p /var/www
-	sudo chown -R [username]:[group] /var/www
-	chmod +s /var/www
-	git clone https://github.com/caesarfeta/JackSON /var/www/JackSON
+	sudo chown -R user /var/www
+	git clone https://github.com/PerseusDL/JackSON /var/www/JackSON
 	cd /var/www/JackSON
 
-Then run the install scripts in the following order
+### Get dependencies and apps
 
-	./setup.sh
+	git submodule update --init
+
+### Build Ruby
+
+	cd /var/www/JackSON
 	./rbenv.sh
 	source ~/.bash_profile
 	rbenv rehash
+
+### Install JackSON dependencies
+
 	sudo apt-get install rubygems
 	gem install bundler
 	rbenv rehash
 	bundle install
 
-Install [JackRDF](http://github.com/caesarfeta/jackrdf)...
+### Install JackRDF
+* [JackRDF README.md](https://github.com/PerseusDL/JackRDF/blob/master/README.md)
 
-## Start
+
+### Start JackSON
+
+	cd /var/www/JackSON
 	rake start
 
-## Test
+Make sure JackSON is running properly
+
 	rake test
 
 ## Develop
 * [Create a JackSON backed AngularJS app](docs/APP.md)
-* [Test JSON-LD templates](docs/TEMPLATES.md)
 * [Contribute?](docs/DEVELOP.md)
 
 ## Useful Reading

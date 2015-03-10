@@ -4,3 +4,6 @@
 [submodule "public/apps/imgcollect"]
 	path = public/apps/imgcollect
 	url = https://github.com/caesarfeta/imgcollect_angular
+[submodule "public/apps/jackapp"]
+	path = public/apps/jackapp
+	url = https://github.com/PerseusDL/JackAPP
