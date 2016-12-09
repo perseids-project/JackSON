@@ -24,6 +24,17 @@ enable :logging
 # Yes I want CORS support
 
 enable :cross_origin
+set :allow_methods, [:get, :post, :options]
+
+options "*" do
+  response.headers["Allow"] = "HEAD,GET,PUT,DELETE,OPTIONS"
+
+  # Needed for AngularJS
+  response.headers["Access-Control-Allow-Headers"] = "X-Requested-With, X-HTTP-Method-Override, Content-Type, Cache-Control, Accept"
+
+  halt 200
+end
+
 
 # How is the server configured?
 
@@ -198,8 +209,10 @@ helpers do
       rdf = jack()
       rdf.post( data_src_url(request), file )
     rescue JackRDF_Critical => e
+      logger.error e
       return { :error => e }.to_json
     rescue Exception => e
+      logger.error e
       return { :error => e }.to_json
     end
     
@@ -428,6 +441,7 @@ helpers do
     else
       cross_origin :allow_origin => settings.allow_origin
     end
+    cross_origin :allow_origin => '*'
   end
   
 end
