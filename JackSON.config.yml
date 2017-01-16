@@ -22,7 +22,7 @@ tmp: 'tmp'
 allow_origin: '*'
 
 # url to sparql endpoint
-sparql: 'http://services.perseids.org:3030/ds'
+sparql: 'http://services.perseids.org/fuseki/ds'
 
 # baseurl of deployment
 # uncomment this and set if deployment environment is behind a proxy
