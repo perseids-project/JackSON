@@ -1,6 +1,6 @@
 [submodule "public/lib/jslib"]
 	path = public/lib/jslib
-	url = http://www.github.com/caesarfeta/jslib
+	url = http://www.github.com/perseids-project/jslib
 [submodule "public/apps/imgcollect"]
 	path = public/apps/imgcollect
-	url = https://github.com/caesarfeta/imgcollect_angular
+	url = https://github.com/perseids-project/imgcollect_angular
