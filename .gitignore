@@ -30,10 +30,6 @@
 ####################
 *.pid
 
-# Lock files #
-##############
-*.lock
-
 # OS generated files #
 ######################
 .DS_Store
